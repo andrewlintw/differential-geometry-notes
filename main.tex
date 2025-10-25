@@ -1,0 +1,990 @@
+\documentclass[12pt]{article}
+% \fontsize{14pt}{14pt}\selectfont
+% \usepackage{inputenc}
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold={3.17}]{芫荽}
+\newCJKfontfamily{\sans}[AutoFakeBold={2.17}]{jf open 粉圓 2.1}
+\newcommand{\mytitle}[1]{\Large{\sans{#1}}}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{
+tmargin=3cm, 
+bmargin=3cm, 
+lmargin=3cm, 
+rmargin=3cm,
+headheight=1.5cm,
+footskip=1.5cm,
+headsep=0.8cm}
+\usepackage{setspace}
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex} % space between paragraphs
+\setlength{\baselineskip}{20pt}
+\usepackage{fourier-orns}
+\usepackage[object=vectorian]{pgfornament}
+\usepackage{starfont}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\renewcommand*\contentsname{目錄}
+\newcommand{\mysubsection}[1]{
+    \subsection*{\leafNW #1}
+    \addcontentsline{toc}{section}{#1}
+}
+\newcommand{\mysubsubsection}[1]{
+    \subsubsection*{\aldine #1}
+    \addcontentsline{toc}{subsection}{#1}
+}
+\usepackage{tensor}
+\usepackage{amsmath}
+\newcommand{\manifold}[1][M]{\mathcal{#1}}
+\newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
+\newcommand{\tfld}[1]{\partial\indices{_{#1}}}
+\newcommand{\lder}[1]{\mathcal{L}_{#1}}
+\DeclareMathOperator{\idd}{id}
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{
+    coltitle=cyan!90!black,
+    colback=cyan!10!white,        % Background color for both title and content
+    colbacktitle=cyan!10!white,   % Same background for title area
+    colframe=cyan!90!black,      % Left border color
+    fonttitle=\bfseries,         % Bold font for the title
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,                 % No border by default
+    leftrule=4pt,                % Thick left border only
+    arc=0pt,                     % Sharp corners
+    left=8pt,                   % Left inner margin (more space due to thick border)
+    right=8pt,                   % Right inner margin
+    top=8pt,                     % Top inner margin
+    bottom=8pt,                  % Bottom inner margin
+    toptitle=4pt,                % Space above title
+    bottomtitle=2pt,             % Space below title
+}{def}
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{
+    coltitle=violet!90!black,
+    colback=violet!10!white,       % Light green background
+    colbacktitle=violet!10!white,  % Same background for title
+    colframe=violet!90!black,     % Dark green left border
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    toptitle=4pt,
+    bottomtitle=2pt,
+}{thm}
+\newtcbtheorem[number within=tcb@cnt@theorem]{corollary}{Corollary}%
+{
+    coltitle=magenta!90!black,
+    colback=magenta!10!white,       % Light green background
+    colbacktitle=magenta!10!white,  % Same background for title
+    colframe=magenta!90!black,     % Dark green left border
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    toptitle=4pt,
+    bottomtitle=2pt,
+}{cor}
+\newtcolorbox{remark}{
+    coltitle=black,
+    colback=white,               % Plain white background
+    colbacktitle=white,
+    colframe=gray!50!black,      % Gray frame
+    title={\Sagittarius\bfseries Remark},    % Static title "Remark"
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+}
+\usepackage{spalign}
+\usepackage{unicode-math}
+\usepackage{braket}
+\usepackage[
+    colorlinks=true,
+]{hyperref}
+\usepackage[capitalise, nameinlink]{cleveref}
+\renewcommand\qedsymbol{$\squareneswfill$}
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\setlength{\baselineskip}{17pt}}
+\usepackage[default, varnothing]{fontsetup}
+\usepackage[makeroom]{cancel}
+\usepackage{subfiles}
+
+\begin{document}
+    \section{Differentiable Manifolds}
+    \subsection{Definition}
+    \subsubsection{Coordinate Charts}
+    \begin{definition}{Coordinate Charts}{coordinate-charts}
+        An \(m\)-dimensional, \(m \neq \infty\) coordinate chart on a topological 
+        space \(\manifold\) is a pair 
+        \[
+        (U, \phi)
+        \begin{cases}
+            U \subseteq \manifold[M], U~\text{open}\\
+            \phi : U \to \mathbb{R}^{m}, \phi~\text{homeomorphism}
+        \end{cases}
+        \]
+    \end{definition}
+    \begin{remark}
+        If \(U=\manifold[M]\), then we say the coordinate chart \(\phi\) is 
+        globally defined; if not, then it is locally defined. Few manifolds 
+        have globally defined property.
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Overlap Function}{overlap-function}
+        Let \((U_1, \phi_1), (U_2, \phi_2)\) be a pair of \(m\)-dimensional 
+        coordinate charts with \(U_1 \cap U_2 \neq \varnothing\). Then the 
+        overlap function is defined as 
+        \[
+        \phi_2\circ\phi_1 ^{-1} : \phi_1(U_1 \cap U_2) \subseteq \mathbb{R}^m 
+        \to \phi_2(U_1 \cap U_2) \subseteq \mathbb{R}^m.
+        \]
+    \end{definition}
+    \begin{definition}{Atlas}{atlas}
+        An \(m\)-dimensional atlas on \(\manifold[M]\) is a family of 
+        \(m\)-dimensional coordinate charts \((U_i, \phi_i), i \in I\) s.t. 
+        \begin{enumerate}
+            \item \(\manifold[M] = \bigcup_{i \in I}^{} U_i\).
+            \item Each overlap function \(\phi_j \circ \phi_i ^{-1}, i, j \in I\) 
+            is \(C ^{\infty}\).
+        \end{enumerate}
+    \end{definition}
+    \begin{definition}{Differentiable Manifolds}{differentiable-manifolds}
+        An \(m\)-dimensional differentiable manifold is a topological space 
+        \(\manifold[M]\) equipped with an atlas.
+    \end{definition}
+    \begin{remark}
+        We didn't define a differentiable manifold by regulating the 
+        differentiability of the coordinate charts themselves. That's because 
+        differentiation is not defined on a manifold, so we need to rely on 
+        Euclidean spaces.
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Coordinate Functions}{coordinate-functions}
+        The coordinate functions are the (Euclidean) components of coordinate.
+        % \[
+        \begin{align*}
+            \phi &: U \to \mathbb{R}^m & p \mapsto &\phi(p), \\
+            \phi^\mu &: U \to \mathbb{R} & ~\text{s.t.}~ &\phi(p) = \begin{pmatrix}
+            \phi^1(p) \\ \vdots \\ \phi^m(p)
+            \end{pmatrix}.
+        \end{align*}
+        % \]
+        An alternative notation is 
+        \[
+        x^\mu := \phi^\mu.
+        \]
+    \end{definition}
+    \begin{remark}
+        There are (Euclidean) projection functions, 
+        \[
+        u^\mu : \mathbb{R}^m \to \mathbb{R}.
+        \]
+        But I think mention it will cause a lot of confusion. Just remember in 
+        the future when we say \(\frac{\partial }{\partial u^\mu}\), we are 
+        referring to the Euclidean partial derivative wrt the \(\mu\)-th 
+        component.
+        \hfill\Virgo
+    \end{remark}
+    \newpage
+    \section{Tangent Spaces}
+    \subsection{The Curve Formulation of Tangent Spaces}
+    \begin{remark}
+        The definition of manifold do not require the entity to be embeded in 
+        a higher dimensional space. Therefore, the traditional view of tangency 
+        is not valid here.
+        \hfill\Virgo
+    \end{remark}
+    \begin{remark}
+        The curve formulation remains valid in the infinite-dimensional case, 
+        while the algebraic formulation is not. However, in the 
+        finite-dimensional case, they are isomorphic.
+        \hfill\Virgo
+    \end{remark}
+
+    \subsubsection{Curves and Vectors}
+    \begin{definition}{Curve}{curve}
+        A curve on \(\manifold[M]\) is a \(C^\infty\) map,
+        \[
+        \sigma : (-\epsilon, \epsilon) \to \manifold[M].
+        \]
+    \end{definition}
+    \begin{definition}{Curve Tangency}{curve-tangency}
+        Two curves \(\sigma_1, \sigma_2\) are tangent at \(p \in \manifold[M]\) 
+        if 
+        \begin{enumerate}
+            \item \(\sigma_1(0)=\sigma_2(0)=p\).
+            \item \(\left.\frac{d}{dt}(x^i \circ \sigma_1(t))\right|_{t=0}
+             = \left.\frac{d}{dt}(x^i \circ \sigma_2(t))\right|_{t=0},~1 \leq 
+             i \leq m\) .
+        \end{enumerate}
+    \end{definition}
+    \begin{remark}
+        Written more compactly, 
+        \[
+        \left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
+        =\left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}
+        \]
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Tangent Vectors}{tangent-vector-curve}
+        A tangent vector at \(p \in \manifold[M]\) is an equivalence class of 
+        curves where the equivalence relation is that they are tangent. It will 
+        be denoted as 
+        \[
+        v = [\sigma].
+        \]
+    \end{definition}
+    \begin{definition}{Tangent Space}{tangent-space-curve}
+        The tangent space \(T_p\manifold[M]\) at point \(p\) is the set of all 
+        tangent vectors at point \(p\).
+    \end{definition}
+    \begin{definition}{Tangent Bundle}{tangent-bundle-curve}
+        The tangent bundle \(T\manifold[M]\) is 
+        \[
+        T\manifold[M] := \bigcup_{p \in \manifold[M]}^{} T_p\manifold[M].
+        \]
+    \end{definition}
+    
+    \subsubsection{Addition and Scalar Multiplication}
+    \begin{definition}{Addition and Scalar Multiplication}{addition-and-scalar-multiplication-curve}
+        Let \(v_1 = [\sigma_1], v_2 = [\sigma_2] \in T_p\manifold[M]\), and 
+        \(r \in \mathbb{R}\). Then 
+        define 
+        \[
+        \begin{aligned}
+            v_1+v_2 &:= [\phi ^{-1}\circ(\phi\circ\sigma_1+\phi\circ\sigma_2)], \\
+            rv_1 &:= [\phi ^{-1} \circ (r\phi \circ \sigma_1)].
+        \end{aligned}
+        \]
+    \end{definition}
+    \begin{theorem}{}{}
+        The definition \ref{def:addition-and-scalar-multiplication-curve}
+        is well-defined. That is, they are independent of the 
+        choice of chart \((U, \phi)\) and \(\sigma_1, \sigma_2\) as long as 
+        \(v_1=[\sigma_1]\) and \(v_2=[\sigma_2]\).\par
+        Therefore, \(T_p\manifold[M]\) is a real vector space.
+    \end{theorem}
+    \begin{proof}
+        Let \(v_1 = [\sigma_1] = v_1' := [\tau_1], 
+        v_2 = [\sigma_2] = v_2' := [\tau_2]\). 
+        First check (1) of \ref{def:curve-tangency}, 
+        \[
+        \begin{aligned}
+            (rv_1+v_2)(0) &= (\phi ^{-1} \circ (r\phi\circ\sigma_1(0) + 
+            \phi\circ\sigma_2(0))) \\
+            &= (\phi ^{-1} \circ (r\phi\circ\tau_1(0) + 
+            \phi\circ\tau_2(0))) \\
+            &= (rv_1'+v_2')(0),
+        \end{aligned}
+        \]
+        since \(\phi\circ\sigma_1(0) = \phi\circ\tau_1(0) = \phi(p)\) by 
+        equivalence, and the same for \(\sigma_2\). \par
+        Now consider 
+        \[
+        \begin{aligned}
+            \left.\frac{d}{dt}(\phi\circ(rv_1+v_2))\right|_{t=0}
+            &=\left.\frac{d}{dt}(r\phi\circ\sigma_1+\phi\circ\sigma_2)
+            \right|_{t=0}\\
+            &=r\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}+
+            \left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}\\
+            &=r\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}+
+            \left.\frac{d}{dt}(\phi\circ\tau_2)\right|_{t=0}\\
+            &=\left.\frac{d}{dt}(\phi\circ(rv_1'+v_2'))\right|_{t=0},
+        \end{aligned}
+        \]
+        since \(\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
+        =\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}\) by equivalence, and 
+        the same for \(\sigma_2\).
+    \end{proof}
+
+    \subsubsection{Curves and Derivation}
+    \begin{definition}{Directional Derivative}{directional-derivative-curve}
+        For any \(f : \manifold[M] \to \mathbb{R}\) s.t. \(f \in C^\infty\), we 
+        define
+        \[
+        v(f) := \left.\frac{d}{dt}(f \circ \sigma(t))\right|_{t=0},
+        \]
+        where \(v = [\sigma]\).
+    \end{definition}
+    \begin{theorem}{}{}
+        The definition \ref{def:directional-derivative-curve} is well-defined.
+        That is, \(v(f)\) is independent of the curve \(\sigma\) chosen as well 
+        as \(v=[\sigma]\).
+    \end{theorem}
+    \begin{proof}
+        Let \(v_1 = [\sigma_1] = [\sigma_2] = v_2\). Then 
+        \[
+        \begin{aligned}
+            v_1(f) &= \left.\frac{d}{dt}(f \circ \sigma_1)\right|_{t=0}, \\
+            v_2(f) &= \left.\frac{d}{dt}(f \circ \sigma_2)\right|_{t=0}, \\
+        \end{aligned}
+        \]
+        \[
+        \left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
+            =\left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}.
+        \] \par
+        Then
+        \[
+        \begin{aligned}
+            v_1(f) &= \left.\frac{d}{dt}
+            (\underbrace{(f\circ\phi ^{-1})}_{\mathbb{R}\leftarrow \mathbb{R}^m} \circ 
+            \underbrace{(\phi \circ \sigma_1)}_{\mathbb{R}^m\leftarrow \mathbb{R}})
+            \right|_{t=0} \\
+            &= \left.(f \circ \phi ^{-1})'\circ(\phi\circ\sigma_1)\cdot
+            (\phi\circ\sigma_1)'\right|_{t=0} \\
+            &= \left.(f \circ \phi ^{-1})'\circ(\phi\circ\sigma_2)\cdot
+            (\phi\circ\sigma_2)'\right|_{t=0} \\
+            &= v_2(f),
+        \end{aligned}
+        \]
+        since \(\phi\circ\sigma_1(0) = \phi\circ\sigma_2(0) =\phi(p)\), and 
+        \((\phi\circ\sigma_1)'=(\phi\circ\sigma_2)'\) by equivalence.
+    \end{proof}
+
+    \subsection{The Algebraic Formulation of Tangent Spaces}
+    \subsubsection{The Space of Derivations}
+    \begin{definition}{Derivation}{derivation}
+        A derivation at \(p \in \manifold[M]\) is a map \(v : C^\infty
+        (\manifold[M]) \to \mathbb{R}\) s.t. 
+        \begin{enumerate}
+            \item \(v(rf+g)=rv(f)+v(g)\), (Linear)
+            \item \(v(fg) = f(p)v(g)+g(p)v(f)\), (Leibniz)
+        \end{enumerate}
+        where \(f, g \in C^\infty\).
+    \end{definition}
+    \begin{definition}{Tangent Space (Algebraic)}{tangent-space-algebraic}
+        The space of all derivations at \(p \in \manifold[M]\) is denoted 
+        \(D_p\manifold[M]\).
+    \end{definition}
+    \begin{definition}{Addition and Scalar Multiplication}{addition-scalar-multiplication-algebraic}
+        Given \(v_1, v_2 \in D_p\manifold[M]\), define 
+        \[
+        \begin{aligned}
+            (v_1+v_2)(f) &:= v_1(f)+v_2(f) \\
+            (rv)(f) &:= rv(f).
+        \end{aligned}
+        \]
+    \end{definition}
+    \begin{theorem}{}{}
+        \(D_p\manifold[M]\) is a real vector space.
+    \end{theorem}
+    \subsubsection{The Basis Tangent Vectors}
+    \begin{definition}{Basis Tangent Vectors}{basis-derivations}
+        We define the basis tangent vectors via derivations by 
+        \[
+        \tvec{\mu}{p}f := \left.\frac{\partial }{\partial u^\mu}
+        (f\circ\phi ^{-1}(\vec{u}))\right|_{\vec{u}=\phi(p)}, 1 \leq \mu \leq 
+        \dim \manifold[M].
+        \]
+        where \(u \in \mathbb{R}^m, f : \manifold[M] \to \mathbb{R}, f \in 
+        C^\infty\). For the use of \(u^\mu\), see \ref{def:coordinate-functions}.
+    \end{definition}
+    \begin{theorem}{}{}
+        \[
+        \tvec{\mu}{p}x^\nu = \delta\indices{^\nu_\mu}.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Although a simple exercise, it was a good chance to explain the 
+        sophisticated notation.
+        \[
+        \tvec{\mu}{p}x^\mu = \left.\frac{\partial }{\partial u^\mu}
+        \left(x^\mu\circ \phi ^{-1} \begin{pmatrix}
+        u^1 \\ \vdots \\ u^m
+        \end{pmatrix}\right)\right|_{\phi(p)}.
+        \]
+        The coordinate \(u \in \mathbb{R}^m\) was brought to \(\manifold[M]\) and 
+        projected to \(\mathbb{R}^m\) again and taken out the \(\mu\)-th 
+        component. So 
+        \[
+        =\left.\frac{\partial }{\partial u^\mu}(u^\mu)\right|_{\phi(p)}=1.
+        \]
+    \end{proof}
+    \begin{theorem}{Linear Independence of Basis Tangent Vectors}{linear-indep-basis}
+        The basis tangent vectors \(\tvec{\mu}{p}, 1 \leq \mu \leq \dim 
+        \manifold[M]\) are linear independent.
+    \end{theorem}
+    \begin{proof}
+        Suppose \(a^\mu\tvec{\mu}{p}=0\). Then 
+        \[
+        a^\mu\tvec{\mu}{p}(x^\nu)=a^\mu\delta\indices{^\nu_\mu}=0(x^\nu)=0.
+        \]
+        So \(a^\mu=0\).
+    \end{proof}
+    \begin{theorem}{Coordinate Expansion of Tangent Vectors}{tangent-vector-coordinates}
+        For all \(v \in D_p\manifold[M]\), we have 
+        \[
+        v=v^\mu\tvec{\mu}{p},
+        \]
+        where Einstein notation was used, and \(v^\mu = v(x^\mu)\).
+    \end{theorem}
+    \begin{remark}
+        The proof was sophisticated and did not teach me much.
+        \hfill\Virgo
+    \end{remark}
+
+    \subsection{Isomorphism of Curves and Derivations}
+    \begin{theorem}{Isomorphism of Curves and Derivations}{curve-derivation-iso}
+        Similar to \ref{def:directional-derivative-curve}, we define the linear 
+        map \(\iota : T_p\manifold[M] \to D_p\manifold[M]\) acting on 
+        \(v = [\sigma] \in T_p\manifold[M]\) by 
+        \[
+        \iota(v)(f) := \left.\frac{d}{dt}(f\circ \sigma(t))\right|_{t=0}.
+        \]
+        Then \(\iota\) is a linear isomorphism. Note that RHS \(\in 
+        D_p\manifold[M]\).
+    \end{theorem}
+    \begin{proof}
+        (linearity) Choose \(\phi\) s.t. \(\phi(p) = 0\).
+        \[
+        \begin{aligned}
+            \iota(rv_1+v_2)(f) &= \left.\frac{d}{dt}
+            (f\circ \phi ^{-1} \circ (r\phi\circ\sigma_1+\phi\circ\sigma_2))
+            \right|_{t=0} \\
+            &= \left.((f\circ\phi ^{-1})'\circ(r\phi\circ\sigma_1+\phi\circ\sigma_2)
+            \cdot (r\phi\circ\sigma_1+\phi\circ\sigma_2)')\right|_{t=0} \\
+            &= \left.((f\circ\phi ^{-1})'(0)
+            \cdot ((r\phi\circ\sigma_1)'+(\phi\circ\sigma_2)'))\right|_{t=0} \\
+            &= \left.(r(f\circ\phi ^{-1})'\circ(\phi\circ\sigma_1)
+            \cdot(\phi\circ\sigma_1)'+(f\circ\phi ^{-1})'\circ(\phi\circ\sigma_2)
+            \cdot (\phi\circ\sigma_2)')\right|_{t=0} \\
+            &=r\iota(v_1)+\iota(v_2)(f).
+        \end{aligned}
+        \]
+        (surjectivity) Since \(\iota\) is linear, surjectivity is equivalent to 
+        injectivity and therefore to bijectivity. To show surjectivity, we need 
+        to construct a curve for all \(v' \in D_p\manifold[M]\) s.t. \(\iota(v)
+        = v'\). \par
+        Let \(v' \in D_p\manifold[M]\) and construct \(\sigma : (-\epsilon, 
+        \epsilon) \to \manifold[M]\) s.t. 
+        \[
+        \begin{aligned}
+            \sigma(0) &= p, \\
+            v^\mu = v(x^\mu) &= \left.\frac{d}{dt}(x^\mu\circ\sigma(t))\right|_{t=0}.
+        \end{aligned}
+        \]
+        Then 
+        \[
+        v(f) = v^\mu \tvec{\mu}{p}f=\left.\frac{d}{dt}
+        (x^\mu\circ\sigma(t))\right|_{t=0}\tvec{\mu}{p}f.
+        \]
+        Also,
+        \[
+        \begin{aligned}
+            \left.\frac{d}{dt}(f\circ\sigma(t))\right|_{t=0}
+            &= \left.\frac{d}{dt}
+            (f\circ\phi ^{-1} \circ \phi\circ\sigma(t))\right|_{t=0} \\
+            &= \sum_{\mu=1}^{m} \left.\frac{\partial }{\partial u^\mu}
+            (f\circ\phi ^{-1})\right|_{\phi(p)}\left.\frac{d}{dt}
+            (u^\mu\circ\phi\circ\sigma)\right|_{t=0} ~\text{(component-wise)} \\
+            &= \sum_{\mu=1}^{m} \tvec{\mu}{p}f \left.\frac{d}{dt}
+            (x^\mu\circ\sigma)\right|_{t=0} \\
+            &= v(f).
+        \end{aligned}
+        \]
+        Thus completing the proof.
+    \end{proof}
+
+    \subsection{Pushforward}
+    \subsubsection{Definition and Linearity}
+    \begin{remark}
+        The pushforward \(h_* : T_p\manifold[M] \to 
+        T_{h(p)}\manifold[N]\) of a specific function \(h : \manifold[M] \to 
+        \manifold[N]\) can be thought of as local linearization of the function.
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Pushforward}{pushforward}
+        Given a function \(h : \manifold[M] \to \manifold[N]\) and 
+        \(v \in T_p\manifold[M]\), then we define the pushforward 
+        \(h_* : T_p\manifold[M] \to T_{h(p)}\manifold[N]\) by 
+        \[
+        h_*(v) := [h \circ \sigma],~v=[\sigma].
+        \]
+    \end{definition}
+    \begin{theorem}{}{}
+        The pushforward operation \ref{def:pushforward} is well-defined. That is, 
+        \(h_*(v_1) = h_*(v_2)\) if \(v_1 = [\sigma_1] = [\sigma_2] = v_2\).
+    \end{theorem}
+    \begin{theorem}{Algebraic Definition of Pushforward}{algebraic-pushforward}
+        The definition of pushforward \ref{def:pushforward} is equivalent to the 
+        following: let \(h : \manifold[M] \to \manifold[N]\), \(h_* : 
+        D_p\manifold[M] \to D_{h(p)}\manifold[M]\) is defined by,
+        \[
+        (h_*v)(f) := v(f\circ h).
+        \]
+    \end{theorem}
+    \begin{proof}
+        (\textrightarrow) 
+        \[
+        \begin{aligned}
+            h_*(v)(f) = [h \circ \sigma](f) 
+            &= \left.\frac{d}{dt}(f\circ h\circ\sigma(t))\right|_{t=0} \\
+            &= \left.\frac{d}{dt}((f\circ h)\circ\sigma(t))\right|_{t=0} \\
+            &:= v(f\circ h).
+        \end{aligned}
+        \] \par
+        (\textleftarrow) This direction is similar.
+    \end{proof}
+    \begin{theorem}{Linearity of Pushforward}{linearity-of-pushforward}
+        The pushforward map \(h_* : T_p\manifold[M] \to T_{h(p)}\manifold[N]\) 
+        is linear.
+        \[
+        h_*(rv_1+v_2) = rh_*(v_1) + h_*(v_2).
+        \]
+    \end{theorem}
+    \begin{proof}
+        (Using \ref{def:pushforward})
+        Let \(p \in (U, \phi) \subseteq \manifold[M]\), and 
+        \(h(p) \in (V, \psi) \subseteq \manifold[N]\). Choose \(\phi\) s.t. 
+        \(\phi(p) = 0\).
+        It is obvious that \(h_*(rv_1+v_2)(0) = (rh_*(v_1)+h_*(v_2))(0) = h(p)\). 
+        \par
+        Consider 
+        \[
+        \begin{aligned}
+            \left.\frac{d}{dt}
+            \underbrace{(\psi \circ h_*(rv_1+v_2))}_{\mathbb{R}^n \leftarrow 
+            \manifold[N] \leftarrow \mathbb{R}}\right|_{t=0}
+            &= \left.\frac{d}{dt}(\underbrace{\psi\circ h\circ (\phi ^{-1}}
+            _{\mathbb{R}^n \leftarrow \manifold[N] \leftarrow \manifold[M] 
+            \leftarrow \mathbb{R}^m}\circ
+            \underbrace{(r\phi\circ\sigma_1+\phi\circ\sigma_2)}_{\mathbb{R}^m 
+            \leftarrow \manifold[M] \leftarrow \mathbb{R}}))\right|_{t=0} \\
+            &= \left.(\psi \circ h \circ \phi ^{-1})'\circ 
+            (r\phi\circ\sigma_1+\phi\circ\sigma_2) \cdot (r\phi\circ\sigma_1 + 
+            \phi\circ\sigma_2)'\right|_{t=0} \\
+            &= \left.(\psi \circ h \circ \phi ^{-1})'(0) \cdot 
+            ((r\phi\circ\sigma_1)' + (\phi\circ\sigma_2)')\right|_{t=0}.
+        \end{aligned}
+        \]
+        And 
+        \[
+        \begin{aligned}
+            \left.\frac{d}{dt}
+            (\underbrace{\psi}_{\mathbb{R}^n\leftarrow} \circ 
+            \underbrace{(rh_*(v_1)+h_*(v_2))}_{\manifold[N]\leftarrow 
+            \mathbb{R}})
+            \right|_{t=0}
+            &= \left.\frac{d}{dt}
+            \underbrace{(r\psi\circ h \circ \sigma_1 + \psi \circ h \circ \sigma_2)}_
+            {\mathbb{R}^n \leftarrow \manifold[N] \leftarrow \manifold[M] \leftarrow 
+            \mathbb{R}}
+            \right|_{t=0} \\
+        \end{aligned}
+        \]
+        \[
+        \begin{aligned}
+        =&(\underbrace{r\psi\circ h\circ \phi ^{-1}}_
+        {\mathbb{R}^n\leftarrow\manifold[N]\leftarrow\manifold[M]
+        \leftarrow\mathbb{R}^m} \circ \underbrace{\phi \circ \sigma_1}_
+        {\mathbb{R}^m\leftarrow\manifold[M]\leftarrow\mathbb{R}} + 
+        \psi\circ h\circ \phi ^{-1} \circ \phi \circ \sigma_2
+        )'|_{t=0} \\
+        =&(r(\psi\circ h\circ \phi ^{-1})'\circ(\phi\circ\sigma_1)
+        \cdot(\phi\circ\sigma_1)')|_{t=0} \\
+        &+((\psi\circ h\circ \phi ^{-1})'\circ(\phi\circ\sigma_2)
+        \cdot(\phi\circ\sigma_2)')|_{t=0} \\
+        =&(\psi\circ h\circ \phi ^{-1})'(0)\cdot(r(\phi\circ\sigma_1)' + 
+        (\phi\circ\sigma_2)')|_{t=0}.
+        \end{aligned}
+        \]
+        So we see the two are equal. \par
+        (Using \ref{thm:algebraic-pushforward})
+        \[
+        \begin{aligned}
+            (h_*(rv_1+v_2))(f) &= (rv_1+v_2)(f\circ h) \\
+            &= rv_1(f\circ h)+v_2(f\circ h) \\
+            &= r(h_*v_1)f+(h_*v_2)f.
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{theorem}{}{}
+        Given manifolds \(\manifold[M], \manifold[N], \manifold[P]\) and 
+        \(h : \manifold[M] \to \manifold[N]\), \(k : \manifold[N] \to 
+        \manifold[P]\), then 
+        \[
+        (k\circ h)_*=k_*\circ h_*.
+        \]
+    \end{theorem}
+
+    \subsubsection{Jacobian}
+    \begin{theorem}{Local Representative of Pushforward}{pushforward-local}
+        Let \(\dim \manifold[M]=m, \dim \manifold[N]=n\), \(h : \manifold[M] 
+        \to \manifold[N]\), \(\{x^1, \dots, x^m\}\) be the local coordinates of 
+        \(\manifold[M]\) around \(p\), and \(\{y^1, \dots, y^n\}\) be the local 
+        coordinates of \(\manifold[N]\) around \(h(p)\). Then 
+        \[
+        h_*v = \sum_{\mu=1}^{m} \sum_{\nu=1}^{n} v^\mu 
+        \left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}\tvec{\nu}{h(p)},
+        \]
+        where \(J_{\nu\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
+        :=\tvec{\mu}{p}(y^\nu\circ h)\) is the inverse Jacobian matrix.
+    \end{theorem}
+    \begin{proof}
+        First expand \(v\) in terms of local coordinates and use linearity, 
+        \[
+        h_*v = h_*(v^\mu \tvec{\mu}{p}) = v^\mu h_*(\tvec{\mu}{p}).
+        \]
+        Expand the result in local coordinates of \(\manifold[N]\), 
+        \[
+        h_*(\tvec{\mu}{p}) = \left(h_*\tvec{\mu}{p}\right)^\nu\tvec{\nu}{h(p)}.
+        \]
+        Using \ref{thm:algebraic-pushforward}, 
+        \[
+        \begin{aligned}
+            \left(h_*\tvec{\mu}{p}\right)^\nu 
+            &= \left(h_*\tvec{\mu}{p}\right)\circ y^\nu \\
+            &= \tvec{\mu}{p}(y^\nu \circ h) \\
+            &:= \tvec{\mu}{p}h^\nu.
+        \end{aligned}
+        \]
+        So, 
+        \[
+        h_*(\tvec{\mu}{p}) = \tvec{\mu}{p}h^\nu\tvec{\nu}{h(p)}.
+        \]
+        And, 
+        \[
+        h_*v = v^\mu\tvec{\mu}{p}h^\nu\tvec{\nu}{h(p)}.
+        \]
+    \end{proof}
+    \begin{theorem}{Using Curve to Pushforward}{curve-pushforward}
+        Given \(c : (-\epsilon, \epsilon) \to \manifold[M]\) a curve, and choose 
+        the coordinate chart of \(\mathbb{R}\) to be the identity, then 
+        \[
+        c_*\left(\frac{d}{dt}\right)_0=[c] \in T_p\manifold[M].
+        \]
+    \end{theorem}
+    \begin{proof}
+        First we clarify what is \(\left(\frac{d}{dt}\right)_0\). Since on the 
+        trivial manifold \(\mathbb{R}\) there is only one coordinate, namely 
+        \(t\), we need not specify the number. Also, considering our functions 
+        are scalar valued \(f : \manifold[M] \to \mathbb{R}\), this motivates us 
+        to write "total differential". \par
+        For all \(f \in C^\infty\), 
+        \[
+        c_*\left(\frac{d}{dt}\right)_0f=\left(\frac{d}{dt}\right)_0(f\circ c).
+        \]
+        Since the coordinate chart is the identity, 
+        \[
+        \begin{aligned}
+            \left(\frac{d}{dt}\right)_0(f\circ c) 
+            &= \left.\frac{d}{dt}(f\circ c\circ I)\right|_{I(t)=0} \\
+            &= \left.\frac{d}{dt}(f\circ c)\right|_{t=0} \\
+            &=[c]f.
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{theorem}{Contravariancy of Tangent Vectors}{contravariant-vector}
+        The components of tangent vectors are contravariant, i.e., given 
+        two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
+        \(U \cap U' = S \neq \varnothing\), then on \(S\), 
+        \[
+        v'^\nu = \sum_{\mu=1}^{m} v^\mu\frac{\partial x'^{\nu}}{\partial x^\mu}.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Given that we have the local representative of pushforward at hand, 
+        consider the identity pushforward \(\idd_* : T_p\manifold[M] \to T_p
+        \manifold[M]\),
+        \[
+        \idd_*v = \sum_{\mu=1}^{m} \sum_{\nu=1}^{m} v^\mu 
+        \left.\frac{\partial x'^\nu}{\partial x^\mu}\right|_p\tvec{\nu'}{p}.
+        \]
+        We see immediately that the result holds.
+    \end{proof}
+    \newpage
+    \section{Vector Fields}
+    \subsection{Definition}
+    \begin{definition}{Vector Fields}{vector-fields}
+        A vector field \(X\) on \(\manifold[M]\) is a smooth assignment of 
+        a tangent vector \(X_p \in T_p\manifold[M]~\forall p \in \manifold[M]\). 
+        \par
+        "Smooth" assignment is defined to be that the Lie derivative 
+        \ref{def:lie-derivative} is smooth.
+    \end{definition}
+    \begin{definition}{Lie Derivative}{lie-derivative}
+        The Lie-derivative of function \(f\) with respect to vector field 
+        \(X\) is defined as 
+        \[
+        \lder{X}f := Xf, 
+        \]
+        and at a specific point \(p \in \manifold[M]\), 
+        \[
+        \lder{X}f(p) := Xf(p) := X_pf.
+        \]
+    \end{definition}
+    \begin{theorem}{Properties of Lie Derivative}{lie-derivative-properties}
+        The Lie derivative has the following properties,
+        \begin{enumerate}
+            \item \(X(rf+g) = rXf+Xg\)
+            \item \(X(fg) = fXg+gXf\).
+        \end{enumerate}
+    \end{theorem}
+    \begin{theorem}{Component of Vector Field}{vector-field-component}
+        \textbf{Given a chart} \((U, \phi)\) on \(\manifold[M]\), we can write 
+        \[
+        X_U = X_Ux^\mu \tfld{\mu}.
+        \]
+        When the context is clear or \textbf{for convenience}, we write 
+        \[
+        X = Xx^\mu \tfld{\mu} := X^\mu \tfld{\mu}.
+        \]
+    \end{theorem}
+    \begin{proof}
+        We know 
+        \[
+        (Xf)(p) = X_pf = X_px^\mu\tvec{\mu}{p}f = (Xx^\mu)(p)\tvec{\mu}{p}f.
+        \]
+    \end{proof}
+    \begin{remark}
+        \(\tfld{\mu}\) is a vector field that assigns each point \(p \in 
+        \manifold[M]\) with the vector \(\tvec{\mu}{p} \in T_p\manifold[M]\).
+        \hfill\Virgo
+    \end{remark}
+    \begin{theorem}{Contravariancy of Vector Fields}{}
+        Given two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
+        \(U \cap U' = S \neq \varnothing\). On \(S\), 
+        \[
+        X^{\nu'} = \sum_{\mu=1}^{m} X^\mu 
+        \frac{\partial x'^{\nu}}{\partial x^\mu}.
+        \]
+        Analogous to \ref{thm:contravariant-vector}.
+    \end{theorem}
+    \subsection{Lie Bracket}
+    \begin{definition}{Composition of Vector Fields}{vector-field-composition}
+        We can view \(X : C^\infty(\manifold[M]) \to C^\infty(\manifold[M])\), 
+        and so does \(Y\). Therefore, we define 
+        \[
+        (X \circ Y)(f) := X(Yf).
+        \]
+    \end{definition}
+    \begin{definition}{Lie Bracket (Commutator)}{lie-bracket}
+        We define the Lie Bracket of two vector fields \(X, Y\) to be 
+        \[
+        [X, Y] := X\circ Y - Y\circ X.
+        \]
+    \end{definition}
+    \begin{remark}
+        Lie Bracket \ref{def:lie-bracket} is a vector field, while the 
+        expression \(X\circ Y\) is not, because it contains second differential 
+        terms. See the following proof.
+        \hfill\Virgo
+    \end{remark}
+    \begin{theorem}{Lie Bracket Components}{lie-bracket-components}
+        \[
+        [X, Y]^\mu = (X^\nu\tfld{\nu}Y^\mu - Y^\nu\tfld{\nu}X^\mu).
+        \]
+    \end{theorem}
+    \begin{proof}
+        Given \(X=X^\mu\tfld{\mu}, Y = Y^\nu\tfld{\nu}\), we try to write 
+        the component of \(X\circ Y\).
+        \[
+        X\circ Y(f) = X^\mu \tfld{\mu}\left(Y^\nu \tfld{\nu}f\right).
+        \]
+        However, notice that 
+        \[
+        \begin{aligned}
+            &Y^\nu := Yx^\nu \in C^\infty(\manifold[M]); \\
+            &\tfld{\nu} : C^\infty(\manifold[M]) \to C^\infty(\manifold[M]), \\
+            &\implies\tfld{\nu}f \in C^\infty(\manifold[M]).
+        \end{aligned}
+        \]
+        So we need to use the Leibniz property of \(\tfld{\mu}\) 
+        \ref{def:derivation} in order to evaluate the second term. Doing this 
+        for \(X\circ Y(f)\) and \(Y\circ X(f)\), we have
+        \[
+        \begin{aligned}
+            X\circ Y(f) &= X^\mu \left((\tfld{\mu}Y^\nu)(\tfld{\nu}f)+
+            Y^\nu \tfld{\mu}\tfld{\nu}f\right). \\
+            Y\circ X(f) &= Y^\nu \left((\tfld{\nu}X^\mu)(\tfld{\mu}f)+
+            X^\mu \tfld{\nu}\tfld{\mu}f\right).
+        \end{aligned}
+        \]
+        So if \(\tfld{\mu}\tfld{\nu}f=\tfld{\nu}\tfld{\mu}f\), then by 
+        subtracting, we can cancel the second order terms, and we are done. We 
+        prove so now.
+        \[
+        \begin{aligned}
+            (\tfld{\mu}\tfld{\nu}f)(p)&=\frac{\partial }{\partial u^\mu}
+            \left.\left((\tfld{\nu}f)\circ\phi ^{-1}\right)\right|_{\phi(p)} \\
+            &=\frac{\partial }{\partial u^\mu}
+            \left.\left(\tvec{\nu}{\phi ^{-1}(u)}f\right)\right|_{\phi(p)} \\
+            &=\frac{\partial }{\partial u^\mu}
+            \left.\left(\left.
+                \frac{\partial }{\partial u^\nu}(f\circ\phi ^{-1})
+            \right|_u\right)\right|_{\phi(p)} \\
+            &=\frac{\partial }{\partial u^\nu}
+            \left.\left(\left.
+                \frac{\partial }{\partial u^\mu}(f\circ\phi ^{-1})
+            \right|_u\right)\right|_{\phi(p)} \\
+            &=(\tfld{\nu}\tfld{\mu}f)(p).
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{theorem}{Properties of Lie Brackets}{lie-bracket-properties}
+        \begin{enumerate}
+            \item \([X,Y] = -[Y, X]\) (antisymmetry)
+            \item \(\sum_{\text{cyc}}^{} [X, [Y, Z]]=0\). (Jacobi Identity)
+        \end{enumerate}
+    \end{theorem}
+    \subsection{Integral Curves and Flows}
+    \begin{definition}{Intergral Curve}{intergral-curve}
+        Let \(X\) be a vector field on \(\manifold[M]\), \(p \in \manifold[M]\). 
+        Then an integral curve of \(X\) through \(p\) is a curve \(\sigma : 
+        (-\epsilon, \epsilon) \to \manifold[M]\) s.t. 
+        \[
+        \begin{aligned}
+            \sigma(0) &= p, \\
+            \sigma_*\left(\frac{d}{dt}\right)_t &= X_{\sigma(t)}.
+        \end{aligned}
+        \]
+    \end{definition}
+    \begin{remark}
+        Qualitatively, using \ref{thm:curve-pushforward}, this pushforward is 
+        just \([\sigma] \in T_{\sigma(t)}\manifold[M]\). Therefore, the second 
+        condition is saying in some sense that the curve is tangent to the 
+        vector field on the manifold. For quantitative description, see below.
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Differential Equations of Integral Curve}{de-int-curve}
+        The components \(X^\mu\) of \(X\) determine the integral curve \(\sigma\) 
+        by the following ODE with boundary conditions, 
+        \[
+        \begin{aligned}
+            X^\mu(\sigma(t)) &= \frac{d}{dt}x^\mu(\sigma(t)) \\
+            x^\mu(\sigma(0)) &= x^\mu(p), \mu = 1, 2, \dots, m.
+        \end{aligned}
+        \]
+    \end{definition}
+    \subsubsection{One-parameter Family of Diffeomorphisms}
+    \begin{definition}{Local 1D Family of Local Diffeomorphisms}{local-diff}
+        A local, 1D family of local diffeomorphisms at \(p \in \manifold[M]\) 
+        is made up of (1) an open neighborhood \(U\) of \(p\), (2) \(\epsilon 
+        > 0\) (3) a family of diffeomorphisms \(\Set{\phi_t|\left|t\right|<\epsilon}\), 
+        \(\phi_t : U \to \manifold[M]\) s.t. 
+        \begin{enumerate}
+            \item Every \(\phi_t\) is a smooth function in \(t\) and \(q\).
+            \item \(\forall t, s \in \mathbb{R}\) and \(|t|, |s|, |t+s| < \
+            \epsilon\), and \(\forall q \in U\) s.t. \(\phi_t(q), \phi_s(q), 
+            \phi_{t+s}(q) \in U\), we have 
+            \[
+            \phi_s(\phi_t(q)) = \phi_{s+t}(q).
+            \]
+            \item \(\phi_0(q)=q\).
+        \end{enumerate}
+    \end{definition}
+    \begin{remark}
+        The first "local" refers to the parameter \(t\), which is limited to 
+        \((-\epsilon, \epsilon)\). The second "local" refers to the spatial 
+        limitation to \(U\). \par
+        You can view \(\phi_t(q)\) as a curve that brings \(t \in (-\epsilon, 
+        \epsilon)\) to \(\phi_t(q) \in \manifold[M]\).
+        \hfill\Virgo
+    \end{remark}
+    \begin{definition}{Induced Vector Field}{induced-vector-field}
+        By taking tangents to the curve family \ref{def:local-diff}, we have 
+        the induced vector field \(X^\phi\) given by
+        \[
+        X^\phi_q(f) := \left.\frac{d}{dt}(f(\phi_t(q)))\right|_{t=0}
+        \]
+    \end{definition}
+    \begin{theorem}{}{}
+        The curve family \(t \mapsto \phi_t(q)\) is the integral curve of 
+        the induced vector field \ref{def:induced-vector-field} \(X^\phi_q\).
+    \end{theorem}
+    \begin{proof}
+        \[
+        \begin{aligned}
+            X^\phi_{\phi_s(q)} &= \left.\frac{d}{dt}
+            (f\circ\phi_t\circ\phi_s(q))\right|_{t=0} \\
+            &= \left.\frac{d}{dt}(f\circ\phi_{t+s}(q))\right|_{t=0}.
+        \end{aligned}
+        \]
+        Let \(u = t+s\). Then 
+        \[
+        \begin{aligned}
+            X^\phi_{\phi_s(q)} &= 
+            \left.\frac{d}{du}(f\circ\phi_{u}(q))\right|_{u=s}. \\
+            &= \phi_{q*}\left(\frac{d}{dt}\right)_sf.
+        \end{aligned}
+        \]
+    \end{proof}
+    \subsubsection{Local Flows}
+    \begin{definition}{Local Flow}{local-flow}
+        Let \(X\) be a vector field on open \(U \subseteq \manifold[M]\), and 
+        \(p \in U\). A local flow at \(p\) is a local one-parameter family 
+        of local diffeomorphisms \ref{def:local-diff} defined on some open 
+        \(V \subseteq U\) s.t. \(p \in V\) and the induced vector field 
+        \ref{def:induced-vector-field} is \(X\).
+    \end{definition}
+    \begin{remark}
+        Local flows always exist and are unique. In contrast, global flows 
+        (which means \(t \in \mathbb{R}\) instead of a restricted interval) 
+        may not exist.
+        \hfill\Virgo
+    \end{remark}
+    \subsubsection{Lie Derivative}
+    \begin{theorem}{Interpretation of Lie Bracket}{lie-bracket-flow}
+        If \(X, Y\) are two vector fields on \(\manifold[M]\), and define the 
+        following quantity, which can be interpreted as the change of \(Y\) 
+        when following the integral curves of \(X\), as
+        \[
+        \left.\frac{d}{dt}(\phi_{-t*}^X(Y))\right|_{t=0}:=
+        \lim_{\epsilon \to 0} \frac{\phi_{-\epsilon*}^X(Y_{\phi_\epsilon^X(p)})
+        -Y_p}{\epsilon}.
+        \]
+        Then, 
+        \[
+        \left.\frac{d}{dt}(\phi_{-t*}^X(Y))\right|_{t=0}=[X, Y].
+        \]
+    \end{theorem}
+    \section{Cotangent Spaces}
+    \begin{definition}{Cotangent Spaces}{cotangent-space}
+        The cotangent space \(T_p^*\manifold[M]\) at \(p \in \manifold[M]\) is 
+        the set of all linear functions \(f : T_p\manifold[M] \to \mathbb{R}\). 
+        \par
+        Its member is called a cotangent vector. \par
+        \(\dim T_p^*\manifold[M]=\dim T_p\manifold[M]\).
+    \end{definition}
+    \begin{definition}{One-Form}{one-form}
+        A one-form on \(\manifold[M]\) is a smooth assignment of cotangent 
+        vectors \(\omega : p \mapsto \omega_p\). \par
+        It may be understood as a covector field.
+    \end{definition}
+    \begin{definition}{Basis Cotangent Vectors}{cotangent-basis}
+        The basis cotangent vectors is chosen to be the dual basis of the 
+        basis tangent vectors \ref{def:basis-derivations}, 
+        \[
+        (dx^\mu)_p(\tvec{\nu}{p})=\delta\indices{^\mu_\nu}.
+        \]
+    \end{definition}
+    \begin{theorem}{Coordinate Expression of Cotangent Vectors}{cotangent-coordinates}
+        Any \(f \in T_p^*\manifold[M]\) can be expanded as
+        \[
+        f = f_\mu (dx^\mu)_p.
+        \]
+        Any one-form \(\omega\) can be expressed as 
+        \[
+        \omega=\omega_\mu dx^\mu.
+        \]
+    \end{theorem}
+\end{document}

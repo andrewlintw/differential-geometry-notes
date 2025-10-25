@@ -6,7 +6,9 @@
 \newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
 \newcommand{\tfld}[1]{\partial\indices{_{#1}}}
 \newcommand{\lder}[1]{\mathcal{L}_{#1}}
+\newcommand{\alt}[2]{\Lambda^{#1}(\manifold[#2])}
 \DeclareMathOperator{\idd}{id}
+\DeclareMathOperator{\sgn}{sgn}
 
 \begin{document}
     \section{Differentiable Manifolds}
@@ -997,6 +999,230 @@
         \otimes \bigotimes_{1 \leq \nu_1 \cdots \nu_s \leq m} (dx^{\nu_i})_{p} 
         \]
     \end{theorem}
+    \begin{remark}
+        For a detailed proof, see Hoffman.
+    \end{remark}
     \newpage
     \section{n-Forms}
+    \subsection{Definition}
+    \begin{definition}[n-Forms]\label{def:n-forms}
+        An n-form is a tensor field of type \((0, n)\) that is totally 
+        skew-symmetric (or alternating, or totally antisymmetric), i.e., 
+        \[
+        \omega(X_1, X_2, \dots, X_n) = (\sgn \sigma)
+        \omega(X_{\sigma(1)}, \dots, X_{\sigma(n)}), ~\forall \sigma \in S_n.
+        \]
+        The set of all n-forms on \(\manifold[M]\) is denoted as 
+        \(\alt{n}{M}\). \\
+        The set of all forms is \(\alt{}{M}=\bigoplus_{n=0}^{\dim \manifold[M]}
+        \alt{n}{M}\).
+    \end{definition}
+    \subsection{The Exterior Product}
+    \begin{definition}[Exterior Product]\label{def:exterior-product}
+        Given \(\omega_1 \in \alt{n_1}{M}, \omega_2 \in \alt{n_2}{M}\), their 
+        exterior product is a \((n_1+n_2)\)-form given by, 
+        \[
+        \omega_1 \wedge \omega_2
+         := \frac{1}{n_1!n_2!}
+        \sum_{\sigma \in S_{n_1+n_2}}^{} (\sgn\sigma)(\omega_1 \otimes \omega_2)_\sigma.
+        \]
+        Written explicitly, 
+        \begin{multline*}
+        (\omega_1 \wedge \omega_2)(X_{1}, \dots, X_{n_1+n_2}):= \\
+        \frac{1}{n_1!n_2!}
+        \sum_{\sigma \in S_{n_1+n_2}}^{} (\sgn\sigma)(\omega_1 \otimes \omega_2)
+        (X_{\sigma(1)}, \dots, X_{\sigma(n_1+n_2)})
+        \end{multline*}
+    \end{definition}
+    \begin{remark}
+        I'll take the alternating property and associativity of the exterior 
+        product for granted. For a detailed proof, see Hoffman.
+    \end{remark}
+    \begin{theorem}[Commutativity with Pullback]\label{thm:exterior-commute-pullback}
+        Given \(h : \manifold[M] \to \manifold[N]\) and \(\alpha, \beta \in 
+        \alt{}{N}\), then 
+        \[
+        h^*(\alpha \wedge \beta) = (h^*\alpha) \wedge (h^*\beta).
+        \]
+    \end{theorem}
+    \begin{remark}
+        For a "generalized" pullback, we have, 
+        \[
+        (h^*(\alpha))(X_1, \dots, X_{n_1}) = \alpha(h_*X_1, \dots, h_*X_{n_1}).
+        \]
+    \end{remark}
+    \begin{proof}
+        \begin{align*}
+            (h^*\alpha)\wedge&(h^*\beta)\\
+            &=\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) \alpha \otimes \beta (h_*X_{\sigma(1)}, \dots, h_*
+            X_{\sigma(n_1+n_2)}). \\
+            &=\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) h^*\left(\alpha \otimes \beta (X_{\sigma(1)}, \dots, 
+            X_{\sigma(n_1+n_2)})\right). \\
+            &=h^*\left(\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) \alpha \otimes \beta (X_{\sigma(1)}, \dots, 
+            X_{\sigma(n_1+n_2)})\right). \\
+            &=h^*(\alpha \wedge \beta).
+        \end{align*}
+    \end{proof}
+    \begin{theorem}[Skew-Symmetry]\label{thm:skew-symmetry-exterior-product}
+        The exterior product makes \(\alt{}{M}\) a graded algebra with 
+        skew-symmetry given by 
+        \[
+        \omega_1 \wedge \omega_2 = (-1)^{n_1n_2}\omega_2 \wedge \omega_1.
+        \]
+    \end{theorem}
+    \begin{proof}
+        In the definition of exterior product, first fix \(\sigma = \sigma_0\) 
+        to consider only one term. \par
+        When we switch \(\omega_1\) and \(\omega_2\), we are essentially doing 
+        \begin{align*}
+            &(\omega_2 \otimes \omega_1)
+            (X_{\sigma_0(1)}, \dots, X_{\sigma_0(n_2)}, \underbrace{X_{\sigma_0(n_2+1)}, 
+            \dots, X_{\sigma_0(n_1+n_2)}}) \\
+            =&(\omega_1 \otimes \omega_2)
+            (\underbrace{X_{\sigma_0(n_2+1)}, \dots, X_{\sigma_0(n_1+n_2)}}, X_{\sigma_0(1)}, 
+            \dots, X_{\sigma_0(n_2)}).
+        \end{align*}
+        Now, \par
+        \begin{center}
+            \begin{tikzpicture}
+            \node (init) at (0, 0) 
+            {$\underbrace{1, 2, \dots, n_2}, \underbrace{n_2+1}, \dots, n_1+n_2$};
+            \node[below=10pt of init] (initToOne) {$\downarrow\ n_2$ times};
+            \node[below=10pt of initToOne] (one)
+            {$\underbrace{n_2+1}, \underbrace{1, 2, \dots, n_2}, \dots, n_1+n_2$};
+            \node[below=10pt of one] (oneToFinal) {$\downarrow\ (n_1-1)n_2$ times};
+            \node[below=10pt of oneToFinal] (final)
+            {$\underbrace{n_2+1, \dots, n_1+n_2}, \underbrace{1, 2, \dots, n_2}$};
+            \end{tikzpicture}
+        \end{center}
+        \par
+        So \(n_1n_2\) transposes can achieve the desired effect. Therefore, 
+        every term in the summation is multiplied by \((-1)^{n_1n_2}\), and 
+        we get the desired result.
+    \end{proof}
+    \begin{theorem}[Dimension of n-Forms]\label{thm:n-form-dimension}
+        Let \(\dim \manifold[M]=m\). If \(1 \leq n \leq m\), then \(\alt{n}{M}
+        = \binom{m}{n}\). If \(n > m\), then \(\alt{n}{M}=0\).\\
+        Moreover, a basis for \(\alt{n}{M}_p\) is given by, 
+        \[
+        (dx^{\mu_1})_p \wedge (dx^{\mu_2})_p \wedge \dots \wedge 
+        (dx^{\mu_n})_p, ~1 \leq \mu_1 \leq \dots \leq \mu_n \leq m.
+        \]
+    \end{theorem}
+    \begin{remark}
+        The proof is quite a pleasure to read (and to think of). Please see 
+        Hoffman.
+    \end{remark}
+    \subsection{The Exterior Derivative}
+    \begin{definition}[Exterior Derivative]\label{def:exterior-derivative}
+        Let \(\omega\) be an n-form on \(\manifold[M]\), \(1 \leq n < \dim 
+        \manifold[M]\). Then the exterior derivative \(d\omega\) is a 
+        \((n+1)\)-form. Let \(d\omega(\mathbf{X})=d\omega(X_1, \dots, X_{n+1})\), 
+        then 
+        \begin{align*}
+            d\omega(\mathbf{X}) :=&
+            \sum_{i=1}^{n+1} (-1)^{i+1} X_i(\omega
+            (\mathbf{X}\backslash\{X_i\})) \\
+            +&\sum_{i < j}^{} (-1)^{i+j} \omega([X_i, X_j], \mathbf{X}\backslash 
+            \{X_i, X_j\}).
+        \end{align*}
+        If \(\omega \in \alt{\dim \manifold[M]}{M}\), we define \(d\omega=0\).
+    \end{definition}
+    \begin{theorem}
+        In particular for a 1-form \(\omega\), 
+        \[
+        d\omega(X, Y) = \lder{X}(\omega(Y)) - \lder{Y}(\omega(X)) - \omega([X, Y]).
+        \]
+    \end{theorem}
+    \begin{theorem}[Coordinate Expansion for Exterior Derivative]\label{thm:exterior-derivative-coordinates}
+        In local coordinates, if \(\omega = \omega\indices
+        {_{\mu_1}_{\mu_2}_\dots_{\mu_n}}dx^{\mu_1}\wedge dx^{\mu_2} \wedge \dots 
+        \wedge dx^{\mu_n}\), then 
+        \[
+        d\omega = \tfld{\nu}\omega\indices{_{\mu_1}_{\mu_2}_\dots_{\mu_n}}
+        dx^\nu\wedge dx^{\mu_1}\wedge dx^{\mu_2} \wedge \dots \wedge dx^{\mu_n}
+        \]
+    \end{theorem}
+    \begin{theorem}[Exterior Derivative and Product]\label{thm:exterior-leibniz}
+        \[
+        d(\omega_1 \wedge \omega_2) = d\omega_1 \wedge \omega_2 + 
+        (-1)^{\deg \omega_1}\omega_1 \wedge d\omega_2.
+        \]
+    \end{theorem}
+    \begin{theorem}[Exterior Derivative and Pullback]\label{thm:exterior-derivative-pullback}
+        Given \(h : \manifold[M] \to \manifold[N]\), \(\omega\) an n-form on 
+        \(\manifold[N]\), then 
+        \[
+        d(h^*\omega) = h^*(d\omega).
+        \]
+    \end{theorem}
+    \begin{theorem}
+        Let \(\omega\) be a 1-form on \(\manifold[M]\). Then \(d\omega\) 
+        satisfies,
+        \[
+        d\omega(fX, Y) = fd\omega(X, Y),~\forall f \in C^\infty(\manifold[M]),
+        \]
+        where \(fX\) is a vector field that gives \((fX)(p) = f(p)X_p\).
+    \end{theorem}
+    \begin{proof}
+        By \cref{def:exterior-derivative}, 
+        \[
+        d\omega(fX, Y) = \lder{fX}(\omega(Y)) - \lder{Y}(\omega(fX)) - 
+        \omega([fX, Y]).
+        \]
+        We break it down term by term. Firstly, 
+        \[
+        (\lder{fX}(\omega(Y)))(p) = f(p)X_p(\omega(Y)) = 
+        f(p)(\lder{X}(\omega(Y)))(p).
+        \]
+        So
+        \[
+        \lder{fX}(\omega(Y)) = f\cdot\lder{X}(\omega(Y)).
+        \]
+        Secondly, we tackle \(\lder{Y}(\omega(fX))\). In particular, 
+        \[
+        \omega(fX)(p) = \omega_p(f(p)X_p) = f(p) \omega_p(X_p) = 
+        f(p)(\omega(X))(p).
+        \]
+        Therefore, 
+        \[
+        \lder{Y}(\omega(fX)) = \lder{Y}(f\cdot\omega(X)) = 
+        (\lder{Y}f)\omega(X) + f\cdot\lder{Y}(\omega(X)).
+        \]
+        Thirdly, 
+        \[
+        \omega([fX, Y]) = \omega((fX)\circ Y - Y \circ (fX)).
+        \]
+        In particular, 
+        \[
+        ((Y \circ (fX))(g))(p) = Y_p((fX)(g)) = Y_p(f\cdot Xg)
+        = (Y_pf)((Xg)(p)) + f(p)\cdot Y_p(Xg).
+        \]
+        So, 
+        \[
+        Y \circ (fX) = (\lder{Y}f)X + f\cdot Y\circ X.
+        \]
+        Substituting back, 
+        \[
+        \begin{aligned}
+            \omega([fX, Y]) &= \omega(f\cdot X\circ Y - (\lder{Y}f)X - f\cdot Y\circ X) \\
+            &= \omega(f[X, Y] - (\lder{Y}f)X) \\
+            &= f\omega([X, Y]) - (\lder{Y}f)\omega(X).
+        \end{aligned}
+        \]
+        Finally, 
+        \[
+        \begin{aligned}
+            d\omega(fX, Y) &= \lder{fX}(\omega(Y)) - \lder{Y}(\omega(fX)) - 
+            \omega([fX, Y]) \\
+            &= f\cdot\lder{X}(\omega(Y)) - (\lder{Y}f)\omega(X) - 
+            f\cdot\lder{Y}(\omega(X)) - f\omega([X, Y]) + (\lder{Y}f)\omega(X) \\
+            &= f(\lder{X}(\omega(Y)) - \lder{Y}(\omega(X)) - \omega([X, Y])) \\
+            &= fd\omega(X, Y).
+        \end{aligned}
+        \]
+    \end{proof}
 \end{document}

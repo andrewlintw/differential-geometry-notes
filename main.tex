@@ -503,7 +503,7 @@
         \end{aligned}
         \]
     \end{proof}
-    \begin{theorem}
+    \begin{theorem}[Associativity of Pushforwards]\label{thm:pushforward-associativity}
         Given manifolds \(\manifold[M], \manifold[N], \manifold[P]\) and 
         \(h : \manifold[M] \to \manifold[N]\), \(k : \manifold[N] \to 
         \manifold[P]\), then 
@@ -519,11 +519,11 @@
         \(\manifold[M]\) around \(p\), and \(\{y^1, \dots, y^n\}\) be the local 
         coordinates of \(\manifold[N]\) around \(h(p)\). Then 
         \[
-        h_*v = \sum_{\mu=1}^{m} \sum_{\nu=1}^{n} v^\mu 
-        \left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}\tvec{\nu}{h(p)},
+        h_*v = \sum_{\mu=1}^{m} \sum_{\nu=1}^{n} \tvec{\nu}{h(p)} 
+        \left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}v^\mu,
         \]
-        where \(J_{\nu\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
-        :=\tvec{\mu}{p}(y^\nu\circ h)\) is the inverse Jacobian matrix.
+        where \(J\indices{^\nu_\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
+        :=\tvec{\mu}{p}(y^\nu\circ h)\) is the Jacobian matrix.
     \end{theorem}
     \begin{proof}
         First expand \(v\) in terms of local coordinates and use linearity, 
@@ -845,7 +845,7 @@
         \]
     \end{theorem}
     \section{Cotangent Spaces}
-    
+    \subsection{Cotangent Vectors}
     \begin{definition}[Cotangent Spaces]\label{def:cotangent-space}
         The cotangent space \(T_p^*\manifold[M]\) at \(p \in \manifold[M]\) is 
         the set of all linear functions \(f : T_p\manifold[M] \to \mathbb{R}\). 
@@ -875,4 +875,128 @@
         \omega=\omega_\mu dx^\mu.
         \]
     \end{theorem}
+    \newpage
+    \subsection{Pullback}
+    \subsubsection{Definition}
+    \begin{definition}[Pullback]\label{def:pullback}
+        Given a function and its pushforward, 
+        we define pullback to be the dual of pushforward, i.e., 
+        \begin{align*}
+            h   &: & &\manifold[M]    & &\to & &\manifold[N], \\
+            h_* &: & T_p&\manifold[M] & &\to & T_{h(p)}&\manifold[N], \\
+            h^* &: & T_{h(p)}^*&\manifold[N] & &\to & T_p^*&\manifold[M], 
+        \end{align*}
+        s.t. given \(f \in T_{h(p)}^*\manifold[N]\) and \(v \in T_p\manifold[M]\), 
+        \[
+        (h^*f)(v) := f(h_*v).
+        \]
+    \end{definition}
+    \begin{remark}
+        Note especially on the direction of original function and its induced 
+        pullback. This is crucial to the covariancy of one-forms.
+    \end{remark}
+    \begin{theorem}
+        Given \(\omega\) a one-form on \(\manifold[N]\), and a function 
+        \(h : \manifold[M] \to \manifold[N]\), the pullback \(h^*\omega\) is 
+        defined as 
+        \[
+        (h^*\omega)(v)_p = \omega(h_*v)_{h(p)}.
+        \]
+    \end{theorem}
+    \begin{theorem}[Associativity of Pullbacks]\label{thm:pullback-associativity}
+        Analogous to \cref{thm:pushforward-associativity}, given 
+        manifolds \(\manifold[M], \manifold[N], \manifold[P]\) and 
+        \(h : \manifold[M] \to \manifold[N]\), \(k : \manifold[N] \to 
+        \manifold[P]\), then 
+        \[
+        (k\circ h)^*=k^*\circ h^*.
+        \]
+    \end{theorem}
+    \subsubsection{Jacobian}
+    \begin{theorem}[Local Representative of Pullback]\label{thm:pullback-local-representative}
+        Let \(\dim \manifold[M]=m, \dim \manifold[N]=n\), \(h : \manifold[M] 
+        \to \manifold[N]\), \(\{x^1, \dots, x^m\}\) be the local coordinates of 
+        \(\manifold[M]\) around \(p\), and \(\{y^1, \dots, y^n\}\) be the local 
+        coordinates of \(\manifold[N]\) around \(h(p)\). Then 
+        \[
+        h^*\omega = \sum_{\mu=1}^{m} \sum_{\nu=1}^{n} \omega_\nu
+        \left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}(dx^\mu)_p,
+        \]
+        where \(J\indices{^\nu_\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
+        :=\tvec{\mu}{p}(y^\nu\circ h)\) is the Jacobian matrix.
+    \end{theorem}
+    \begin{proof}
+        We know by \cref{def:pullback}, 
+        \[
+        (h^*\omega)_\mu(p) = h^*\omega(\tfld{\mu})=\omega(h_*\tfld{\mu}).
+        \]
+        Expand it in local coordinates of \(\manifold[N]\), 
+        \[
+        (h^*\omega)_\mu(p) = \omega_\nu dy^\nu(h_*\tfld{\mu}).
+        \]
+        Via similar procedure in \cref{thm:pushforward-local}, we arrive at 
+        \[
+        (h^*\omega)_\mu(p) = \omega_\nu \frac{\partial h^\nu}{\partial x^\mu}.
+        \]
+    \end{proof}
+    \subsection{Transformation Properties}
+    \begin{theorem}[Covariancy and Contravariancy]\label{thm:covariant-contravariant}
+        Given two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
+        \(U \cap U' = S \neq \varnothing\), then on \(S\), 
+        \begin{align*}
+            X^{\nu'} &= \sum_{\mu=1}^{m} \frac{\partial x'^{\nu}}{\partial x^\mu}X^\mu, \\
+            \omega_{\nu'} &= \sum_{\mu=1}^{m} \omega_\mu\frac{\partial x^\mu}{\partial x'^\nu}.
+        \end{align*}
+        If Jacobian matrix is given, 
+        \begin{align*}
+            J\indices{^{\nu'}_\mu} &:=
+            \left.\frac{\partial x'^\nu}{\partial x^\mu}\right|_{p}
+            :=\tvec{\mu}{p}x'^\nu, \\
+            (J ^{-1})\indices{^\mu_{\nu'}} &:=
+            \left.\frac{\partial x^\mu}{\partial x'^\nu}\right|_{p}
+            :=\tvec{\nu'}{p}x^\mu, 
+        \end{align*}
+        then, 
+        \begin{align*}
+            X^{\nu'} &= J\indices{^{\nu'}_\mu}X^\mu, & &\text{(contravariant)}\\
+            \omega_{\nu'} &= \omega_\mu (J ^{-1})\indices{^\mu_{\nu'}}.  &
+            &\text{(covariant)}
+        \end{align*}
+    \end{theorem}
+    \begin{proof}
+        The contravariant part is proved in \cref{thm:contravariant-vector}. 
+        Now we turn to the covariant part. \par
+        Let \(h = \idd : (U, \phi) \subseteq \manifold[M] \to (U', \phi') 
+        \subseteq \manifold[M]\), consider its pullback.
+        \[
+        (\idd^*\omega)_p = \omega_{\nu'}\frac{\partial x'^\nu}{\partial x^\mu} 
+        dx^\mu.
+        \]
+        Then, 
+        \[
+        \omega_\mu = \omega_{\nu'}\frac{\partial x'^\nu}{\partial x^\mu}.
+        \]
+        Inverting the matrix equation above, we get the desired result.
+    \end{proof}
+    \newpage
+    \section{Tensors}
+    \begin{definition}[Tensors]\label{def:tensor-finite}
+        If \(\dim \manifold[M] \neq \infty\), the tensors of type \((r, s)\) 
+        \(T_p^{r, s}\manifold[M]\) are all the linear functions 
+        \[
+        f : \bigtimes^r T_p^*\manifold[M] \times \bigtimes^s T_p\manifold[M] 
+        \to \mathbb{R}.
+        \]
+        I.e., it eats \(r\) covectors and \(s\) vectors.
+    \end{definition}
+    \begin{theorem}[Dimensions of General Tensor Space]\label{thm:dim-tensor}
+        The dimension of \(T_p^{r, s}\manifold[M]\) is \(m^rm^s\). In particular, 
+        a basis for the space is, 
+        \[
+        \bigotimes_{1 \leq \mu_1 \cdots \mu_r \leq m} \tvec{\mu_i}{p} 
+        \otimes \bigotimes_{1 \leq \nu_1 \cdots \nu_s \leq m} (dx^{\nu_i})_{p} 
+        \]
+    \end{theorem}
+    \newpage
+    \section{n-Forms}
 \end{document}

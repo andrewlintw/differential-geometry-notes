@@ -5,7 +5,7 @@
     \section{Differentiable Manifolds}
     \subsection{Definition}
     \subsubsection{Coordinate Charts}
-    \begin{definition}{Coordinate Charts}{coordinate-charts}
+    \begin{definition}[Coordinate Charts]\label{def:coordinate-charts}
         An \(m\)-dimensional, \(m \neq \infty\) coordinate chart on a topological 
         space \(\manifold\) is a pair 
         \[
@@ -20,9 +20,9 @@
         If \(U=\manifold[M]\), then we say the coordinate chart \(\phi\) is 
         globally defined; if not, then it is locally defined. Few manifolds 
         have globally defined property.
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Overlap Function}{overlap-function}
+    \begin{definition}[Overlap Function]\label{def:overlap-function}
         Let \((U_1, \phi_1), (U_2, \phi_2)\) be a pair of \(m\)-dimensional 
         coordinate charts with \(U_1 \cap U_2 \neq \varnothing\). Then the 
         overlap function is defined as 
@@ -31,7 +31,7 @@
         \to \phi_2(U_1 \cap U_2) \subseteq \mathbb{R}^m.
         \]
     \end{definition}
-    \begin{definition}{Atlas}{atlas}
+    \begin{definition}[Atlas]\label{def:atlas}
         An \(m\)-dimensional atlas on \(\manifold[M]\) is a family of 
         \(m\)-dimensional coordinate charts \((U_i, \phi_i), i \in I\) s.t. 
         \begin{enumerate}
@@ -40,7 +40,7 @@
             is \(C ^{\infty}\).
         \end{enumerate}
     \end{definition}
-    \begin{definition}{Differentiable Manifolds}{differentiable-manifolds}
+    \begin{definition}[Differentiable Manifolds]\label{def:differentiable-manifolds}
         An \(m\)-dimensional differentiable manifold is a topological space 
         \(\manifold[M]\) equipped with an atlas.
     \end{definition}
@@ -49,9 +49,9 @@
         differentiability of the coordinate charts themselves. That's because 
         differentiation is not defined on a manifold, so we need to rely on 
         Euclidean spaces.
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Coordinate Functions}{coordinate-functions}
+    \begin{definition}[Coordinate Functions]\label{def:coordinate-functions}
         The coordinate functions are the (Euclidean) components of coordinate.
         % \[
         \begin{align*}
@@ -75,7 +75,7 @@
         the future when we say \(\frac{\partial }{\partial u^\mu}\), we are 
         referring to the Euclidean partial derivative wrt the \(\mu\)-th 
         component.
-        \hfill\Virgo
+        
     \end{remark}
     \newpage
     \section{Tangent Spaces}
@@ -84,23 +84,23 @@
         The definition of manifold do not require the entity to be embeded in 
         a higher dimensional space. Therefore, the traditional view of tangency 
         is not valid here.
-        \hfill\Virgo
+        
     \end{remark}
     \begin{remark}
         The curve formulation remains valid in the infinite-dimensional case, 
         while the algebraic formulation is not. However, in the 
         finite-dimensional case, they are isomorphic.
-        \hfill\Virgo
+        
     \end{remark}
 
     \subsubsection{Curves and Vectors}
-    \begin{definition}{Curve}{curve}
+    \begin{definition}[Curve]\label{def:curve}
         A curve on \(\manifold[M]\) is a \(C^\infty\) map,
         \[
         \sigma : (-\epsilon, \epsilon) \to \manifold[M].
         \]
     \end{definition}
-    \begin{definition}{Curve Tangency}{curve-tangency}
+    \begin{definition}[Curve Tangency]\label{def:curve-tangency}
         Two curves \(\sigma_1, \sigma_2\) are tangent at \(p \in \manifold[M]\) 
         if 
         \begin{enumerate}
@@ -116,9 +116,9 @@
         \left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
         =\left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}
         \]
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Tangent Vectors}{tangent-vector-curve}
+    \begin{definition}[Tangent Vectors]\label{def:tangent-vector-curve}
         A tangent vector at \(p \in \manifold[M]\) is an equivalence class of 
         curves where the equivalence relation is that they are tangent. It will 
         be denoted as 
@@ -126,11 +126,11 @@
         v = [\sigma].
         \]
     \end{definition}
-    \begin{definition}{Tangent Space}{tangent-space-curve}
+    \begin{definition}[Tangent Space]\label{def:tangent-space-curve}
         The tangent space \(T_p\manifold[M]\) at point \(p\) is the set of all 
         tangent vectors at point \(p\).
     \end{definition}
-    \begin{definition}{Tangent Bundle}{tangent-bundle-curve}
+    \begin{definition}[Tangent Bundle]\label{def:tangent-bundle-curve}
         The tangent bundle \(T\manifold[M]\) is 
         \[
         T\manifold[M] := \bigcup_{p \in \manifold[M]}^{} T_p\manifold[M].
@@ -138,7 +138,7 @@
     \end{definition}
     
     \subsubsection{Addition and Scalar Multiplication}
-    \begin{definition}{Addition and Scalar Multiplication}{addition-and-scalar-multiplication-curve}
+    \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-and-scalar-multiplication-curve}
         Let \(v_1 = [\sigma_1], v_2 = [\sigma_2] \in T_p\manifold[M]\), and 
         \(r \in \mathbb{R}\). Then 
         define 
@@ -149,7 +149,7 @@
         \end{aligned}
         \]
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         The definition \ref{def:addition-and-scalar-multiplication-curve}
         is well-defined. That is, they are independent of the 
         choice of chart \((U, \phi)\) and \(\sigma_1, \sigma_2\) as long as 
@@ -190,7 +190,7 @@
     \end{proof}
 
     \subsubsection{Curves and Derivation}
-    \begin{definition}{Directional Derivative}{directional-derivative-curve}
+    \begin{definition}[Directional Derivative]\label{def:directional-derivative-curve}
         For any \(f : \manifold[M] \to \mathbb{R}\) s.t. \(f \in C^\infty\), we 
         define
         \[
@@ -198,7 +198,7 @@
         \]
         where \(v = [\sigma]\).
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         The definition \ref{def:directional-derivative-curve} is well-defined.
         That is, \(v(f)\) is independent of the curve \(\sigma\) chosen as well 
         as \(v=[\sigma]\).
@@ -235,7 +235,7 @@
 
     \subsection{The Algebraic Formulation of Tangent Spaces}
     \subsubsection{The Space of Derivations}
-    \begin{definition}{Derivation}{derivation}
+    \begin{definition}[Derivation]\label{def:derivation}
         A derivation at \(p \in \manifold[M]\) is a map \(v : C^\infty
         (\manifold[M]) \to \mathbb{R}\) s.t. 
         \begin{enumerate}
@@ -244,11 +244,11 @@
         \end{enumerate}
         where \(f, g \in C^\infty\).
     \end{definition}
-    \begin{definition}{Tangent Space (Algebraic)}{tangent-space-algebraic}
+    \begin{definition}[Tangent Space (Algebraic)]\label{def:tangent-space-algebraic}
         The space of all derivations at \(p \in \manifold[M]\) is denoted 
         \(D_p\manifold[M]\).
     \end{definition}
-    \begin{definition}{Addition and Scalar Multiplication}{addition-scalar-multiplication-algebraic}
+    \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-scalar-multiplication-algebraic}
         Given \(v_1, v_2 \in D_p\manifold[M]\), define 
         \[
         \begin{aligned}
@@ -257,11 +257,11 @@
         \end{aligned}
         \]
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         \(D_p\manifold[M]\) is a real vector space.
     \end{theorem}
     \subsubsection{The Basis Tangent Vectors}
-    \begin{definition}{Basis Tangent Vectors}{basis-derivations}
+    \begin{definition}[Basis Tangent Vectors]\label{def:basis-derivations}
         We define the basis tangent vectors via derivations by 
         \[
         \tvec{\mu}{p}f := \left.\frac{\partial }{\partial u^\mu}
@@ -271,7 +271,7 @@
         where \(u \in \mathbb{R}^m, f : \manifold[M] \to \mathbb{R}, f \in 
         C^\infty\). For the use of \(u^\mu\), see \ref{def:coordinate-functions}.
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         \[
         \tvec{\mu}{p}x^\nu = \delta\indices{^\nu_\mu}.
         \]
@@ -292,7 +292,7 @@
         =\left.\frac{\partial }{\partial u^\mu}(u^\mu)\right|_{\phi(p)}=1.
         \]
     \end{proof}
-    \begin{theorem}{Linear Independence of Basis Tangent Vectors}{linear-indep-basis}
+    \begin{theorem}[Linear Independence of Basis Tangent Vectors]\label{thm:linear-indep-basis}
         The basis tangent vectors \(\tvec{\mu}{p}, 1 \leq \mu \leq \dim 
         \manifold[M]\) are linear independent.
     \end{theorem}
@@ -303,7 +303,7 @@
         \]
         So \(a^\mu=0\).
     \end{proof}
-    \begin{theorem}{Coordinate Expansion of Tangent Vectors}{tangent-vector-coordinates}
+    \begin{theorem}[Coordinate Expansion of Tangent Vectors]\label{thm:tangent-vector-coordinates}
         For all \(v \in D_p\manifold[M]\), we have 
         \[
         v=v^\mu\tvec{\mu}{p},
@@ -312,11 +312,11 @@
     \end{theorem}
     \begin{remark}
         The proof was sophisticated and did not teach me much.
-        \hfill\Virgo
+        
     \end{remark}
 
     \subsection{Isomorphism of Curves and Derivations}
-    \begin{theorem}{Isomorphism of Curves and Derivations}{curve-derivation-iso}
+    \begin{theorem}[Isomorphism of Curves and Derivations]\label{thm:curve-derivation-iso}
         Similar to \ref{def:directional-derivative-curve}, we define the linear 
         map \(\iota : T_p\manifold[M] \to D_p\manifold[M]\) acting on 
         \(v = [\sigma] \in T_p\manifold[M]\) by 
@@ -383,9 +383,9 @@
         The pushforward \(h_* : T_p\manifold[M] \to 
         T_{h(p)}\manifold[N]\) of a specific function \(h : \manifold[M] \to 
         \manifold[N]\) can be thought of as local linearization of the function.
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Pushforward}{pushforward}
+    \begin{definition}[Pushforward]\label{def:pushforward}
         Given a function \(h : \manifold[M] \to \manifold[N]\) and 
         \(v \in T_p\manifold[M]\), then we define the pushforward 
         \(h_* : T_p\manifold[M] \to T_{h(p)}\manifold[N]\) by 
@@ -393,11 +393,11 @@
         h_*(v) := [h \circ \sigma],~v=[\sigma].
         \]
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         The pushforward operation \ref{def:pushforward} is well-defined. That is, 
         \(h_*(v_1) = h_*(v_2)\) if \(v_1 = [\sigma_1] = [\sigma_2] = v_2\).
     \end{theorem}
-    \begin{theorem}{Algebraic Definition of Pushforward}{algebraic-pushforward}
+    \begin{theorem}[Algebraic Definition of Pushforward]\label{thm:algebraic-pushforward}
         The definition of pushforward \ref{def:pushforward} is equivalent to the 
         following: let \(h : \manifold[M] \to \manifold[N]\), \(h_* : 
         D_p\manifold[M] \to D_{h(p)}\manifold[M]\) is defined by,
@@ -417,7 +417,7 @@
         \] \par
         (\textleftarrow) This direction is similar.
     \end{proof}
-    \begin{theorem}{Linearity of Pushforward}{linearity-of-pushforward}
+    \begin{theorem}[Linearity of Pushforward]\label{thm:linearity-of-pushforward}
         The pushforward map \(h_* : T_p\manifold[M] \to T_{h(p)}\manifold[N]\) 
         is linear.
         \[
@@ -490,7 +490,7 @@
         \end{aligned}
         \]
     \end{proof}
-    \begin{theorem}{}{}
+    \begin{theorem}
         Given manifolds \(\manifold[M], \manifold[N], \manifold[P]\) and 
         \(h : \manifold[M] \to \manifold[N]\), \(k : \manifold[N] \to 
         \manifold[P]\), then 
@@ -500,7 +500,7 @@
     \end{theorem}
 
     \subsubsection{Jacobian}
-    \begin{theorem}{Local Representative of Pushforward}{pushforward-local}
+    \begin{theorem}[Local Representative of Pushforward]\label{thm:pushforward-local}
         Let \(\dim \manifold[M]=m, \dim \manifold[N]=n\), \(h : \manifold[M] 
         \to \manifold[N]\), \(\{x^1, \dots, x^m\}\) be the local coordinates of 
         \(\manifold[M]\) around \(p\), and \(\{y^1, \dots, y^n\}\) be the local 
@@ -539,7 +539,7 @@
         h_*v = v^\mu\tvec{\mu}{p}h^\nu\tvec{\nu}{h(p)}.
         \]
     \end{proof}
-    \begin{theorem}{Using Curve to Pushforward}{curve-pushforward}
+    \begin{theorem}[Using Curve to Pushforward]\label{thm:curve-pushforward}
         Given \(c : (-\epsilon, \epsilon) \to \manifold[M]\) a curve, and choose 
         the coordinate chart of \(\mathbb{R}\) to be the identity, then 
         \[
@@ -566,7 +566,7 @@
         \end{aligned}
         \]
     \end{proof}
-    \begin{theorem}{Contravariancy of Tangent Vectors}{contravariant-vector}
+    \begin{theorem}[Contravariancy of Tangent Vectors]\label{thm:contravariant-vector}
         The components of tangent vectors are contravariant, i.e., given 
         two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
         \(U \cap U' = S \neq \varnothing\), then on \(S\), 
@@ -587,14 +587,14 @@
     \newpage
     \section{Vector Fields}
     \subsection{Definition}
-    \begin{definition}{Vector Fields}{vector-fields}
+    \begin{definition}[Vector Fields]\label{def:vector-fields}
         A vector field \(X\) on \(\manifold[M]\) is a smooth assignment of 
         a tangent vector \(X_p \in T_p\manifold[M]~\forall p \in \manifold[M]\). 
         \par
         "Smooth" assignment is defined to be that the Lie derivative 
         \ref{def:lie-derivative} is smooth.
     \end{definition}
-    \begin{definition}{Lie Derivative}{lie-derivative}
+    \begin{definition}[Lie Derivative]\label{def:lie-derivative}
         The Lie-derivative of function \(f\) with respect to vector field 
         \(X\) is defined as 
         \[
@@ -605,14 +605,14 @@
         \lder{X}f(p) := Xf(p) := X_pf.
         \]
     \end{definition}
-    \begin{theorem}{Properties of Lie Derivative}{lie-derivative-properties}
+    \begin{theorem}[Properties of Lie Derivative]\label{thm:lie-derivative-properties}
         The Lie derivative has the following properties,
         \begin{enumerate}
             \item \(X(rf+g) = rXf+Xg\)
             \item \(X(fg) = fXg+gXf\).
         \end{enumerate}
     \end{theorem}
-    \begin{theorem}{Component of Vector Field}{vector-field-component}
+    \begin{theorem}[Component of Vector Field]\label{thm:vector-field-component}
         \textbf{Given a chart} \((U, \phi)\) on \(\manifold[M]\), we can write 
         \[
         X_U = X_Ux^\mu \tfld{\mu}.
@@ -631,9 +631,9 @@
     \begin{remark}
         \(\tfld{\mu}\) is a vector field that assigns each point \(p \in 
         \manifold[M]\) with the vector \(\tvec{\mu}{p} \in T_p\manifold[M]\).
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{theorem}{Contravariancy of Vector Fields}{}
+    \begin{theorem}[Contravariancy of Vector Fields]\label{thm:}
         Given two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
         \(U \cap U' = S \neq \varnothing\). On \(S\), 
         \[
@@ -643,14 +643,14 @@
         Analogous to \ref{thm:contravariant-vector}.
     \end{theorem}
     \subsection{Lie Bracket}
-    \begin{definition}{Composition of Vector Fields}{vector-field-composition}
+    \begin{definition}[Composition of Vector Fields]\label{def:vector-field-composition}
         We can view \(X : C^\infty(\manifold[M]) \to C^\infty(\manifold[M])\), 
         and so does \(Y\). Therefore, we define 
         \[
         (X \circ Y)(f) := X(Yf).
         \]
     \end{definition}
-    \begin{definition}{Lie Bracket (Commutator)}{lie-bracket}
+    \begin{definition}[Lie Bracket (Commutator)]\label{def:lie-bracket}
         We define the Lie Bracket of two vector fields \(X, Y\) to be 
         \[
         [X, Y] := X\circ Y - Y\circ X.
@@ -660,9 +660,9 @@
         Lie Bracket \ref{def:lie-bracket} is a vector field, while the 
         expression \(X\circ Y\) is not, because it contains second differential 
         terms. See the following proof.
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{theorem}{Lie Bracket Components}{lie-bracket-components}
+    \begin{theorem}[Lie Bracket Components]\label{thm:lie-bracket-components}
         \[
         [X, Y]^\mu = (X^\nu\tfld{\nu}Y^\mu - Y^\nu\tfld{\nu}X^\mu).
         \]
@@ -713,14 +713,14 @@
         \end{aligned}
         \]
     \end{proof}
-    \begin{theorem}{Properties of Lie Brackets}{lie-bracket-properties}
+    \begin{theorem}[Properties of Lie Brackets]\label{thm:lie-bracket-properties}
         \begin{enumerate}
             \item \([X,Y] = -[Y, X]\) (antisymmetry)
             \item \(\sum_{\text{cyc}}^{} [X, [Y, Z]]=0\). (Jacobi Identity)
         \end{enumerate}
     \end{theorem}
     \subsection{Integral Curves and Flows}
-    \begin{definition}{Intergral Curve}{intergral-curve}
+    \begin{definition}[Intergral Curve]\label{def:intergral-curve}
         Let \(X\) be a vector field on \(\manifold[M]\), \(p \in \manifold[M]\). 
         Then an integral curve of \(X\) through \(p\) is a curve \(\sigma : 
         (-\epsilon, \epsilon) \to \manifold[M]\) s.t. 
@@ -736,9 +736,9 @@
         just \([\sigma] \in T_{\sigma(t)}\manifold[M]\). Therefore, the second 
         condition is saying in some sense that the curve is tangent to the 
         vector field on the manifold. For quantitative description, see below.
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Differential Equations of Integral Curve}{de-int-curve}
+    \begin{definition}[Differential Equations of Integral Curve]\label{def:de-int-curve}
         The components \(X^\mu\) of \(X\) determine the integral curve \(\sigma\) 
         by the following ODE with boundary conditions, 
         \[
@@ -749,7 +749,7 @@
         \]
     \end{definition}
     \subsubsection{One-parameter Family of Diffeomorphisms}
-    \begin{definition}{Local 1D Family of Local Diffeomorphisms}{local-diff}
+    \begin{definition}[Local 1D Family of Local Diffeomorphisms]\label{def:local-diff}
         A local, 1D family of local diffeomorphisms at \(p \in \manifold[M]\) 
         is made up of (1) an open neighborhood \(U\) of \(p\), (2) \(\epsilon 
         > 0\) (3) a family of diffeomorphisms \(\Set{\phi_t|\left|t\right|<\epsilon}\), 
@@ -771,16 +771,16 @@
         limitation to \(U\). \par
         You can view \(\phi_t(q)\) as a curve that brings \(t \in (-\epsilon, 
         \epsilon)\) to \(\phi_t(q) \in \manifold[M]\).
-        \hfill\Virgo
+        
     \end{remark}
-    \begin{definition}{Induced Vector Field}{induced-vector-field}
+    \begin{definition}[Induced Vector Field]\label{def:induced-vector-field}
         By taking tangents to the curve family \ref{def:local-diff}, we have 
         the induced vector field \(X^\phi\) given by
         \[
         X^\phi_q(f) := \left.\frac{d}{dt}(f(\phi_t(q)))\right|_{t=0}
         \]
     \end{definition}
-    \begin{theorem}{}{}
+    \begin{theorem}
         The curve family \(t \mapsto \phi_t(q)\) is the integral curve of 
         the induced vector field \ref{def:induced-vector-field} \(X^\phi_q\).
     \end{theorem}
@@ -802,7 +802,7 @@
         \]
     \end{proof}
     \subsubsection{Local Flows}
-    \begin{definition}{Local Flow}{local-flow}
+    \begin{definition}[Local Flow]\label{def:local-flow}
         Let \(X\) be a vector field on open \(U \subseteq \manifold[M]\), and 
         \(p \in U\). A local flow at \(p\) is a local one-parameter family 
         of local diffeomorphisms \ref{def:local-diff} defined on some open 
@@ -813,10 +813,10 @@
         Local flows always exist and are unique. In contrast, global flows 
         (which means \(t \in \mathbb{R}\) instead of a restricted interval) 
         may not exist.
-        \hfill\Virgo
+        
     \end{remark}
     \subsubsection{Lie Derivative}
-    \begin{theorem}{Interpretation of Lie Bracket}{lie-bracket-flow}
+    \begin{theorem}[Interpretation of Lie Bracket]\label{thm:lie-bracket-flow}
         If \(X, Y\) are two vector fields on \(\manifold[M]\), and define the 
         following quantity, which can be interpreted as the change of \(Y\) 
         when following the integral curves of \(X\), as
@@ -831,26 +831,26 @@
         \]
     \end{theorem}
     \section{Cotangent Spaces}
-    \begin{definition}{Cotangent Spaces}{cotangent-space}
+    \begin{definition}[Cotangent Spaces]\label{def:cotangent-space}
         The cotangent space \(T_p^*\manifold[M]\) at \(p \in \manifold[M]\) is 
         the set of all linear functions \(f : T_p\manifold[M] \to \mathbb{R}\). 
         \par
         Its member is called a cotangent vector. \par
         \(\dim T_p^*\manifold[M]=\dim T_p\manifold[M]\).
     \end{definition}
-    \begin{definition}{One-Form}{one-form}
+    \begin{definition}[One-Form]\label{def:one-form}
         A one-form on \(\manifold[M]\) is a smooth assignment of cotangent 
         vectors \(\omega : p \mapsto \omega_p\). \par
         It may be understood as a covector field.
     \end{definition}
-    \begin{definition}{Basis Cotangent Vectors}{cotangent-basis}
+    \begin{definition}[Basis Cotangent Vectors]\label{def:cotangent-basis}
         The basis cotangent vectors is chosen to be the dual basis of the 
         basis tangent vectors \ref{def:basis-derivations}, 
         \[
         (dx^\mu)_p(\tvec{\nu}{p})=\delta\indices{^\mu_\nu}.
         \]
     \end{definition}
-    \begin{theorem}{Coordinate Expression of Cotangent Vectors}{cotangent-coordinates}
+    \begin{theorem}[Coordinate Expression of Cotangent Vectors]\label{thm:cotangent-coordinates}
         Any \(f \in T_p^*\manifold[M]\) can be expanded as
         \[
         f = f_\mu (dx^\mu)_p.

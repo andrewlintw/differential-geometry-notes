@@ -1,29 +1,45 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{mystyle}[2025/10/25 My Custom Style]
-\usepackage{xeCJK}
+
+% Font packages
+\RequirePackage{xeCJK}
 \setCJKmainfont[AutoFakeBold={3.17}]{芫荽}
 \newCJKfontfamily{\sans}[AutoFakeBold={2.17}]{jf open 粉圓 2.1}
 \newcommand{\mytitle}[1]{\Large{\sans{#1}}}
-\usepackage{amssymb}
-\usepackage{enumitem}
-\usepackage{geometry}
+
+% Math and theorem packages
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{braket}
+\RequirePackage{tensor}
+\RequirePackage{spalign}
+\RequirePackage{unicode-math}
+
+% Geometry and spacing
+\RequirePackage{enumitem}
+\RequirePackage{geometry}
 \geometry{
-tmargin=3cm, 
-bmargin=3cm, 
-lmargin=3cm, 
-rmargin=3cm,
-headheight=1.5cm,
-footskip=1.5cm,
-headsep=0.8cm}
-\usepackage{setspace}
+    tmargin=3cm, 
+    bmargin=3cm, 
+    lmargin=3cm, 
+    rmargin=3cm,
+    headheight=1.5cm,
+    footskip=1.5cm,
+    headsep=0.8cm
+}
+\RequirePackage{setspace}
 \setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 \setlength{\baselineskip}{20pt}
-\usepackage{fourier-orns}
-\usepackage[object=vectorian]{pgfornament}
-\usepackage{starfont}
-\usepackage{tikz}
+
+% Ornaments and symbols
+\RequirePackage{fourier-orns}
+\RequirePackage[object=vectorian]{pgfornament}
+\RequirePackage{starfont}
+\RequirePackage{tikz}
 \usetikzlibrary{positioning}
 
+% Custom section commands
 \renewcommand*\contentsname{目錄}
 \newcommand{\mysubsection}[1]{
     \subsection*{\leafNW #1}
@@ -33,96 +49,136 @@ headsep=0.8cm}
     \subsubsection*{\aldine #1}
     \addcontentsline{toc}{subsection}{#1}
 }
-\usepackage{tensor}
-\usepackage{amsmath}
+
+% Custom math commands
 \newcommand{\manifold}[1][M]{\mathcal{#1}}
 \newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
 \newcommand{\tfld}[1]{\partial\indices{_{#1}}}
 \newcommand{\lder}[1]{\mathcal{L}_{#1}}
 \DeclareMathOperator{\idd}{id}
-\usepackage{amsthm}
-\usepackage{tcolorbox}
-\tcbuselibrary{theorems}
-\newtcbtheorem[number within=section]{definition}{Definition}%
-{
-    coltitle=cyan!90!black,
-    colback=cyan!10!white,
-    colbacktitle=cyan!10!white,
-    colframe=cyan!90!black,
-    fonttitle=\bfseries,
-    fontupper={\linespread{1.2}\selectfont},
-    boxrule=0pt,
-    leftrule=4pt,
-    arc=0pt,
-    left=8pt,
-    right=8pt,
-    top=8pt,
-    bottom=8pt,
-    toptitle=4pt,
-    bottomtitle=2pt,
-}{def}
-\newtcbtheorem[number within=section]{theorem}{Theorem}%
-{
-    coltitle=violet!90!black,
-    colback=violet!10!white,
-    colbacktitle=violet!10!white,
-    colframe=violet!90!black,
-    fonttitle=\bfseries,
-    fontupper={\linespread{1.2}\selectfont},
-    boxrule=0pt,
-    leftrule=4pt,
-    arc=0pt,
-    left=8pt,
-    right=8pt,
-    top=8pt,
-    bottom=8pt,
-    toptitle=4pt,
-    bottomtitle=2pt,
-}{thm}
-\newtcbtheorem[number within=tcb@cnt@theorem]{corollary}{Corollary}%
-{
-    coltitle=magenta!90!black,
-    colback=magenta!10!white,
-    colbacktitle=magenta!10!white,
-    colframe=magenta!90!black,
-    fonttitle=\bfseries,
-    fontupper={\linespread{1.2}\selectfont},
-    boxrule=0pt,
-    leftrule=4pt,
-    arc=0pt,
-    left=8pt,
-    right=8pt,
-    top=8pt,
-    bottom=8pt,
-    toptitle=4pt,
-    bottomtitle=2pt,
-}{cor}
-\newtcolorbox{remark}{
-    coltitle=black,
-    colback=white,
-    colbacktitle=white,
-    colframe=gray!50!black,
-    title={\Sagittarius\bfseries Remark},
-    fonttitle=\bfseries,
-    fontupper={\linespread{1.2}\selectfont},
-    boxrule=0pt,
-    leftrule=4pt,
-    arc=0pt,
-    left=8pt,
-    right=8pt,
-    top=8pt,
-    bottom=8pt,
+
+% Theorem environments with mdframed
+\RequirePackage[table]{xcolor}
+\RequirePackage[framemethod=tikz]{mdframed}
+
+% Global mdframed settings
+\mdfsetup{%
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    linewidth=4pt,
+    innerleftmargin=15pt,
+    innerrightmargin=15pt,
+    innertopmargin=15pt,
+    innerbottommargin=10pt,
+    skipabove=0.5\baselineskip,
+    skipbelow=0.5\baselineskip,
 }
-\usepackage{spalign}
-\usepackage{unicode-math}
-\usepackage{braket}
-\usepackage[colorlinks=true]{hyperref}
-\usepackage[capitalise, nameinlink]{cleveref}
+
+% Define theorem styles
+\newtheoremstyle{definitionstyle}%
+    {0pt}{0pt}% space above and below
+    {\setstretch{1.2}}% body font with line spacing
+    {}% indent amount
+    {\bfseries\color{cyan!90!black}}% theorem head font
+    {.}% punctuation after theorem head
+    {\newline}% space after theorem head (newline for break)
+    {}% theorem head spec
+
+\newtheoremstyle{theoremstyle}%
+    {0pt}{0pt}%
+    {\setstretch{1.2}}%
+    {}%
+    {\bfseries\color{violet!90!black}}%
+    {.}%
+    {\newline}%
+    {}%
+
+\newtheoremstyle{corollarystyle}%
+    {0pt}{0pt}%
+    {\setstretch{1.2}}%
+    {}%
+    {\bfseries\color{magenta!90!black}}%
+    {.}%
+    {\newline}%
+    {}%
+
+\newtheoremstyle{remarkstyle}%
+    {0pt}{0pt}%
+    {\setstretch{1.2}}%
+    {}%
+    {\bfseries}%
+    {.}%
+    {\newline}%
+    {}%
+
+% Define base theorems
+\theoremstyle{definitionstyle}
+\newtheorem{definitioninner}{Definition}[section]
+
+\theoremstyle{theoremstyle}
+\newtheorem{theoreminner}{Theorem}[section]
+
+\theoremstyle{corollarystyle}
+\newtheorem{corollaryinner}{Corollary}[theoreminner]
+
+\theoremstyle{remarkstyle}
+\newtheorem*{remarkinner}{\Sagittarius\ Remark}
+
+% Create mdframed environments
+\newenvironment{definition}[1][]{%
+    \begin{mdframed}[linecolor=cyan!90!black,backgroundcolor=cyan!10!white]
+    \begin{definitioninner}[#1]
+}{%
+    \end{definitioninner}
+    \end{mdframed}
+}
+
+\newenvironment{theorem}[1][]{%
+    \begin{mdframed}[linecolor=violet!90!black,backgroundcolor=violet!10!white]
+    \begin{theoreminner}[#1]
+}{%
+    \end{theoreminner}
+    \end{mdframed}
+}
+
+\newenvironment{corollary}[1][]{%
+    \begin{mdframed}[linecolor=magenta!90!black,backgroundcolor=magenta!10!white]
+    \begin{corollaryinner}[#1]
+}{%
+    \end{corollaryinner}
+    \end{mdframed}
+}
+
+\newenvironment{remark}{%
+    \begin{mdframed}[linecolor=black,backgroundcolor=white]
+    \begin{remarkinner}
+}{%
+    \hfill\Virgo%
+    \end{remarkinner}
+    \end{mdframed}
+}
+
+% Hyperref and cross-referencing (load near the end)
+\RequirePackage[colorlinks=true]{hyperref}
+\RequirePackage[capitalise, nameinlink]{cleveref}
+
+% cleveref setup for custom theorems
+\crefname{definitioninner}{Definition}{Definitions}
+\Crefname{definitioninner}{Definition}{Definitions}
+\crefname{theoreminner}{Theorem}{Theorems}
+\Crefname{theoreminner}{Theorem}{Theorems}
+\crefname{corollaryinner}{Corollary}{Corollaries}
+\Crefname{corollaryinner}{Corollary}{Corollaries}
+
+% Proof environment customization
 \renewcommand\qedsymbol{$\squareneswfill$}
-\usepackage{etoolbox}
+\RequirePackage{etoolbox}
 \AtBeginEnvironment{proof}{\setlength{\baselineskip}{17pt}}
-\usepackage[default, varnothing]{fontsetup}
-\usepackage[makeroom]{cancel}
-\usepackage{subfiles}
+
+% Font setup and other packages
+\RequirePackage[default, varnothing]{fontsetup}
+\RequirePackage[makeroom]{cancel}
+\RequirePackage{subfiles}
 
 \endinput

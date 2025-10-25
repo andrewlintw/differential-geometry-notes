@@ -1,0 +1,128 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mystyle}[2025/10/25 My Custom Style]
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold={3.17}]{芫荽}
+\newCJKfontfamily{\sans}[AutoFakeBold={2.17}]{jf open 粉圓 2.1}
+\newcommand{\mytitle}[1]{\Large{\sans{#1}}}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{
+tmargin=3cm, 
+bmargin=3cm, 
+lmargin=3cm, 
+rmargin=3cm,
+headheight=1.5cm,
+footskip=1.5cm,
+headsep=0.8cm}
+\usepackage{setspace}
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+\setlength{\baselineskip}{20pt}
+\usepackage{fourier-orns}
+\usepackage[object=vectorian]{pgfornament}
+\usepackage{starfont}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\renewcommand*\contentsname{目錄}
+\newcommand{\mysubsection}[1]{
+    \subsection*{\leafNW #1}
+    \addcontentsline{toc}{section}{#1}
+}
+\newcommand{\mysubsubsection}[1]{
+    \subsubsection*{\aldine #1}
+    \addcontentsline{toc}{subsection}{#1}
+}
+\usepackage{tensor}
+\usepackage{amsmath}
+\newcommand{\manifold}[1][M]{\mathcal{#1}}
+\newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
+\newcommand{\tfld}[1]{\partial\indices{_{#1}}}
+\newcommand{\lder}[1]{\mathcal{L}_{#1}}
+\DeclareMathOperator{\idd}{id}
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{
+    coltitle=cyan!90!black,
+    colback=cyan!10!white,
+    colbacktitle=cyan!10!white,
+    colframe=cyan!90!black,
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    toptitle=4pt,
+    bottomtitle=2pt,
+}{def}
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{
+    coltitle=violet!90!black,
+    colback=violet!10!white,
+    colbacktitle=violet!10!white,
+    colframe=violet!90!black,
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    toptitle=4pt,
+    bottomtitle=2pt,
+}{thm}
+\newtcbtheorem[number within=tcb@cnt@theorem]{corollary}{Corollary}%
+{
+    coltitle=magenta!90!black,
+    colback=magenta!10!white,
+    colbacktitle=magenta!10!white,
+    colframe=magenta!90!black,
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    toptitle=4pt,
+    bottomtitle=2pt,
+}{cor}
+\newtcolorbox{remark}{
+    coltitle=black,
+    colback=white,
+    colbacktitle=white,
+    colframe=gray!50!black,
+    title={\Sagittarius\bfseries Remark},
+    fonttitle=\bfseries,
+    fontupper={\linespread{1.2}\selectfont},
+    boxrule=0pt,
+    leftrule=4pt,
+    arc=0pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+}
+\usepackage{spalign}
+\usepackage{unicode-math}
+\usepackage{braket}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage[capitalise, nameinlink]{cleveref}
+\renewcommand\qedsymbol{$\squareneswfill$}
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\setlength{\baselineskip}{17pt}}
+\usepackage[default, varnothing]{fontsetup}
+\usepackage[makeroom]{cancel}
+\usepackage{subfiles}
+
+\endinput

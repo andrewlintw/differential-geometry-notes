@@ -1,6 +1,13 @@
 \documentclass[12pt]{article}
 \usepackage{mystyle}
 
+% Custom math commands
+\newcommand{\manifold}[1][M]{\mathcal{#1}}
+\newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
+\newcommand{\tfld}[1]{\partial\indices{_{#1}}}
+\newcommand{\lder}[1]{\mathcal{L}_{#1}}
+\DeclareMathOperator{\idd}{id}
+
 \begin{document}
     \section{Differentiable Manifolds}
     \subsection{Definition}
@@ -150,7 +157,7 @@
         \]
     \end{definition}
     \begin{theorem}
-        The definition \ref{def:addition-and-scalar-multiplication-curve}
+        The definition \cref{def:addition-and-scalar-multiplication-curve}
         is well-defined. That is, they are independent of the 
         choice of chart \((U, \phi)\) and \(\sigma_1, \sigma_2\) as long as 
         \(v_1=[\sigma_1]\) and \(v_2=[\sigma_2]\).\par
@@ -159,7 +166,7 @@
     \begin{proof}
         Let \(v_1 = [\sigma_1] = v_1' := [\tau_1], 
         v_2 = [\sigma_2] = v_2' := [\tau_2]\). 
-        First check (1) of \ref{def:curve-tangency}, 
+        First check (1) of \cref{def:curve-tangency}, 
         \[
         \begin{aligned}
             (rv_1+v_2)(0) &= (\phi ^{-1} \circ (r\phi\circ\sigma_1(0) + 
@@ -199,7 +206,7 @@
         where \(v = [\sigma]\).
     \end{definition}
     \begin{theorem}
-        The definition \ref{def:directional-derivative-curve} is well-defined.
+        The definition \cref{def:directional-derivative-curve} is well-defined.
         That is, \(v(f)\) is independent of the curve \(\sigma\) chosen as well 
         as \(v=[\sigma]\).
     \end{theorem}
@@ -269,7 +276,7 @@
         \dim \manifold[M].
         \]
         where \(u \in \mathbb{R}^m, f : \manifold[M] \to \mathbb{R}, f \in 
-        C^\infty\). For the use of \(u^\mu\), see \ref{def:coordinate-functions}.
+        C^\infty\). For the use of \(u^\mu\), see \cref{def:coordinate-functions}.
     \end{definition}
     \begin{theorem}
         \[
@@ -317,7 +324,7 @@
 
     \subsection{Isomorphism of Curves and Derivations}
     \begin{theorem}[Isomorphism of Curves and Derivations]\label{thm:curve-derivation-iso}
-        Similar to \ref{def:directional-derivative-curve}, we define the linear 
+        Similar to \cref{def:directional-derivative-curve}, we define the linear 
         map \(\iota : T_p\manifold[M] \to D_p\manifold[M]\) acting on 
         \(v = [\sigma] \in T_p\manifold[M]\) by 
         \[
@@ -343,8 +350,7 @@
             &=r\iota(v_1)+\iota(v_2)(f).
         \end{aligned}
         \]
-        (surjectivity) Since \(\iota\) is linear, surjectivity is equivalent to 
-        injectivity and therefore to bijectivity. To show surjectivity, we need 
+        (surjectivity) To show surjectivity, we need 
         to construct a curve for all \(v' \in D_p\manifold[M]\) s.t. \(\iota(v)
         = v'\). \par
         Let \(v' \in D_p\manifold[M]\) and construct \(\sigma : (-\epsilon, 
@@ -376,6 +382,13 @@
         \]
         Thus completing the proof.
     \end{proof}
+    \begin{remark}
+        It's tempting to use the powerful theorem that surjectivity of linear 
+        transformations is equivalent to injectivity. However, the requirement 
+        of that theorem is that \textbf{the dimensions of the two spaces are 
+        equal}. At this point, we don't know the dimension of \(T_p\manifold[M]\), 
+        so we cannot do this.
+    \end{remark}
 
     \subsection{Pushforward}
     \subsubsection{Definition and Linearity}
@@ -394,11 +407,11 @@
         \]
     \end{definition}
     \begin{theorem}
-        The pushforward operation \ref{def:pushforward} is well-defined. That is, 
+        The pushforward operation \cref{def:pushforward} is well-defined. That is, 
         \(h_*(v_1) = h_*(v_2)\) if \(v_1 = [\sigma_1] = [\sigma_2] = v_2\).
     \end{theorem}
     \begin{theorem}[Algebraic Definition of Pushforward]\label{thm:algebraic-pushforward}
-        The definition of pushforward \ref{def:pushforward} is equivalent to the 
+        The definition of pushforward \cref{def:pushforward} is equivalent to the 
         following: let \(h : \manifold[M] \to \manifold[N]\), \(h_* : 
         D_p\manifold[M] \to D_{h(p)}\manifold[M]\) is defined by,
         \[
@@ -425,7 +438,7 @@
         \]
     \end{theorem}
     \begin{proof}
-        (Using \ref{def:pushforward})
+        (Using \cref{def:pushforward})
         Let \(p \in (U, \phi) \subseteq \manifold[M]\), and 
         \(h(p) \in (V, \psi) \subseteq \manifold[N]\). Choose \(\phi\) s.t. 
         \(\phi(p) = 0\).
@@ -481,7 +494,7 @@
         \end{aligned}
         \]
         So we see the two are equal. \par
-        (Using \ref{thm:algebraic-pushforward})
+        (Using \cref{thm:algebraic-pushforward})
         \[
         \begin{aligned}
             (h_*(rv_1+v_2))(f) &= (rv_1+v_2)(f\circ h) \\
@@ -521,7 +534,7 @@
         \[
         h_*(\tvec{\mu}{p}) = \left(h_*\tvec{\mu}{p}\right)^\nu\tvec{\nu}{h(p)}.
         \]
-        Using \ref{thm:algebraic-pushforward}, 
+        Using \cref{thm:algebraic-pushforward}, 
         \[
         \begin{aligned}
             \left(h_*\tvec{\mu}{p}\right)^\nu 
@@ -590,9 +603,9 @@
     \begin{definition}[Vector Fields]\label{def:vector-fields}
         A vector field \(X\) on \(\manifold[M]\) is a smooth assignment of 
         a tangent vector \(X_p \in T_p\manifold[M]~\forall p \in \manifold[M]\). 
-        \par
+        
         "Smooth" assignment is defined to be that the Lie derivative 
-        \ref{def:lie-derivative} is smooth.
+        \cref{def:lie-derivative} is smooth.
     \end{definition}
     \begin{definition}[Lie Derivative]\label{def:lie-derivative}
         The Lie-derivative of function \(f\) with respect to vector field 
@@ -640,7 +653,7 @@
         X^{\nu'} = \sum_{\mu=1}^{m} X^\mu 
         \frac{\partial x'^{\nu}}{\partial x^\mu}.
         \]
-        Analogous to \ref{thm:contravariant-vector}.
+        Analogous to \cref{thm:contravariant-vector}.
     \end{theorem}
     \subsection{Lie Bracket}
     \begin{definition}[Composition of Vector Fields]\label{def:vector-field-composition}
@@ -657,7 +670,7 @@
         \]
     \end{definition}
     \begin{remark}
-        Lie Bracket \ref{def:lie-bracket} is a vector field, while the 
+        Lie Bracket \cref{def:lie-bracket} is a vector field, while the 
         expression \(X\circ Y\) is not, because it contains second differential 
         terms. See the following proof.
         
@@ -682,7 +695,7 @@
         \end{aligned}
         \]
         So we need to use the Leibniz property of \(\tfld{\mu}\) 
-        \ref{def:derivation} in order to evaluate the second term. Doing this 
+        \cref{def:derivation} in order to evaluate the second term. Doing this 
         for \(X\circ Y(f)\) and \(Y\circ X(f)\), we have
         \[
         \begin{aligned}
@@ -714,6 +727,7 @@
         \]
     \end{proof}
     \begin{theorem}[Properties of Lie Brackets]\label{thm:lie-bracket-properties}
+        \phantom{something}
         \begin{enumerate}
             \item \([X,Y] = -[Y, X]\) (antisymmetry)
             \item \(\sum_{\text{cyc}}^{} [X, [Y, Z]]=0\). (Jacobi Identity)
@@ -732,7 +746,7 @@
         \]
     \end{definition}
     \begin{remark}
-        Qualitatively, using \ref{thm:curve-pushforward}, this pushforward is 
+        Qualitatively, using \cref{thm:curve-pushforward}, this pushforward is 
         just \([\sigma] \in T_{\sigma(t)}\manifold[M]\). Therefore, the second 
         condition is saying in some sense that the curve is tangent to the 
         vector field on the manifold. For quantitative description, see below.
@@ -768,13 +782,13 @@
     \begin{remark}
         The first "local" refers to the parameter \(t\), which is limited to 
         \((-\epsilon, \epsilon)\). The second "local" refers to the spatial 
-        limitation to \(U\). \par
+        limitation to \(U\). 
         You can view \(\phi_t(q)\) as a curve that brings \(t \in (-\epsilon, 
         \epsilon)\) to \(\phi_t(q) \in \manifold[M]\).
         
     \end{remark}
     \begin{definition}[Induced Vector Field]\label{def:induced-vector-field}
-        By taking tangents to the curve family \ref{def:local-diff}, we have 
+        By taking tangents to the curve family \cref{def:local-diff}, we have 
         the induced vector field \(X^\phi\) given by
         \[
         X^\phi_q(f) := \left.\frac{d}{dt}(f(\phi_t(q)))\right|_{t=0}
@@ -782,7 +796,7 @@
     \end{definition}
     \begin{theorem}
         The curve family \(t \mapsto \phi_t(q)\) is the integral curve of 
-        the induced vector field \ref{def:induced-vector-field} \(X^\phi_q\).
+        the induced vector field \cref{def:induced-vector-field} \(X^\phi_q\).
     \end{theorem}
     \begin{proof}
         \[
@@ -805,9 +819,9 @@
     \begin{definition}[Local Flow]\label{def:local-flow}
         Let \(X\) be a vector field on open \(U \subseteq \manifold[M]\), and 
         \(p \in U\). A local flow at \(p\) is a local one-parameter family 
-        of local diffeomorphisms \ref{def:local-diff} defined on some open 
+        of local diffeomorphisms \cref{def:local-diff} defined on some open 
         \(V \subseteq U\) s.t. \(p \in V\) and the induced vector field 
-        \ref{def:induced-vector-field} is \(X\).
+        \cref{def:induced-vector-field} is \(X\).
     \end{definition}
     \begin{remark}
         Local flows always exist and are unique. In contrast, global flows 
@@ -831,21 +845,22 @@
         \]
     \end{theorem}
     \section{Cotangent Spaces}
+    
     \begin{definition}[Cotangent Spaces]\label{def:cotangent-space}
         The cotangent space \(T_p^*\manifold[M]\) at \(p \in \manifold[M]\) is 
         the set of all linear functions \(f : T_p\manifold[M] \to \mathbb{R}\). 
-        \par
-        Its member is called a cotangent vector. \par
+        \newline
+        Its member is called a cotangent vector. \newline
         \(\dim T_p^*\manifold[M]=\dim T_p\manifold[M]\).
     \end{definition}
     \begin{definition}[One-Form]\label{def:one-form}
         A one-form on \(\manifold[M]\) is a smooth assignment of cotangent 
-        vectors \(\omega : p \mapsto \omega_p\). \par
+        vectors \(\omega : p \mapsto \omega_p\). \newline
         It may be understood as a covector field.
     \end{definition}
     \begin{definition}[Basis Cotangent Vectors]\label{def:cotangent-basis}
         The basis cotangent vectors is chosen to be the dual basis of the 
-        basis tangent vectors \ref{def:basis-derivations}, 
+        basis tangent vectors \cref{def:basis-derivations}, 
         \[
         (dx^\mu)_p(\tvec{\nu}{p})=\delta\indices{^\mu_\nu}.
         \]

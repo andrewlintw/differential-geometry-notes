@@ -7,6 +7,7 @@
 \newcommand{\tfld}[1]{\partial\indices{_{#1}}}
 \newcommand{\lder}[1]{\mathcal{L}_{#1}}
 \newcommand{\alt}[2]{\Lambda^{#1}(\manifold[#2])}
+\newcommand{\bnd}[1]{\partial\manifold[#1]}
 \DeclareMathOperator{\idd}{id}
 \DeclareMathOperator{\sgn}{sgn}
 
@@ -58,8 +59,54 @@
         differentiability of the coordinate charts themselves. That's because 
         differentiation is not defined on a manifold, so we need to rely on 
         Euclidean spaces.
-        
     \end{remark}
+    \subsection{Dimension of a Manifold}
+    \begin{remark}
+        Consider a manifold that consists of a rod attached to a disk. The dimension 
+        is not same everywhere. We give a criterion on how to describe 
+        such a scenario.
+    \end{remark}
+    \begin{theorem}[Invariance of Domain]\label{thm:invariance-domain}
+        For all \(A, B \subseteq S^n\), if \(\exists~f : A \to B\) homeomorphic 
+        and \(B \in \tau_{S^n}\), then \(A \in \tau_{S^n}\) too.
+    \end{theorem}
+    \begin{remark}
+        \cref{thm:invariance-domain} is an early theorem in algebraic topology.
+    \end{remark}
+    \begin{corollary}[Dimension is Well-defined]\label{cor:manifold-dim-well-defined}
+        Given \(U \in \tau_{\mathbb{R}^n}, U' \in \tau_{\mathbb{R}^{n'}}\), and if 
+        \(\exists~f : U \to U'\) homeomorphic, then \(n = n'\).
+    \end{corollary}
+    \begin{proof}
+        If \(n = n'\), it is trivially true. \par
+        If \(n < n'\), embed \(\mathbb{R}^n\) to \(\mathbb{R}^{n'}\) by 
+        \(f : \vec{x} \mapsto (\vec{x}, \vec{0})\). Via stereographic projection, 
+        we can map homeomorphically
+        \begin{align*}
+            \phi &: U  \mapsto V \subseteq S^{n'}, \\
+            \phi'&: U' \mapsto V' \subseteq S^{n'}.
+        \end{align*}
+        Since the compositions are also homeomorphic, we see \(V\) and \(V'\) are 
+        homeomorphic. However, \(V'\) is not an open subset of \(R^{n'}\) because 
+        of the \(0\)'s, contradicting \cref{thm:invariance-domain}. 
+        \textreferencemark
+    \end{proof}
+    \begin{remark}
+        Since the definition of a differentiable manifold requires every overlap 
+        function to be diffeomorphic, if \(U \cap U' \neq \varnothing\), their 
+        dimensions must be equal via the above corollary. We can bypass this by 
+        demanding \(U \cap U' = \varnothing\), as in the rod and disk case.
+    \end{remark}
+    \begin{corollary}\label{cor:injection-homeomorphism}
+        If \(g : V \to \mathbb{R}^n\) is a continuous injection and \(V \in 
+        \tau_{\mathbb{R}^n}\), then \(g(V)\) is homeomorphic to \(V\), and 
+        \(g(V) \in \tau_{\mathbb{R}^n}\).
+    \end{corollary}
+    \begin{proof}
+        On \(g(V)\), \(g\) is surjective and therefore a homeomorphism. Use 
+        stereographic projection and the result is obvious.
+    \end{proof}
+    \subsection{Coordinate Functions}
     \begin{definition}[Coordinate Functions]\label{def:coordinate-functions}
         The coordinate functions are the (Euclidean) components of coordinate.
         % \[
@@ -84,8 +131,70 @@
         the future when we say \(\frac{\partial }{\partial u^\mu}\), we are 
         referring to the Euclidean partial derivative wrt the \(\mu\)-th 
         component.
-        
     \end{remark}
+    \subsection{Manifold With Boundary}
+    \subsubsection{Generalized Coordinate Charts}
+    \begin{definition}[Generalized Coordinate Charts]\label{def:half-plane-chart}
+        A generalized coordinate chart allows chart that 
+        \[
+        \phi : U \to \phi(U) \subseteq (-\infty, 0] \times \mathbb{R}^{n-1},
+        \]
+        \(U\) is open, and \(\phi\) is homeomorphic. \par
+    \end{definition}
+    \begin{remark}
+        Essentially, this allows a chart to map to "half planes". In this case, 
+        even if a set \(\phi(U)\) contains \(\{0\} \times \mathbb{R}^{n-1}\) and 
+        therefore not open in the Euclidean topology of \(\mathbb{R}^n\), it 
+        is still considered open in the product topology of 
+        \((-\infty, 0] \times \mathbb{R}^{n-1}\).
+    \end{remark}
+    \begin{definition}[Manifold With Boundary]\label{def:bounded-manifold}
+        A manifold with boundary is a manifold whose atlas consists of generalized 
+        coordinate charts.
+    \end{definition}
+    \begin{definition}[Boundary Points of a Manifold]\label{def:manifold-boundary}
+        For all \(p \in \manifold[M]\) is a boundary point of a manifold with 
+        boundary \(\manifold[M]\) if \(\exists~\phi_\alpha \in \Phi\) atlas 
+        s.t. \(\phi_\alpha^1(p)=0\). \par
+        The set of all boundary points of \(\manifold[M]\) is denoted \(\bnd{M}\).
+    \end{definition}
+    \subsubsection{Boundary is Well-defined}
+    \begin{remark}
+        A natural question regarding \cref{def:manifold-boundary} is that, the 
+        definition only asks for existence, but it does not guarantee the existence 
+        of 
+        \[
+        \exists~\phi_\alpha, \phi_\beta ~\text{s.t.}~ \phi_\alpha^1(p) = 0, 
+        \phi_\beta^1(p) \neq 0.
+        \]
+        We resolve this in the following.
+    \end{remark}
+    \begin{theorem}\label{thm:manifold-boundary-well-defined}
+        Suppose \(U, U'\) are open sets in the product topology \((-\infty, 0] 
+        \times \mathbb{R}^{n-1}\), and \(\exists~ f : U \to U'\) homeomorphic. Then 
+        \[
+        f(U \cap (\{0\}\times \mathbb{R}^{n-1})) = U' \cap (\{0\}\times 
+        \mathbb{R}^{n-1}).
+        \]
+    \end{theorem}
+    \begin{proof}
+        We show instead that 
+        \[
+        f(U \cap ((-\infty, 0)\times \mathbb{R}^{n-1})) = 
+        U' \cap ((-\infty, 0)\times \mathbb{R}^{n-1}).
+        \]
+        Via \cref{cor:injection-homeomorphism}, we see 
+        \(f(U \cap ((-\infty, 0)\times \mathbb{R}^{n-1}))\) must be an open set in 
+        the Euclidean topology of \(\mathbb{R}^n\). Therefore, it cannot contain 
+        \(\{0\}\times \mathbb{R}^{n-1}\).
+    \end{proof}
+    \begin{corollary}[Boundary is Well-defined]\label{cor:manifold-boundary-well-defined}
+        \(\forall p \in \manifold[M]\), if \(\exists~ \phi_\alpha^1(p) = 0\), 
+        then \(\forall \phi \in \Phi\) atlas, \(\phi^1(p)=0\).
+    \end{corollary}
+    \begin{proof}
+        Make use of the fact that \(\phi\circ\phi_\alpha ^{-1}\) is a homeomorphism.
+    \end{proof}
     \newpage
     \section{Tangent Spaces}
     \subsection{The Curve Formulation of Tangent Spaces}

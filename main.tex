@@ -8,6 +8,11 @@
 \newcommand{\lder}[1]{\mathcal{L}_{#1}}
 \newcommand{\alt}[2]{\Lambda^{#1}(\manifold[#2])}
 \newcommand{\bnd}[1]{\partial\manifold[#1]}
+\newcommand{\irrshape}[3]{% r, dr, sample
+    \draw plot 
+        [smooth cycle, samples=#3, domain={1:#3}] 
+        ({(\x*360/#3+8*(2*rnd-1))}:{#1+#2*(2*rnd-1)})
+}
 \DeclareMathOperator{\idd}{id}
 \DeclareMathOperator{\sgn}{sgn}
 
@@ -25,6 +30,9 @@
             \phi : U \to \mathbb{R}^{m}, \phi~\text{homeomorphism}
         \end{cases}
         \]
+        \begin{center}
+            \input{figs/manifold.tex}
+        \end{center}
     \end{definition}
     \begin{remark}
         If \(U=\manifold[M]\), then we say the coordinate chart \(\phi\) is 
@@ -40,6 +48,9 @@
         \phi_2\circ\phi_1 ^{-1} : \phi_1(U_1 \cap U_2) \subseteq \mathbb{R}^m 
         \to \phi_2(U_1 \cap U_2) \subseteq \mathbb{R}^m.
         \]
+        \begin{center}
+            \input{figs/overlap.tex}
+        \end{center}
     \end{definition}
     \begin{definition}[Atlas]\label{def:atlas}
         An \(m\)-dimensional atlas on \(\manifold[M]\) is a family of 

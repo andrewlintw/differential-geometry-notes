@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+    \begin{scope}
+        \irrshape{2}{0.1}{6};
+    \end{scope}
+    \node at (-1, 1) {$\manifold[M]$};
+    \begin{scope}[xshift=0.5cm, yshift=-0.5cm]
+        \irrshape{1}{0.05}{5}[dashed];
+    \end{scope}
+    \node at (1, -1) {$U$};
+    \begin{scope}[xshift=4cm, yshift=-3cm]
+        \begin{scope}[xshift=0.5cm, yshift=0.5cm]
+            \irrshape{1}{0.2}{5}[dashed];
+        \end{scope}
+        \draw[->] (0, -0.5) -- (0, 2) node[above] {$\mathbb{R}^m$};
+        \draw[->] (-0.5, 0) -- (2, 0);
+    \end{scope}
+    \draw[->] (1, -0.5) to [out=-10, in=105] node [auto] {$\phi$} (3.8, -2.5) ;
+\end{tikzpicture}

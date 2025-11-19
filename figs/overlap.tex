@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+    \irrshape{2.5}{0.5}{6};
+    \node at (-1, 1.5) {$\manifold[M]$};
+    \begin{scope}[xshift=0.5cm]
+        \irrshape{1}{0.05}{5}[dashed];
+    \end{scope}
+    \node at (1, -1.3) {$U_1$};
+    \begin{scope}[xshift=-0.5cm]
+        \irrshape{1}{0.05}{5}[dashed];
+    \end{scope}
+    \node at (-1.3, -1) {$U_2$};
+    \node at (0, 0) {$U_1 \cap U_2$};
+    \begin{scope}[xshift=4cm, yshift=-3cm]
+        \begin{scope}[xshift=0.5cm, yshift=0.5cm]
+            \irrshape{1}{0.2}{5}[dashed];
+        \end{scope}
+        \draw[->] (0, -0.5) -- (0, 2) node[above] {$\mathbb{R}^m$};
+        \draw[->] (-0.5, 0) -- (2, 0);
+    \end{scope}
+    \draw[<-] (1, -0.5) to [out=-10, in=105] node [auto] {$\phi_1 ^{-1}$} (3.8, -2.5) ;
+    \begin{scope}[xshift=-4cm, yshift=-3cm]
+        \begin{scope}[xshift=0.5cm, yshift=0.5cm]
+            \irrshape{1}{0.2}{5}[dashed];
+        \end{scope}
+        \draw[->] (0, -0.5) -- (0, 2) node[above] {$\mathbb{R}^m$};
+        \draw[->] (-0.5, 0) -- (2, 0);
+    \end{scope}
+    \draw[->] (-1, -0.5) to [out=190, in=75] node [auto] {$\phi_2$} (-3.8, -2.5);
+    \draw[->] (3, -2.5) to [out=190, in=-10] 
+        node [auto] {$\phi_2\circ\phi_1 ^{-1}$} (-2, -2.5);
+\end{tikzpicture}

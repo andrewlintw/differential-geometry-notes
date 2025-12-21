@@ -211,21 +211,14 @@
     \end{proof}
     \newpage
     \section{Tangent Spaces}
-    \subsection{The Curve Formulation of Tangent Spaces}
     \begin{remark}
         The definition of manifold do not require the entity to be embeded in 
         a higher dimensional space. Therefore, the traditional view of tangency 
         is not valid here.
         
     \end{remark}
-    \begin{remark}
-        The curve formulation remains valid in the infinite-dimensional case, 
-        while the algebraic formulation is not. However, in the 
-        finite-dimensional case, they are isomorphic.
-        
-    \end{remark}
 
-    \subsubsection{Curves and Vectors}
+    \subsection{Curves and Vectors}
     \begin{definition}[Curve]\label{def:curve}
         A curve on \(\manifold[M]\) is a \(C^\infty\) map,
         \[
@@ -269,7 +262,7 @@
         \]
     \end{definition}
     
-    \subsubsection{Addition and Scalar Multiplication}
+    \subsection{Addition and Scalar Multiplication}
     \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-and-scalar-multiplication-curve}
         Let \(v_1 = [\sigma_1], v_2 = [\sigma_2] \in T_p\manifold[M]\), and 
         \(r \in \mathbb{R}\). Then 
@@ -321,7 +314,7 @@
         the same for \(\sigma_2\).
     \end{proof}
 
-    \subsubsection{Curves and Derivation}
+    \subsection{Curves and Derivation}
     \begin{definition}[Directional Derivative]\label{def:directional-derivative-curve}
         For any \(f : \manifold[M] \to \mathbb{R}\) s.t. \(f \in C^\infty\), we 
         define
@@ -365,7 +358,7 @@
         \((\phi\circ\sigma_1)'=(\phi\circ\sigma_2)'\) by equivalence.
     \end{proof}
 
-    \subsubsection{Isomorphism with Euclidean Spaces}
+    \subsection{Isomorphism with Euclidean Spaces}
     \begin{definition}["Straight Lines"]\label{def:map-straight}
         Choose a coordinate chart \(\phi \in \Phi\) atlas near \(p\). 
         For all \(v \in \mathbb{R}^m\), we define 
@@ -448,66 +441,6 @@
         \tvec{\mu}{p} := \ell_p^\phi(e^\mu).
         \]
     \end{definition}
-
-    \subsection{The Algebraic Formulation of Tangent Spaces}
-    \subsubsection{The Space of Derivations}
-    \begin{definition}[Derivation]\label{def:derivation}
-        A derivation at \(p \in \manifold[M]\) is a map \(v : C^\infty
-        (\manifold[M]) \to \mathbb{R}\) s.t. 
-        \begin{enumerate}
-            \item \(v(rf+g)=rv(f)+v(g)\), (Linear)
-            \item \(v(fg) = f(p)v(g)+g(p)v(f)\), (Leibniz)
-        \end{enumerate}
-        where \(f, g \in C^\infty\).
-    \end{definition}
-    \begin{definition}[Tangent Space (Algebraic)]\label{def:tangent-space-algebraic}
-        The space of all derivations at \(p \in \manifold[M]\) is denoted 
-        \(D_p\manifold[M]\).
-    \end{definition}
-    \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-scalar-multiplication-algebraic}
-        Given \(v_1, v_2 \in D_p\manifold[M]\), define 
-        \[
-        \begin{aligned}
-            (v_1+v_2)(f) &:= v_1(f)+v_2(f) \\
-            (rv)(f) &:= rv(f).
-        \end{aligned}
-        \]
-    \end{definition}
-    \begin{theorem}
-        \(D_p\manifold[M]\) is a real vector space.
-    \end{theorem}
-    \subsubsection{The Basis Tangent Vectors}
-    \begin{definition}[Basis Tangent Vectors]\label{def:basis-derivations}
-        We define the basis tangent vectors via derivations by 
-        \[
-        \tvec{\mu}{p}f := \left.\frac{\partial }{\partial u^\mu}
-        (f\circ\phi ^{-1}(\vec{u}))\right|_{\vec{u}=\phi(p)}, 1 \leq \mu \leq 
-        \dim \manifold[M].
-        \]
-        where \(u \in \mathbb{R}^m, f : \manifold[M] \to \mathbb{R}, f \in 
-        C^\infty\). For the use of \(u^\mu\), see \cref{def:coordinate-functions}.
-    \end{definition}
-    \begin{theorem}
-        \[
-        \tvec{\mu}{p}x^\nu = \delta\indices{^\nu_\mu}.
-        \]
-    \end{theorem}
-    \begin{proof}
-        Although a simple exercise, it was a good chance to explain the 
-        sophisticated notation.
-        \[
-        \tvec{\mu}{p}x^\mu = \left.\frac{\partial }{\partial u^\mu}
-        \left(x^\mu\circ \phi ^{-1} \begin{pmatrix}
-        u^1 \\ \vdots \\ u^m
-        \end{pmatrix}\right)\right|_{\phi(p)}.
-        \]
-        The coordinate \(u \in \mathbb{R}^m\) was brought to \(\manifold[M]\) and 
-        projected to \(\mathbb{R}^m\) again and taken out the \(\mu\)-th 
-        component. So 
-        \[
-        =\left.\frac{\partial }{\partial u^\mu}(u^\mu)\right|_{\phi(p)}=1.
-        \]
-    \end{proof}
     \begin{theorem}[Linear Independence of Basis Tangent Vectors]\label{thm:linear-indep-basis}
         The basis tangent vectors \(\tvec{\mu}{p}, 1 \leq \mu \leq \dim 
         \manifold[M]\) are linear independent.
@@ -526,79 +459,6 @@
         \]
         where Einstein notation was used, and \(v^\mu = v(x^\mu)\).
     \end{theorem}
-    \begin{remark}
-        The proof was sophisticated and did not teach me much.
-        
-    \end{remark}
-
-    \subsection{Isomorphism of Curves and Derivations}
-    \begin{theorem}[Isomorphism of Curves and Derivations]\label{thm:curve-derivation-iso}
-        Similar to \cref{def:directional-derivative-curve}, we define the linear 
-        map \(\iota : T_p\manifold[M] \to D_p\manifold[M]\) acting on 
-        \(v = [\sigma] \in T_p\manifold[M]\) by 
-        \[
-        \iota(v)(f) := \left.\frac{d}{dt}(f\circ \sigma(t))\right|_{t=0}.
-        \]
-        Then \(\iota\) is a linear isomorphism. Note that RHS \(\in 
-        D_p\manifold[M]\).
-    \end{theorem}
-    \begin{proof}
-        (linearity) Choose \(\phi\) s.t. \(\phi(p) = 0\).
-        \[
-        \begin{aligned}
-            \iota(rv_1+v_2)(f) &= \left.\frac{d}{dt}
-            (f\circ \phi ^{-1} \circ (r\phi\circ\sigma_1+\phi\circ\sigma_2))
-            \right|_{t=0} \\
-            &= \left.((f\circ\phi ^{-1})'\circ(r\phi\circ\sigma_1+\phi\circ\sigma_2)
-            \cdot (r\phi\circ\sigma_1+\phi\circ\sigma_2)')\right|_{t=0} \\
-            &= \left.((f\circ\phi ^{-1})'(0)
-            \cdot ((r\phi\circ\sigma_1)'+(\phi\circ\sigma_2)'))\right|_{t=0} \\
-            &= \left.(r(f\circ\phi ^{-1})'\circ(\phi\circ\sigma_1)
-            \cdot(\phi\circ\sigma_1)'+(f\circ\phi ^{-1})'\circ(\phi\circ\sigma_2)
-            \cdot (\phi\circ\sigma_2)')\right|_{t=0} \\
-            &=r\iota(v_1)+\iota(v_2)(f).
-        \end{aligned}
-        \]
-        (surjectivity) To show surjectivity, we need 
-        to construct a curve for all \(v' \in D_p\manifold[M]\) s.t. \(\iota(v)
-        = v'\). \par
-        Let \(v' \in D_p\manifold[M]\) and construct \(\sigma : (-\epsilon, 
-        \epsilon) \to \manifold[M]\) s.t. 
-        \[
-        \begin{aligned}
-            \sigma(0) &= p, \\
-            v^\mu = v(x^\mu) &= \left.\frac{d}{dt}(x^\mu\circ\sigma(t))\right|_{t=0}.
-        \end{aligned}
-        \]
-        Then 
-        \[
-        v(f) = v^\mu \tvec{\mu}{p}f=\left.\frac{d}{dt}
-        (x^\mu\circ\sigma(t))\right|_{t=0}\tvec{\mu}{p}f.
-        \]
-        Also,
-        \[
-        \begin{aligned}
-            \left.\frac{d}{dt}(f\circ\sigma(t))\right|_{t=0}
-            &= \left.\frac{d}{dt}
-            (f\circ\phi ^{-1} \circ \phi\circ\sigma(t))\right|_{t=0} \\
-            &= \sum_{\mu=1}^{m} \left.\frac{\partial }{\partial u^\mu}
-            (f\circ\phi ^{-1})\right|_{\phi(p)}\left.\frac{d}{dt}
-            (u^\mu\circ\phi\circ\sigma)\right|_{t=0} ~\text{(component-wise)} \\
-            &= \sum_{\mu=1}^{m} \tvec{\mu}{p}f \left.\frac{d}{dt}
-            (x^\mu\circ\sigma)\right|_{t=0} \\
-            &= v(f).
-        \end{aligned}
-        \]
-        Thus completing the proof.
-    \end{proof}
-    \begin{remark}
-        It's tempting to use the powerful theorem that surjectivity of linear 
-        transformations is equivalent to injectivity. However, the requirement 
-        of that theorem is that \textbf{the dimensions of the two spaces are 
-        equal}. At this point, we don't know the dimension of \(T_p\manifold[M]\), 
-        so we cannot do this.
-    \end{remark}
-
     \subsection{Pushforward}
     \subsubsection{Definition and Linearity}
     \begin{remark}

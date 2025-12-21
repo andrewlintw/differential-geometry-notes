@@ -38,7 +38,10 @@
         If \(U=\manifold[M]\), then we say the coordinate chart \(\phi\) is 
         globally defined; if not, then it is locally defined. Few manifolds 
         have globally defined property.
-        
+    \end{remark}
+    \begin{remark}
+        The basic method of studying manifolds is to analyze it in the familiar 
+        Euclidean space via coordinate charts.
     \end{remark}
     \begin{definition}[Overlap Function]\label{def:overlap-function}
         Let \((U_1, \phi_1), (U_2, \phi_2)\) be a pair of \(m\)-dimensional 
@@ -98,7 +101,7 @@
             \phi'&: U' \mapsto V' \subseteq S^{n'}.
         \end{align*}
         Since the compositions are also homeomorphic, we see \(V\) and \(V'\) are 
-        homeomorphic. However, \(V'\) is not an open subset of \(R^{n'}\) because 
+        homeomorphic. However, \(V'\) is not an open subset of \(\mathbb{R}^{n'}\) because 
         of the \(0\)'s, contradicting \cref{thm:invariance-domain}. 
         \textreferencemark
     \end{proof}
@@ -362,6 +365,90 @@
         \((\phi\circ\sigma_1)'=(\phi\circ\sigma_2)'\) by equivalence.
     \end{proof}
 
+    \subsubsection{Isomorphism with Euclidean Spaces}
+    \begin{definition}["Straight Lines"]\label{def:map-straight}
+        Choose a coordinate chart \(\phi \in \Phi\) atlas near \(p\). 
+        For all \(v \in \mathbb{R}^m\), we define 
+        \[
+        \gamma_v^\phi(t) := \phi ^{-1}(\phi(p)+tv).
+        \]
+        In simple words, it is such a curve on manifold that it is a straight line 
+        on maps.
+    \end{definition}
+    \begin{theorem}[Isomorphism with Straight Lines]\label{thm:curve-straight-iso}
+        Let \(p \in \manifold[M]\), \(p \in \phi \in \Phi\). For any curve 
+        \(\gamma\) passing through \(p\), \(\exists!~v \in \mathbb{R}^m\) s.t. 
+        \(\gamma\) is tangent to \(\gamma_v^\phi\), where \(v\) can be explicitly 
+        given by \((\phi \circ \gamma)'(0)\). \\
+        In other words, the map
+        \[
+        \begin{aligned}
+            \ell_p^\phi : & \mathbb{R}^m \to T_p\manifold[M] \\
+                          & v \mapsto [\gamma_v^\phi]
+        \end{aligned}
+        \]
+        is a bijection with inverse 
+        \[
+        \begin{aligned}
+            (\ell_p^\phi) ^{-1} : & T_p\manifold[M] \to \mathbb{R}^m \\
+                          & [\gamma] \mapsto (\phi \circ \gamma)'(0).
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{proof}
+        It is almost by definition that \(\gamma\) is tangent to 
+        \((\phi \circ \gamma)'(0)\). \par
+        Suppose \(v_1, v_2\) satisfies \(\gamma\) is tangent to 
+        \(\gamma_{v_1}^\phi, \gamma_{v_2}^\phi\). Then they are tangent too. So 
+        \[
+        (\phi \circ \gamma_{v_1}^\phi)'(0) = (\phi \circ \gamma_{v_2}^\phi)'(0).
+        \]
+        Therefore, \(v_1=v_2\).
+    \end{proof}
+    \begin{remark}
+        A natural question is that whether two charts behave "the same" if 
+        \(U_1 \cap U_2 \neq \varnothing\). Under this perspective, the criterion 
+        is clear: we need only to check whether a straight line is still a straight 
+        line in another chart, which is true indeed. It also produces the coordinate 
+        transformation formula for free. See below.
+    \end{remark}
+    \begin{theorem}[Coordinate Transformation of Straight Lines]\label{thm:straight-overlap}
+        Choose \(\phi, \psi \in \Phi\), \(\phi : U_1 \to \mathbb{R}^m\), 
+        \(\psi : U_2 \to \mathbb{R}^m\) s.t. \(U_1 \cap U_2 \neq \varnothing\) and 
+        \(p \in U_1 \cap U_2\). Let the corresponding straight line isomorphisms 
+        \(\ell_p^\phi, \ell_p^\psi\). Then \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) 
+        is a linear isomorphism. \\
+        Let the local coordinates induced by \(\phi\) be \(x^1, \dots, x^m\), 
+        \(\psi\) be \(y^1, \dots, y^m\), then 
+        \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) can be expressed in terms of 
+        Jacobian, namely, 
+        \[
+        (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) = J_{\psi\circ\phi ^{-1}}(\phi(p))v.
+        \]
+    \end{theorem}
+    \begin{proof}
+        \[
+        \begin{aligned}
+            (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) &= 
+            (\ell_p^\psi)^{-1}(\phi ^{-1}(\phi(p)+vt)) \\
+            &= ((\psi \circ \phi ^{-1})(\phi(p)+vt))'(0) \\
+            & = J_{\psi\circ\phi ^{-1}}(\phi(p))v \\
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{definition}[Alternative Definition for Addition]\label{def:curve-add-alt}
+        For \(v_1, v_2 \in T_p\manifold[M]\), we define addition via the isomorphism 
+        \cref{thm:curve-straight-iso}, 
+        \[
+        v_1 + v_2 := (\ell_p^\phi)^{-1}(\ell_p^\phi(v_1)+\ell_p^\phi(v_2)).
+        \]
+    \end{definition}
+    \begin{definition}[Alternative Definition of Basis Tangent Vectors]\label{def:unit-tangent-alt}
+        \[
+        \tvec{\mu}{p} := \ell_p^\phi(e^\mu).
+        \]
+    \end{definition}
+
     \subsection{The Algebraic Formulation of Tangent Spaces}
     \subsubsection{The Space of Derivations}
     \begin{definition}[Derivation]\label{def:derivation}
@@ -622,6 +709,23 @@
             (h_*(rv_1+v_2))(f) &= (rv_1+v_2)(f\circ h) \\
             &= rv_1(f\circ h)+v_2(f\circ h) \\
             &= r(h_*v_1)f+(h_*v_2)f.
+        \end{aligned}
+        \]
+        \par
+        (Using straight line isomorphism: \cref{def:curve-add-alt})
+        \begin{center}
+            \input{figs/pushforward.tex}
+        \end{center}
+        Since \(\ell_p^\phi\) and \(\ell_{h(p)}^\psi\) are linear, to prove 
+        \(h_*\) is linear, we need only to show \(\ell_{h(p)}^\psi \circ 
+        h_* \circ \ell_p^\phi\) is linear. \par
+        \[
+        \begin{aligned}
+            &\ell_{h(p)}^\psi \circ h_* \circ \ell_p^\phi(v) \\
+            =&\ell_{h(p)}^\psi \circ h_*([\phi ^{-1}(\phi(p)+tv)]) \\
+            =&\ell_{h(p)}^\psi([h\circ\phi ^{-1}(\phi(p)+tv)]) \\
+            =&(\psi \circ h \circ \phi ^{-1}(\phi(p)+tv))'(0) \\
+            =&(\psi \circ h \circ \phi ^{-1})'(\phi(p))v.
         \end{aligned}
         \]
     \end{proof}

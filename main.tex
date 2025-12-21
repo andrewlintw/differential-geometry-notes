@@ -209,6 +209,22 @@
     \begin{proof}
         Make use of the fact that \(\phi\circ\phi_\alpha ^{-1}\) is a homeomorphism.
     \end{proof}
+    \subsection{Submanifolds}
+    \subsubsection{Definition}
+    \begin{definition}[Local Submanifold]\label{def:local-submanifold}
+        \(A \subseteq \manifold[M]\) is a submanifold of codimension \(r\) around 
+        \(p \in A \subseteq \manifold[M]\) if there exists a chart 
+        \(\phi : U \to \phi(U) \in \Phi\) atlas s.t. \(p \in U\) and 
+        \[
+        \phi(U \cap A) = \phi(U) \cap (\mathbb{R}^{m-r} \times 
+        \{\underbrace{0, \dots, 0}_{r\text{ zeroes}}\}).
+        \]
+    \end{definition}
+    \begin{definition}[Submanifold]\label{def:submanifold}
+        If \(A\) is a \(C^k\) local submanifold of \(\manifold[M]\) of codimension 
+        \(r\) around every \(p \in \manifold[M]\), then we say \(A\) is a 
+        submanifold of \(\manifold[M]\) of codimension \(r\).
+    \end{definition}
     \newpage
     \section{Tangent Spaces}
     \begin{remark}

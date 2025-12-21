@@ -436,11 +436,33 @@
         v_1 + v_2 := (\ell_p^\phi)^{-1}(\ell_p^\phi(v_1)+\ell_p^\phi(v_2)).
         \]
     \end{definition}
-    \begin{definition}[Alternative Definition of Basis Tangent Vectors]\label{def:unit-tangent-alt}
+    \begin{definition}[Alternative Definition of Basis Tangent Vectors]\label{def:basis-alt}
         \[
         \tvec{\mu}{p} := \ell_p^\phi(e^\mu).
         \]
     \end{definition}
+    \begin{theorem}
+        \[
+        \tvec{\mu}{p}(x^\nu) = \delta\indices{_\mu^\nu}.
+        \]
+    \end{theorem}
+    \begin{proof}
+        By \cref{def:basis-alt}, 
+        \[
+        \tvec{\mu}{p} := \ell_p^\phi(e^\mu) = \phi ^{-1}(\phi(p)+te^\mu), 
+        \]
+        where \(e^\mu\) is the column vector with \(\mu\)-th component 1, others 
+        0. Then 
+        \[
+        \begin{aligned}
+            \tvec{\mu}{p}(x^\nu)&=(x^\nu\circ\phi ^{-1}(\phi(p)+te^\mu))'(0) \\
+            &=(x^\nu \circ \phi ^{-1})'(\phi(p))e^\mu.
+        \end{aligned}
+        \]
+        But since \(x^\nu\) has only one component, \((x^\nu \circ \phi ^{-1})'\) 
+        is a row vector with \(\nu\)-th component 1, others 0. So the result 
+        follows immediately.
+    \end{proof}
     \begin{theorem}[Linear Independence of Basis Tangent Vectors]\label{thm:linear-indep-basis}
         The basis tangent vectors \(\tvec{\mu}{p}, 1 \leq \mu \leq \dim 
         \manifold[M]\) are linear independent.
@@ -450,7 +472,7 @@
         \[
         a^\mu\tvec{\mu}{p}(x^\nu)=a^\mu\delta\indices{^\nu_\mu}=0(x^\nu)=0.
         \]
-        So \(a^\mu=0\).
+        So \(a^\nu=0\).
     \end{proof}
     \begin{theorem}[Coordinate Expansion of Tangent Vectors]\label{thm:tangent-vector-coordinates}
         For all \(v \in D_p\manifold[M]\), we have 
@@ -576,14 +598,14 @@
         \begin{center}
             \input{figs/pushforward.tex}
         \end{center}
-        Since \(\ell_p^\phi\) and \(\ell_{h(p)}^\psi\) are linear, to prove 
-        \(h_*\) is linear, we need only to show \(\ell_{h(p)}^\psi \circ 
+        Since \(\ell_p^\phi\) and \((\ell_{h(p)}^\psi)^{-1}\) are linear, to prove 
+        \(h_*\) is linear, we need only to show \((\ell_{h(p)}^\psi)^{-1} \circ 
         h_* \circ \ell_p^\phi\) is linear. \par
         \[
         \begin{aligned}
-            &\ell_{h(p)}^\psi \circ h_* \circ \ell_p^\phi(v) \\
-            =&\ell_{h(p)}^\psi \circ h_*([\phi ^{-1}(\phi(p)+tv)]) \\
-            =&\ell_{h(p)}^\psi([h\circ\phi ^{-1}(\phi(p)+tv)]) \\
+            &(\ell_{h(p)}^\psi) ^{-1} \circ h_* \circ \ell_p^\phi(v) \\
+            =&(\ell_{h(p)}^\psi)^{-1} \circ h_*([\phi ^{-1}(\phi(p)+tv)]) \\
+            =&(\ell_{h(p)}^\psi)^{-1}([h\circ\phi ^{-1}(\phi(p)+tv)]) \\
             =&(\psi \circ h \circ \phi ^{-1}(\phi(p)+tv))'(0) \\
             =&(\psi \circ h \circ \phi ^{-1})'(\phi(p))v.
         \end{aligned}

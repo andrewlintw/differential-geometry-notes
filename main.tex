@@ -15,6 +15,9 @@
 }
 \DeclareMathOperator{\idd}{id}
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\divv}{div}
 
 \begin{document}
     \section{Differentiable Manifolds}
@@ -43,6 +46,7 @@
         The basic method of studying manifolds is to analyze it in the familiar 
         Euclidean space via coordinate charts.
     \end{remark}
+    \newpage
     \begin{definition}[Overlap Function]\label{def:overlap-function}
         Let \((U_1, \phi_1), (U_2, \phi_2)\) be a pair of \(m\)-dimensional 
         coordinate charts with \(U_1 \cap U_2 \neq \varnothing\). Then the 
@@ -146,6 +150,7 @@
         referring to the Euclidean partial derivative wrt the \(\mu\)-th 
         component.
     \end{remark}
+    \newpage
     \subsection{Manifold With Boundary}
     \subsubsection{Generalized Coordinate Charts}
     \begin{definition}[Generalized Coordinate Charts]\label{def:half-plane-chart}
@@ -169,7 +174,7 @@
     \begin{definition}[Boundary Points of a Manifold]\label{def:manifold-boundary}
         For all \(p \in \manifold[M]\) is a boundary point of a manifold with 
         boundary \(\manifold[M]\) if \(\exists~\phi_\alpha \in \Phi\) atlas 
-        s.t. \(\phi_\alpha^1(p)=0\). \par
+        s.t. \(\phi_\alpha^1(p)=0\). \\
         The set of all boundary points of \(\manifold[M]\) is denoted \(\bnd{M}\).
     \end{definition}
     \subsubsection{Boundary is Well-defined}
@@ -721,6 +726,214 @@
         \]
         We see immediately that the result holds.
     \end{proof}
+    \newpage
+    \section{Formal Differential Form}
+    \begin{remark}
+        In this section, we follow a local, coordinate approach. We focus on the 
+        requirements that makes form a form. We will postpone the realization of 
+        differential forms.
+    \end{remark}
+    \subsection{Euclidean Spaces}
+    \begin{definition}[Formal Differential Form on \(\mathbb{R}^m\)]\label{def:formal-form}
+        A formal differential \(k\)-form on \(\mathbb{R}^m\) is composed of \(m^k\) 
+        functions, arranged in the form
+        \[
+        \omega = \sum_{1 \leq i_1, \dots, i_k \leq m}^{} 
+        \omega \indices{_{i_1}_\dots_{i_k}} dx^{i_1} \wedge \dots \wedge dx^{i_k}.
+        \]
+        We require,
+        \begin{enumerate}
+            \item All the functions \(\omega \indices{_{i_1}_\dots_{i_k}}\)
+            are \((-\infty, 0]\times\mathbb{R}^{m-1} \to (-\infty, 0]\times\mathbb{R}^{m-1}\) and \(C^\infty\).
+            \item The operation \(+\) is commutative and associative, just like the 
+            usual addition.
+            \item The operation \(\wedge\) is associative and distributes over 
+            \(+\), resembling the usual multiplication.
+            \item \(\wedge\) also has anticommutativity, 
+            \[
+            \begin{cases}
+            dx^i \wedge dx^j = -dx^j \wedge dx^i &\forall i \neq j\\
+            dx^i \wedge dx^i = 0
+            \end{cases}
+            \]
+        \end{enumerate}
+    \end{definition}
+    \begin{definition}[Equality of Formal Differential k-forms]\label{def:formal-form-equality}
+        Let two forms \(\omega, \eta\) be 
+        \[
+        \begin{aligned}
+            \omega &= \omega\indices{_{i_1}_\dots_{i_k}} 
+                dx^{i_1} \wedge \dots \wedge dx^{i_k}\\
+            \eta &= \eta\indices{_{i_1}_\dots_{i_k}} 
+                dx^{i_1} \wedge \dots \wedge dx^{i_k}
+        \end{aligned}
+        \]
+        We say they are "equal", denoted \(\omega \equiv \eta\), iff 
+        \[
+        \sum_{\sigma \in S_k}^{} \omega\indices{_{\sigma(i_1)}_\dots_{\sigma(i_k)}}
+        =\sum_{\sigma \in S_k}^{} \eta\indices{_{\sigma(i_1)}_\dots_{\sigma(i_k)}}
+        \;\forall 1 \leq i_1 < \dots < i_k \leq m.
+        \]
+    \end{definition}
+    \begin{remark}
+        \begin{enumerate}
+            \item For a formal differential \(k\)-form \(\omega = dx^1\wedge dx^2\), 
+            \(\omega_{12} = 1\), but \(\omega_{21} = 0\). The \(m^k\) components in 
+            the definition just presents a general form, so that it includes the 
+            scenario \(\omega' = dx^1\wedge dx^2 - dx^2 \wedge dx^1\). If you insist 
+            on arranging indices even in the definition, then \(\omega'\) would not 
+            satisfy the definition, which is wierd.
+            \item For demonstration of equality, consider the following example in 
+            \(\mathbb{R}^3\),
+            \[
+            \begin{aligned}
+                \omega &= dx^1\wedge dx^2 + dx^2\wedge dx^3 \\
+                \eta   &= -dx^2 \wedge dx^1 + dx^2 \wedge dx^3.
+            \end{aligned}
+            \]
+            Choose \(i_1 = 1, i_2 = 2\), and 
+            \[
+            S_3 = \{\underbrace{\idd, (1\;2\;3), (1\;3\;2)}_{\text{even}}
+            , \underbrace{(1\;2), (2\;3), (1\;3)}_{\text{odd}}\}.
+            \]
+            Then, in order, 
+            \[
+            \begin{aligned}
+                &\sum_{\sigma \in S_n}^{} (\sgn \sigma)\omega \\
+                =&\textcolor{red}{\omega_{12}}+\textcolor{blue}{\omega_{23}}
+                +\textcolor{green}{\omega_{31}}-\textcolor{red}{\omega_{21}}
+                -\textcolor{green}{\omega_{13}}-\textcolor{blue}{\omega_{32}} \\
+                =&\textcolor{red}{1}+\textcolor{blue}{1}
+                +\textcolor{green}{0}-\textcolor{red}{0}
+                -\textcolor{green}{0}-\textcolor{blue}{0}.
+            \end{aligned}
+            \]
+            Notice how all permutations of a given component (paired in color) 
+            appears exactly once in this relation, and the sign is fixed 
+            accordingly by \(\sgn \sigma\).
+            \item Viewed this way, we see in the language of formal differential 
+            forms, 
+            \[
+            \begin{aligned}
+                \omega &= dx^1\wedge dx^2 \\
+                \eta &= -dx^2\wedge dx^1 \\
+                \nu &= dx^1\wedge dx^2 - dx^2\wedge dx^1,
+            \end{aligned}
+            \]
+            \(\omega \equiv \eta\), since \(\omega_{12} - \omega_{21} = 1 = 
+            \eta_{12} - \eta_{21}\). But \(\omega \not\equiv \nu\), since 
+            \(\nu_{12} - \nu_{21} = 2\).
+        \end{enumerate}
+    \end{remark}
+    \subsection{Operations}
+    \begin{definition}[Exterior Product]\label{def:formal-exterior-product}
+        Let \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\), 
+        \(\eta = \eta_{j_1\dots j_l} dx^{j_1} \wedge \dots \wedge dx^{j_l}\). Then 
+        \[
+        \omega\wedge \eta := \omega_{i_1\dots i_k}\eta_{j_1\dots j_l}
+        dx^{i_1}\wedge\dots\wedge dx^{i_k} \wedge dx^{j_1} \wedge \dots \wedge 
+        dx^{j_l}.
+        \]
+        Which is equivalent \cref{def:formal-form-equality} to, 
+        \[
+        \sum_{1 \leq s_1 < \dots < s_{k+l} \leq m}^{} \left(
+            \sum_{S}^{} (\sgn\sigma)\omega_{i_1\dots i_k}\eta_{j_1\dots j_l}
+        \right)dx^{s_1}\wedge \dots\wedge dx^{s_{k+l}}.
+        \]
+        Where \(S\) is all the combinations of \(S_1 = \{i_1, \dots, i_k, j_1, \dots, 
+        j_l\}\) that is equal to \(S_2 = \{s_1, \dots, s_{k+l}\}\), and the order does 
+        not matter. \(\sigma\) is the function \(S_1 \to S_2\).
+    \end{definition}
+    \begin{remark}
+        Example. Let \(\dim \manifold[M]=6\), and 
+        \[
+        \begin{aligned}
+            \omega &= \omega_{12}dx^1\wedge dx^2 + \omega_{21} dx^2 \wedge dx^1 \\
+            \eta   &= \eta_{456} dx^4\wedge dx^5\wedge dx^6.
+        \end{aligned}
+        \]
+        Then 
+        \[
+        \omega\wedge \eta = (\omega_{12}\eta_{456} 
+        - \omega_{21}\eta_{456}) dx^{1, 2, 4, 5, 6}
+        \]
+    \end{remark}
+    \begin{definition}[Pullback]\label{def:formal-pullback}
+        Let \(f : U \subseteq \mathbb{R}^m \to V \subseteq (-\infty, 0] \times 
+        \mathbb{R}^{n-1}\) is \(C^\infty\). Choose local coordinates on 
+        \(U\) to be \(x = (x^1, \dots, x^m)\), on \(V\) to be \(y = (y^1, \dots, 
+        y^1, \dots, y^n)\). Define \(f^\nu := y^\nu \circ f\).\\
+        Let \(\omega = \omega_{j_1\dots j_k} dy^{j_1}\wedge \dots \wedge dy^{j_k}\) 
+        be a \(k\)-form on \(U\). Then 
+        \[
+        f^*\omega := (\omega_{j_1\dots j_k}\circ f)
+        \frac{\partial f^{j_1}}{\partial x^{i_1}}\dots
+        \frac{\partial f^{j_k}}{\partial x^{i_k}}dx^{i_1}\wedge \dots\wedge dx^{i_k}.
+        \]
+    \end{definition}
+    \begin{remark}
+        \begin{enumerate}
+            \item The motivation is just somehow \(\omega\circ f\). Chain the
+            component function with \(f\), and express the (resulting) coordinates 
+            as \(dy^{\nu} = \frac{\partial f^{\nu}}{\partial x^{\mu}}dx^{\mu}\).
+            \item It is possible that \(U \subseteq V\). Pulling back onto a subset 
+            is essentially a "limitation" on \(\omega\).
+            \item It is also possible that \(U \subseteq \partial V\), i.e. \(U\) is 
+            the boundary of \(V\). \(f : p \mapsto (0, p)\) is just the 
+            immersion map in that case.
+        \end{enumerate}
+    \end{remark}
+    \begin{definition}[Exterior Differentiation]\label{def:formal-exterior-diff}
+        Let \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\). 
+        Then 
+        \[
+        d\omega := \left(\frac{\partial \omega_{i_1\dots i_k}}{\partial x^{i_0}}
+        dx^{i_0}\right) 
+        \wedge dx^{i_1} \wedge \dots \wedge dx^{i_k}.
+        \]
+    \end{definition}
+    \begin{remark}
+        Let \(U \subseteq \mathbb{R}^3\).
+        \begin{enumerate}
+            \item Consider a 0-form, i.e. \(f \in C^\infty\). Then 
+            \[
+            df = \frac{\partial f}{\partial x}dx+\frac{\partial f}{\partial y}dy 
+            + \frac{\partial f}{\partial z}dz \rightarrow \nabla f.
+            \]
+            \item Consider a 1-form \(\omega = Pdx+Qdy+Rdz\). Then 
+            \[
+            \begin{aligned}
+                d\omega &= \left(\frac{\partial P}{\partial y}dy+
+                \frac{\partial P}{\partial z}dz\right)\wedge dx + 
+                \left(\frac{\partial Q}{\partial x}dx+
+                \frac{\partial Q}{\partial z}dz\right)\wedge dy + 
+                \left(\frac{\partial R}{\partial x}dx+
+                \frac{\partial R}{\partial y}dy\right)\wedge dz \\
+                &=\left(\frac{\partial R}{\partial y}-
+                \frac{\partial Q}{\partial z}\right)dy\wedge dz + 
+                \left(\frac{\partial R}{\partial x}-
+                \frac{\partial P}{\partial z}\right)dx\wedge dz + 
+                \left(\frac{\partial Q}{\partial x}-
+                \frac{\partial P}{\partial y}\right)dx\wedge dy \\
+                &\rightarrow \curl \omega.
+            \end{aligned}
+            \]
+            \item Consider a 2-form \(\eta = A dy\wedge dz + B dz \wedge dx + 
+            C dx \wedge dy\). Then 
+            \[
+            \begin{aligned}
+                d\eta &= \frac{\partial A}{\partial x}dx\wedge dy\wedge dz + 
+                \frac{\partial B}{\partial y}dy\wedge dz\wedge dx + 
+                \frac{\partial C}{\partial z}dz\wedge dx\wedge dy \\
+                &= \left(\frac{\partial A}{\partial x} + 
+                \frac{\partial B}{\partial y} + 
+                \frac{\partial C}{\partial z} \right)dx\wedge dy\wedge dz \\
+                &\rightarrow \divv \eta.
+            \end{aligned}
+            \]
+            \item The Hodge star operator does exactly this correspondance.
+        \end{enumerate}
+    \end{remark}
     \newpage
     \section{Vector Fields}
     \subsection{Definition}

@@ -18,14 +18,12 @@
 \DeclareMathOperator{\sgn}{sgn}
 
 \begin{document}
-    \begin{tikzpicture}
-        \node (tpm) at (0, 0) {$T_p\manifold[M]$};
-        \node (thpn) at (4, 0) {$T_{h(p)\manifold[N]}$};
-        \node (rm) at (0, -2) {$\mathbb{R}^m$};
-        \node (rn) at (4, -2) {$\mathbb{R}^n$}
-            edge[<-] (rm);
-        \draw[->] (tpm.east) -- (thpn.west) node[midway, above] {$h_*$};
-        \draw[->] (tpm.south) -- (rm.north) node[midway, left] {$\ell_p^\phi$};
-        \draw[->] (thpn.south) -- (rn.north) node[midway, left] {$\ell_{h(p)}^\psi$};
+    \begin{tikzpicture}[scale=0.5]
+        \draw (-3, 0) circle (5);
+        \draw (3, 0) circle (5);
+        \begin{scope}
+            \clip (-3, 0) circle (5);
+            \fill[gray] (3, 0) circle (5);
+        \end{scope}
     \end{tikzpicture}
 \end{document}

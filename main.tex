@@ -759,7 +759,7 @@
         \end{enumerate}
     \end{definition}
     \begin{definition}[Equality of Formal Differential k-forms]\label{def:formal-form-equality}
-        Let two forms \(\omega, \eta\) be 
+        Let two formal \(k\)-forms \(\omega, \eta\) be 
         \[
         \begin{aligned}
             \omega &= \omega\indices{_{i_1}_\dots_{i_k}} 
@@ -827,7 +827,8 @@
     \end{remark}
     \subsection{Operations}
     \begin{definition}[Exterior Product]\label{def:formal-exterior-product}
-        Let \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\), 
+        Let two formal \(k\)-forms be 
+        \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\), 
         \(\eta = \eta_{j_1\dots j_l} dx^{j_1} \wedge \dots \wedge dx^{j_l}\). Then 
         \[
         \omega\wedge \eta := \omega_{i_1\dots i_k}\eta_{j_1\dots j_l}
@@ -862,9 +863,9 @@
         Let \(f : U \subseteq \mathbb{R}^m \to V \subseteq (-\infty, 0] \times 
         \mathbb{R}^{n-1}\) is \(C^\infty\). Choose local coordinates on 
         \(U\) to be \(x = (x^1, \dots, x^m)\), on \(V\) to be \(y = (y^1, \dots, 
-        y^1, \dots, y^n)\). Define \(f^\nu := y^\nu \circ f\).\\
+        y^n)\). Define \(f^\nu := y^\nu \circ f\).\\
         Let \(\omega = \omega_{j_1\dots j_k} dy^{j_1}\wedge \dots \wedge dy^{j_k}\) 
-        be a \(k\)-form on \(U\). Then 
+        be a formal \(k\)-form on \(U\). Then 
         \[
         f^*\omega := (\omega_{j_1\dots j_k}\circ f)
         \frac{\partial f^{j_1}}{\partial x^{i_1}}\dots
@@ -884,7 +885,8 @@
         \end{enumerate}
     \end{remark}
     \begin{definition}[Exterior Differentiation]\label{def:formal-exterior-diff}
-        Let \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\). 
+        Let a formal \(k\)-form be
+        \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\). 
         Then 
         \[
         d\omega := \left(\frac{\partial \omega_{i_1\dots i_k}}{\partial x^{i_0}}
@@ -895,12 +897,12 @@
     \begin{remark}
         Let \(U \subseteq \mathbb{R}^3\).
         \begin{enumerate}
-            \item Consider a 0-form, i.e. \(f \in C^\infty\). Then 
+            \item Consider a formal 0-form, i.e. \(f \in C^\infty\). Then 
             \[
             df = \frac{\partial f}{\partial x}dx+\frac{\partial f}{\partial y}dy 
             + \frac{\partial f}{\partial z}dz \rightarrow \nabla f.
             \]
-            \item Consider a 1-form \(\omega = Pdx+Qdy+Rdz\). Then 
+            \item Consider a formal 1-form \(\omega = Pdx+Qdy+Rdz\). Then 
             \[
             \begin{aligned}
                 d\omega &= \left(\frac{\partial P}{\partial y}dy+
@@ -918,7 +920,7 @@
                 &\rightarrow \curl \omega.
             \end{aligned}
             \]
-            \item Consider a 2-form \(\eta = A dy\wedge dz + B dz \wedge dx + 
+            \item Consider a formal 2-form \(\eta = A dy\wedge dz + B dz \wedge dx + 
             C dx \wedge dy\). Then 
             \[
             \begin{aligned}
@@ -931,9 +933,157 @@
                 &\rightarrow \divv \eta.
             \end{aligned}
             \]
-            \item The Hodge star operator does exactly this correspondance.
+            \item In usual vector calculus terms, we say \(\nabla\) produces a 
+            vector, \(\divv\) produces a scalar, and \(\curl\) produces a vector.
+            This \(r\)-form to \((m-r)\)-form correspondance is provided by 
+            the Hodge star operation.
         \end{enumerate}
     \end{remark}
+    \subsection{Differential Form as Equivalence Classes}
+    \subsubsection{Operations are Well-Defined}
+    \begin{theorem}
+        If \(\omega\equiv \omega'\), \(\eta \equiv \eta'\) are formal \(k\)-forms on 
+        \(\mathbb{R}^m\), 
+        then 
+        \[
+        \omega \wedge \eta \equiv \omega' \wedge \eta'.
+        \]
+    \end{theorem}
+    \begin{theorem}
+        If \(\omega \equiv \omega'\) are formal \(k\)-forms on \(\mathbb{R}^m\), 
+        and \(f \in C^\infty(\mathbb{R}^m)\), then 
+        \[
+        f^*\omega \equiv f^*\omega'.
+        \]
+    \end{theorem}
+    \begin{theorem}
+        If \(\omega \equiv \omega'\) are formal \(k\)-forms on \(\mathbb{R}^m\), 
+        then 
+        \[
+        d\omega\equiv d\omega'.
+        \]
+    \end{theorem}
+    \subsubsection{Equivalence Classes}
+    \begin{definition}[Euclidean Differential k-form]\label{def:euc-form}
+        Denote the set of all formal \(k\)-forms on \(\mathbb{R}^m\) be 
+        \(A^k(\mathbb{R}^m)\). Then the set of all differential \(k\)-forms on 
+        \(\mathbb{R}^m\) is defined to be 
+        \[
+        \Lambda^k(\mathbb{R}^m) := A^k(\mathbb{R}^m) / {\equiv}.
+        \]
+    \end{definition}
+    \subsection{Properties of Operations}
+    \begin{theorem}[Properties of Exterior Product]\label{thm:exterior-product-properties}
+        Let \(\omega \in \Lambda^k(\mathbb{R}^m)\), \(\eta \in 
+        \Lambda^l(\mathbb{R}^m)\). Then
+        \[
+        \begin{aligned}
+            (\omega_1+\omega_2)\wedge \eta &= \omega_1\wedge \eta + \omega_2 \wedge 
+            \eta \\
+            \omega \wedge \eta &= (-1)^{kl}\eta \wedge \omega. \\
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{theorem}[Properties of Pullback]\label{thm:pullback-properties}
+        Let \(f \in C^\infty\), \(\omega \in \Lambda^k(\mathbb{R}^m)\). Then 
+        \[
+        \begin{aligned}
+            f^*(\omega_1+\omega_2) &= f^*\omega_1+f^*\omega_2 \\
+            f^*(\omega_1\wedge \omega_2) &= (f^*\omega_1) \wedge (f^*\omega_2) \\
+            g^*(f^*\eta) &= (f\circ g)^*\eta.
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{theorem}[Properties of Exterior Differentiation]\label{thm:diff-properties}
+        Let \(f \in C^\infty\), \(\omega \in \Lambda^k(\mathbb{R}^m)\). Then
+        \[
+        \begin{aligned}
+            f^*(d\omega) &= d(f^*\omega) \\
+            d(\omega\wedge \eta) &= (d\omega)\wedge \eta + (-1)^k\omega\wedge (d\eta) \\
+            d(d\omega) &= 0.
+        \end{aligned}
+        \]
+    \end{theorem}
+    \newpage
+    \subsection{Differential Forms on Manifolds}
+    \subsubsection{Requirements of Manifold Forms}
+    \begin{definition}[Differential Form on a Manifold]\label{def:manifold-form}
+        A \(C^\infty\) differential \(k\)-form \(\omega\) on manifold \(\manifold[M]\), 
+        \(\omega \in \Lambda^k(\manifold[M])\), consists of a family of 
+        differential \(k\)-forms \(\omega_\phi \in \Lambda^k(\phi(U_\phi))\), 
+        \(\phi \in \Phi\), \(\phi : U_\phi \to V_\phi = \phi(U_\phi) \subseteq 
+        (-\infty, 0] \times \mathbb{R}^{m-1}\), with an additional requirement that 
+        \[
+        \left(\phi\circ{\phi'} ^{-1}\right)^*\left(\left.\omega_\phi
+        \right|_{\phi(U_\phi \cap U_{\phi'})}\right) 
+        = \left.\omega_{\phi'}\right|_{\phi'(U_\phi \cap U_{\phi'})},\; \forall 
+        \phi, \phi' \in \Phi.
+        \]
+        \(\omega_\phi\) is called the local expression of \(\omega\) on \(U_\phi\) 
+        via \(\phi\).
+    \end{definition}
+    \begin{remark}\phantom{hehe}\\
+        \begin{center}
+            \centering
+            \def\svgwidth{0.6\textwidth}
+            \input{./figs/manifold_form.pdf_tex}
+        \end{center}
+        The motivation is that, if two differential forms describe the same set, 
+        they should "agree" on that portion of manifold. The "agreement" is done by 
+        pullback using the overlap function.
+    \end{remark}
+    \subsubsection{Operations on Manifold Forms}
+    \begin{definition}[Addition]\label{def:mani-form-add}
+        Given two forms \(\omega, \eta \in \Lambda^k(\manifold[M])\), 
+        \(m=\dim \manifold[M]\), define their sum to be \(\omega+\eta\), whose 
+        chart components are given by 
+        \[
+        (\omega+\eta)_\phi := \omega_\phi + \eta_\phi.
+        \]
+        They satisfy \cref{def:manifold-form} thanks to the linearity of pullback.
+    \end{definition}
+    \begin{definition}[Exterior Product]\label{def:mani-form-exterior-product}
+        Given two forms \(\omega, \eta \in \Lambda^k(\manifold[M])\), 
+        \(m=\dim \manifold[M]\), define their exterior product to be 
+        \(\omega\wedge\eta\), whose chart components are given by 
+        \[
+        (\omega\wedge\eta)_\phi := \omega_\phi\wedge \eta_\phi.
+        \]
+        They satisfy \cref{def:manifold-form} because pullback commutes with 
+        exterior product.
+    \end{definition}
+    \begin{definition}[Exterior Differentiation]\label{def:mani-form-diff}
+        Given a form \(\omega \in \Lambda^k(\manifold[M])\), 
+        \(m=\dim \manifold[M]\), define its exterior derivative to be
+        \(d\omega\), whose chart components are given by 
+        \[
+        (d\omega)_\phi := d(\omega_\phi).
+        \]
+        They satisfy \cref{def:manifold-form} because pullback commutes with 
+        exterior product.
+    \end{definition}
+    \begin{definition}[Pullback]\label{def:mani-form-pullback}
+        Given a form \(\omega \in \Lambda^k(\manifold[N])\) and a function 
+        \(f : \manifold[M] \to \manifold[N]\), \(m=\dim \manifold[M], 
+        n=\dim \manifold[N]\). Choose coordinate functions 
+        \(\phi_i : U_i \to \phi_i(U_i)\) on \(\manifold[M]\), and 
+        \(\psi_j : V_j \to \psi_j(V_j)\) on \(\manifold[N]\). \\
+        To define \((f^*\omega)_{\phi_1}\), choose any 
+        \(V_1, \dots, V_s\) s.t. \(U_1 \subseteq \bigcup_{j=1}^{s} \tilde{f}(V_j)\).
+        Then 
+        \[
+        (f^*\omega)_{\phi_i} := \sum_{j}^{} 
+        f^*\left(\left.\omega_{\psi_j}\right|_{\phi(f(U_i) \cap V_j)}\right)
+        \]
+        They satisfy \cref{def:manifold-form}.
+    \end{definition}
+    \begin{theorem}[Local Representation of Pullback]\label{thm:pullback-coordinate}
+        Let a form \(\omega \in \Lambda^k(\manifold[N])\) and a function 
+        \(f : \manifold[M] \to \manifold[N]\), \(m=\dim \manifold[M], 
+        n=\dim \manifold[N]\). Consider coordinate functions 
+        \(\phi : U \to \phi(U)\) on \(\manifold[M]\), and 
+        \(\psi : V \to \psi(V)\) on \(\manifold[N]\).
+    \end{theorem}
     \newpage
     \section{Vector Fields}
     \subsection{Definition}

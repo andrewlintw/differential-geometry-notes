@@ -6,7 +6,8 @@
 \newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
 \newcommand{\tfld}[1]{\partial\indices{_{#1}}}
 \newcommand{\lder}[1]{\mathcal{L}_{#1}}
-\newcommand{\alt}[2]{\Lambda^{#1}(\manifold[#2])}
+\newcommand{\eucForm}[2]{\Lambda^{#1}(\mathbb{R}^{#2})}
+\newcommand{\form}[2]{\Lambda^{#1}(\manifold[#2])}
 \newcommand{\bnd}[1]{\partial\manifold[#1]}
 \newcommand{\irrshape}[3]{% r, dr, sample
     \draw plot 
@@ -18,6 +19,7 @@
 \DeclareMathOperator{\grad}{grad}
 \DeclareMathOperator{\curl}{curl}
 \DeclareMathOperator{\divv}{div}
+\DeclareMathOperator{\supp}{supp}
 
 \begin{document}
     \section{Differentiable Manifolds}
@@ -78,6 +80,7 @@
         differentiation is not defined on a manifold, so we need to rely on 
         Euclidean spaces.
     \end{remark}
+    \newpage
     \subsection{Dimension of a Manifold}
     \begin{remark}
         Consider a manifold that consists of a rod attached to a disk. The dimension 
@@ -150,6 +153,33 @@
         referring to the Euclidean partial derivative wrt the \(\mu\)-th 
         component.
     \end{remark}
+    \begin{definition}[Jacobian Matrix of Coordinate Transformation]\label{def:jacobian-matrix}
+        Let \(\manifold[M]\) be a \(C^\infty\) manifold of \(\dim \manifold[M]=m\).
+        Choose two coordinate functions 
+        \[
+        \begin{aligned}
+            \phi : U_\phi \to V_\phi,& \; p \mapsto (x^1(p), \dots, x^m(p)), \\
+            \psi : U_\psi \to V_\psi,& \; p \mapsto (y^1(p), \dots, y^m(p)).
+        \end{aligned}
+        \]
+        Define the Jacobian matrix of coordinate transformation to be
+        \[
+        J := \begin{pmatrix}
+        \frac{\partial y^1}{\partial x^1} & \cdots & \frac{\partial y^1}{\partial x^m} \\
+        \vdots                            & \ddots & \vdots                            \\
+        \frac{\partial y^m}{\partial x^1} & \cdots & \frac{\partial y^m}{\partial x^m} \\
+        \end{pmatrix}
+        \]
+        In short, 
+        \[
+        \begin{aligned}
+            J\indices{^\nu_\mu} := \frac{\partial y^\nu}{\partial x^\mu}, \\
+            (J^{-1})\indices{^\nu_\mu} := \frac{\partial x^\nu}{\partial y^\mu}, 
+        \end{aligned}
+        \]
+        where \(\frac{\partial y^\nu}{\partial x^\mu} := 
+        \frac{\partial (y^\nu \circ \phi ^{-1})}{\partial x^\mu}\).
+    \end{definition}
     \newpage
     \subsection{Manifold With Boundary}
     \subsubsection{Generalized Coordinate Charts}
@@ -283,57 +313,57 @@
         \]
     \end{definition}
     
-    \subsection{Addition and Scalar Multiplication}
-    \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-and-scalar-multiplication-curve}
-        Let \(v_1 = [\sigma_1], v_2 = [\sigma_2] \in T_p\manifold[M]\), and 
-        \(r \in \mathbb{R}\). Then 
-        define 
-        \[
-        \begin{aligned}
-            v_1+v_2 &:= [\phi ^{-1}\circ(\phi\circ\sigma_1+\phi\circ\sigma_2)], \\
-            rv_1 &:= [\phi ^{-1} \circ (r\phi \circ \sigma_1)].
-        \end{aligned}
-        \]
-    \end{definition}
-    \begin{theorem}
-        The definition \cref{def:addition-and-scalar-multiplication-curve}
-        is well-defined. That is, they are independent of the 
-        choice of chart \((U, \phi)\) and \(\sigma_1, \sigma_2\) as long as 
-        \(v_1=[\sigma_1]\) and \(v_2=[\sigma_2]\).\par
-        Therefore, \(T_p\manifold[M]\) is a real vector space.
-    \end{theorem}
-    \begin{proof}
-        Let \(v_1 = [\sigma_1] = v_1' := [\tau_1], 
-        v_2 = [\sigma_2] = v_2' := [\tau_2]\). 
-        First check (1) of \cref{def:curve-tangency}, 
-        \[
-        \begin{aligned}
-            (rv_1+v_2)(0) &= (\phi ^{-1} \circ (r\phi\circ\sigma_1(0) + 
-            \phi\circ\sigma_2(0))) \\
-            &= (\phi ^{-1} \circ (r\phi\circ\tau_1(0) + 
-            \phi\circ\tau_2(0))) \\
-            &= (rv_1'+v_2')(0),
-        \end{aligned}
-        \]
-        since \(\phi\circ\sigma_1(0) = \phi\circ\tau_1(0) = \phi(p)\) by 
-        equivalence, and the same for \(\sigma_2\). \par
-        Now consider 
-        \[
-        \begin{aligned}
-            \left.\frac{d}{dt}(\phi\circ(rv_1+v_2))\right|_{t=0}
-            &=\left.\frac{d}{dt}(r\phi\circ\sigma_1+\phi\circ\sigma_2)
-            \right|_{t=0}\\
-            &=r\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}+
-            \left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}\\
-            &=r\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}+
-            \left.\frac{d}{dt}(\phi\circ\tau_2)\right|_{t=0}\\
-            &=\left.\frac{d}{dt}(\phi\circ(rv_1'+v_2'))\right|_{t=0},
-        \end{aligned}
-        \]
-        since \(\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
-        =\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}\) by equivalence, and 
-        the same for \(\sigma_2\).
-    \end{proof}
+    % \subsection{Addition and Scalar Multiplication}
+    % \begin{definition}[Addition and Scalar Multiplication]\label{def:addition-and-scalar-multiplication-curve}
+    %     Let \(v_1 = [\sigma_1], v_2 = [\sigma_2] \in T_p\manifold[M]\), and 
+    %     \(r \in \mathbb{R}\). Then 
+    %     define 
+    %     \[
+    %     \begin{aligned}
+    %         v_1+v_2 &:= [\phi ^{-1}\circ(\phi\circ\sigma_1+\phi\circ\sigma_2)], \\
+    %         rv_1 &:= [\phi ^{-1} \circ (r\phi \circ \sigma_1)].
+    %     \end{aligned}
+    %     \]
+    % \end{definition}
+    % \begin{theorem}
+    %     The definition \cref{def:addition-and-scalar-multiplication-curve}
+    %     is well-defined. That is, they are independent of the 
+    %     choice of chart \((U, \phi)\) and \(\sigma_1, \sigma_2\) as long as 
+    %     \(v_1=[\sigma_1]\) and \(v_2=[\sigma_2]\).\par
+    %     Therefore, \(T_p\manifold[M]\) is a real vector space.
+    % \end{theorem}
+    % \begin{proof}
+    %     Let \(v_1 = [\sigma_1] = v_1' := [\tau_1], 
+    %     v_2 = [\sigma_2] = v_2' := [\tau_2]\). 
+    %     First check (1) of \cref{def:curve-tangency}, 
+    %     \[
+    %     \begin{aligned}
+    %         (rv_1+v_2)(0) &= (\phi ^{-1} \circ (r\phi\circ\sigma_1(0) + 
+    %         \phi\circ\sigma_2(0))) \\
+    %         &= (\phi ^{-1} \circ (r\phi\circ\tau_1(0) + 
+    %         \phi\circ\tau_2(0))) \\
+    %         &= (rv_1'+v_2')(0),
+    %     \end{aligned}
+    %     \]
+    %     since \(\phi\circ\sigma_1(0) = \phi\circ\tau_1(0) = \phi(p)\) by 
+    %     equivalence, and the same for \(\sigma_2\). \par
+    %     Now consider 
+    %     \[
+    %     \begin{aligned}
+    %         \left.\frac{d}{dt}(\phi\circ(rv_1+v_2))\right|_{t=0}
+    %         &=\left.\frac{d}{dt}(r\phi\circ\sigma_1+\phi\circ\sigma_2)
+    %         \right|_{t=0}\\
+    %         &=r\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}+
+    %         \left.\frac{d}{dt}(\phi\circ\sigma_2)\right|_{t=0}\\
+    %         &=r\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}+
+    %         \left.\frac{d}{dt}(\phi\circ\tau_2)\right|_{t=0}\\
+    %         &=\left.\frac{d}{dt}(\phi\circ(rv_1'+v_2'))\right|_{t=0},
+    %     \end{aligned}
+    %     \]
+    %     since \(\left.\frac{d}{dt}(\phi\circ\sigma_1)\right|_{t=0}
+    %     =\left.\frac{d}{dt}(\phi\circ\tau_1)\right|_{t=0}\) by equivalence, and 
+    %     the same for \(\sigma_2\).
+    % \end{proof}
 
     \subsection{Curves and Derivation}
     \begin{definition}[Directional Derivative]\label{def:directional-derivative-curve}
@@ -419,37 +449,6 @@
         \]
         Therefore, \(v_1=v_2\).
     \end{proof}
-    \begin{remark}
-        A natural question is that whether two charts behave "the same" if 
-        \(U_1 \cap U_2 \neq \varnothing\). Under this perspective, the criterion 
-        is clear: we need only to check whether a straight line is still a straight 
-        line in another chart, which is true indeed. It also produces the coordinate 
-        transformation formula for free. See below.
-    \end{remark}
-    \begin{theorem}[Coordinate Transformation of Straight Lines]\label{thm:straight-overlap}
-        Choose \(\phi, \psi \in \Phi\), \(\phi : U_1 \to \mathbb{R}^m\), 
-        \(\psi : U_2 \to \mathbb{R}^m\) s.t. \(U_1 \cap U_2 \neq \varnothing\) and 
-        \(p \in U_1 \cap U_2\). Let the corresponding straight line isomorphisms 
-        \(\ell_p^\phi, \ell_p^\psi\). Then \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) 
-        is a linear isomorphism. \\
-        Let the local coordinates induced by \(\phi\) be \(x^1, \dots, x^m\), 
-        \(\psi\) be \(y^1, \dots, y^m\), then 
-        \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) can be expressed in terms of 
-        Jacobian, namely, 
-        \[
-        (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) = J_{\psi\circ\phi ^{-1}}(\phi(p))v.
-        \]
-    \end{theorem}
-    \begin{proof}
-        \[
-        \begin{aligned}
-            (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) &= 
-            (\ell_p^\psi)^{-1}(\phi ^{-1}(\phi(p)+vt)) \\
-            &= ((\psi \circ \phi ^{-1})(\phi(p)+vt))'(0) \\
-            & = J_{\psi\circ\phi ^{-1}}(\phi(p))v \\
-        \end{aligned}
-        \]
-    \end{proof}
     \begin{definition}[Alternative Definition for Addition]\label{def:curve-add-alt}
         For \(v_1, v_2 \in T_p\manifold[M]\), we define addition via the isomorphism 
         \cref{thm:curve-straight-iso}, 
@@ -496,12 +495,76 @@
         So \(a^\nu=0\).
     \end{proof}
     \begin{theorem}[Coordinate Expansion of Tangent Vectors]\label{thm:tangent-vector-coordinates}
-        For all \(v \in D_p\manifold[M]\), we have 
+        For all \(v \in T_p\manifold[M]\), we have 
         \[
         v=v^\mu\tvec{\mu}{p},
         \]
         where Einstein notation was used, and \(v^\mu = v(x^\mu)\).
     \end{theorem}
+    \begin{remark}
+        A natural question is that whether two charts behave "the same" if 
+        \(U_1 \cap U_2 \neq \varnothing\). Under this perspective, the criterion 
+        is clear: we need only to check whether a straight line is still a straight 
+        line in another chart, which is true indeed. It also produces the coordinate 
+        transformation formula for free. See below.
+    \end{remark}
+    \begin{theorem}[Coordinate Transformation of Straight Lines]\label{thm:straight-overlap}
+        Choose \(\phi, \psi \in \Phi\), \(\phi : U_1 \to \mathbb{R}^m\), 
+        \(\psi : U_2 \to \mathbb{R}^m\) s.t. \(U_1 \cap U_2 \neq \varnothing\) and 
+        \(p \in U_1 \cap U_2\). Let the corresponding straight line isomorphisms 
+        \(\ell_p^\phi, \ell_p^\psi\). Then \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) 
+        is a linear isomorphism. \\
+        Let the local coordinates induced by \(\phi\) be \(x^1, \dots, x^m\), 
+        \(\psi\) be \(y^1, \dots, y^m\), then 
+        \((\ell_p^\psi)^{-1} \circ \ell_p^\phi\) can be expressed in terms of 
+        the Jacobian \cref{def:jacobian-matrix} \(J\indices{^\nu_\mu}:=
+        \left.\frac{\partial y^\nu}{\partial x^\mu}\right|_{\phi(p)}\), namely, 
+        \[
+        (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) = Jv.
+        \]
+    \end{theorem}
+    \begin{proof}
+        \[
+        \begin{aligned}
+            (\ell_p^\psi)^{-1} \circ \ell_p^\phi(v) &= 
+            (\ell_p^\psi)^{-1}(\phi ^{-1}(\phi(p)+vt)) \\
+            &= ((\psi \circ \phi ^{-1})(\phi(p)+vt))'(0) \\
+            & = Jv \\
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{definition}[Contravariancy and Covariancy]\label{def:contravariant-covariant}
+        Let \(\manifold[M]\) be a \(m\)-dimensional \(C^\infty\) manifold. 
+        Choose two coordinate charts
+        \[
+        \begin{aligned}
+            \phi : U_\phi \to V_\phi,& \; p \mapsto (x^1(p), \dots, x^m(p)), \\
+            \psi : U_\psi \to V_\psi,& \; p \mapsto (y^1(p), \dots, y^m(p)).
+        \end{aligned}
+        \]
+        and the corresponding Jacobian matrix \cref{def:jacobian-matrix} 
+        \(J\indices{^\nu_\mu} := \left.\frac{\partial y^\nu}{\partial x^\mu}
+        \right|_{\phi(p)}\).
+        We define covariancy to be anything that transforms like 
+        \[
+        (\text{new})_\nu = (\text{old})_\mu(J^{-1})\indices{^\mu_\nu}.
+        \]
+    \end{definition}
+    \begin{corollary}[Contravariancy of Tangent Vectors]\label{cor:vec-coord-trans}
+        The basis vectors transform covariantly, whereas the components of 
+        vectors transform contravariantly. That is, choose two overlapping 
+        coordinate charts \((x^1, \dots, x^m)\) and \((y^1, \dots, y^m)\) and define 
+        their Jacobian matrix \cref{def:jacobian-matrix} \(J\indices{^\nu_\mu} := 
+        \left.\frac{\partial y^\nu}{\partial x^\mu}\right|_{\phi(p)}\), 
+        \[
+        \begin{cases}
+            \left(\frac{\partial }{\partial y^\nu}\right) = 
+            \left(\frac{\partial }{\partial x^\mu}\right)(J^{-1})\indices{^\mu_\nu}
+            & \text{(covariant)} \\
+            v^{\nu'} = J\indices{^{\nu'}_\mu}v^\mu & \text{(contravariant)}
+        \end{cases}
+        \]
+    \end{corollary}
     \subsection{Pushforward}
     \subsubsection{Definition and Linearity}
     \begin{remark}
@@ -707,24 +770,6 @@
             &=[c]f.
         \end{aligned}
         \]
-    \end{proof}
-    \begin{theorem}[Contravariancy of Tangent Vectors]\label{thm:contravariant-vector}
-        The components of tangent vectors are contravariant, i.e., given 
-        two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
-        \(U \cap U' = S \neq \varnothing\), then on \(S\), 
-        \[
-        v'^\nu = \sum_{\mu=1}^{m} v^\mu\frac{\partial x'^{\nu}}{\partial x^\mu}.
-        \]
-    \end{theorem}
-    \begin{proof}
-        Given that we have the local representative of pushforward at hand, 
-        consider the identity pushforward \(\idd_* : T_p\manifold[M] \to T_p
-        \manifold[M]\),
-        \[
-        \idd_*v = \sum_{\mu=1}^{m} \sum_{\nu=1}^{m} v^\mu 
-        \left.\frac{\partial x'^\nu}{\partial x^\mu}\right|_p\tvec{\nu'}{p}.
-        \]
-        We see immediately that the result holds.
     \end{proof}
     \newpage
     \section{Formal Differential Form}
@@ -969,13 +1014,13 @@
         \(A^k(\mathbb{R}^m)\). Then the set of all differential \(k\)-forms on 
         \(\mathbb{R}^m\) is defined to be 
         \[
-        \Lambda^k(\mathbb{R}^m) := A^k(\mathbb{R}^m) / {\equiv}.
+        \eucForm{k}{m} := A^k(\mathbb{R}^m) / {\equiv}.
         \]
     \end{definition}
     \subsection{Properties of Operations}
     \begin{theorem}[Properties of Exterior Product]\label{thm:exterior-product-properties}
-        Let \(\omega \in \Lambda^k(\mathbb{R}^m)\), \(\eta \in 
-        \Lambda^l(\mathbb{R}^m)\). Then
+        Let \(\omega \in \eucForm{k}{m}\), \(\eta \in 
+        \eucForm{l}{m}\). Then
         \[
         \begin{aligned}
             (\omega_1+\omega_2)\wedge \eta &= \omega_1\wedge \eta + \omega_2 \wedge 
@@ -985,7 +1030,7 @@
         \]
     \end{theorem}
     \begin{theorem}[Properties of Pullback]\label{thm:pullback-properties}
-        Let \(f \in C^\infty\), \(\omega \in \Lambda^k(\mathbb{R}^m)\). Then 
+        Let \(f \in C^\infty\), \(\omega \in \eucForm{k}{m}\). Then 
         \[
         \begin{aligned}
             f^*(\omega_1+\omega_2) &= f^*\omega_1+f^*\omega_2 \\
@@ -995,7 +1040,7 @@
         \]
     \end{theorem}
     \begin{theorem}[Properties of Exterior Differentiation]\label{thm:diff-properties}
-        Let \(f \in C^\infty\), \(\omega \in \Lambda^k(\mathbb{R}^m)\). Then
+        Let \(f \in C^\infty\), \(\omega \in \eucForm{k}{m}\). Then
         \[
         \begin{aligned}
             f^*(d\omega) &= d(f^*\omega) \\
@@ -1009,7 +1054,7 @@
     \subsubsection{Requirements of Manifold Forms}
     \begin{definition}[Differential Form on a Manifold]\label{def:manifold-form}
         A \(C^\infty\) differential \(k\)-form \(\omega\) on manifold \(\manifold[M]\), 
-        \(\omega \in \Lambda^k(\manifold[M])\), consists of a family of 
+        \(\omega \in \form{k}{M}\), consists of a family of 
         differential \(k\)-forms \(\omega_\phi \in \Lambda^k(\phi(U_\phi))\), 
         \(\phi \in \Phi\), \(\phi : U_\phi \to V_\phi = \phi(U_\phi) \subseteq 
         (-\infty, 0] \times \mathbb{R}^{m-1}\), with an additional requirement that 
@@ -1032,9 +1077,10 @@
         they should "agree" on that portion of manifold. The "agreement" is done by 
         pullback using the overlap function.
     \end{remark}
+    \newpage
     \subsubsection{Operations on Manifold Forms}
     \begin{definition}[Addition]\label{def:mani-form-add}
-        Given two forms \(\omega, \eta \in \Lambda^k(\manifold[M])\), 
+        Given two forms \(\omega, \eta \in \form{k}{M}\), 
         \(m=\dim \manifold[M]\), define their sum to be \(\omega+\eta\), whose 
         chart components are given by 
         \[
@@ -1043,7 +1089,7 @@
         They satisfy \cref{def:manifold-form} thanks to the linearity of pullback.
     \end{definition}
     \begin{definition}[Exterior Product]\label{def:mani-form-exterior-product}
-        Given two forms \(\omega, \eta \in \Lambda^k(\manifold[M])\), 
+        Given two forms \(\omega, \eta \in \form{k}{M}\), 
         \(m=\dim \manifold[M]\), define their exterior product to be 
         \(\omega\wedge\eta\), whose chart components are given by 
         \[
@@ -1053,7 +1099,7 @@
         exterior product.
     \end{definition}
     \begin{definition}[Exterior Differentiation]\label{def:mani-form-diff}
-        Given a form \(\omega \in \Lambda^k(\manifold[M])\), 
+        Given a form \(\omega \in \form{k}{M}\), 
         \(m=\dim \manifold[M]\), define its exterior derivative to be
         \(d\omega\), whose chart components are given by 
         \[
@@ -1063,7 +1109,7 @@
         exterior product.
     \end{definition}
     \begin{definition}[Pullback]\label{def:mani-form-pullback}
-        Given a form \(\omega \in \Lambda^k(\manifold[N])\) and a function 
+        Given a form \(\omega \in \form{k}{N}\) and a function 
         \(f : \manifold[M] \to \manifold[N]\), \(m=\dim \manifold[M], 
         n=\dim \manifold[N]\). Choose coordinate functions 
         \(\phi_i : U_i \to \phi_i(U_i)\) on \(\manifold[M]\), and 
@@ -1077,13 +1123,276 @@
         \]
         They satisfy \cref{def:manifold-form}.
     \end{definition}
-    \begin{theorem}[Local Representation of Pullback]\label{thm:pullback-coordinate}
-        Let a form \(\omega \in \Lambda^k(\manifold[N])\) and a function 
-        \(f : \manifold[M] \to \manifold[N]\), \(m=\dim \manifold[M], 
-        n=\dim \manifold[N]\). Consider coordinate functions 
-        \(\phi : U \to \phi(U)\) on \(\manifold[M]\), and 
-        \(\psi : V \to \psi(V)\) on \(\manifold[N]\).
+    \newpage
+
+    \section{Integration of Differential Forms}
+    \subsection{Partition of Unity}
+    \begin{definition}[Support]\label{def:support}
+        Let \(X\) be a topological space, and \(f : X \to \mathbb{R}\). Then 
+        the support of \(f\) is defined as
+        \[
+        \supp f := \Set{x \in X|f(x) \neq 0}.
+        \]
+    \end{definition}
+    \begin{theorem}[Partition of Unity]\label{thm:manifold-partition-of-unity}
+        Let \(\manifold[M]\) be a \(C^\infty\) manifold with dimension \(m\) with 
+        atlas \(\Phi\). \\
+        Let \(\Phi = \Set{\phi_j|\phi_j : V_j \to \phi_j(V_j), j \in J}\).\\
+        Then it is possible to construct a set of \(C^\infty\) functions 
+        \(\rho_j, j \in J\) s.t. 
+        \[
+        1 = \sum_{j \in J}^{} \rho_j,\; \supp \rho_j \subseteq V_j
+        \]
     \end{theorem}
+    \subsection{Orientation}
+    \subsubsection{Definition}
+    \begin{definition}[Compatible Coordinate Charts]\label{def:compatible-coord-charts}
+        Given a manifold \(\manifold[M]\), its two coordinate charts are called 
+        compatible (have the same orientation) if, 
+        \[
+        \det J > 0.
+        \]
+        Where \(J\) is the Jacobian matrix \cref{def:jacobian-matrix}.\\
+        The collection of all compatible charts of a specific orientation are 
+        denoted \(\tilde{\Phi}\).
+    \end{definition}
+    \begin{theorem}
+        A manifold has either no orientation (any atlas is not compatible) or 
+        two orientations.
+    \end{theorem}
+    \subsubsection{Positively Oriented Boundary}
+    \begin{definition}[Positively Oriented Boundary]\label{def:positive-boundary}
+        Let \(\manifold[M]\) be a orientable \(C^\infty\) manifold with dimension 
+        \(m\), with compatible atlas \(\tilde{\Phi}\). Define coordinate charts on 
+        \(\partial \manifold[M]\) from \(\Phi\) as follows, 
+        \[
+        \phi^{\partial \manifold[M]} : U_\phi \cap \partial \manifold[M] 
+        \to \mathbb{R}^{m-1}, 
+        \]
+        Then \(\tilde{\Phi}^{\partial \manifold[M]} := 
+        \Set{\phi^{\partial \manifold[M]}| \phi \in \tilde{\Phi}}\) determines an 
+        orientation on \(\partial \manifold[M]\), called the positive orientation.
+    \end{definition}
+    \subsection{Integration of Forms of Highest Degree}
+    \begin{definition}[Integration]\label{def:top-form-integration}
+        Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
+        \(m\), oriented by compatible atlas \(\tilde{\Phi} = \Set{\phi_j|j \in J}\). 
+        Choose a \(C^\infty\) partition of unity \(\rho_j, j \in J\) of 
+        \(\manifold[M]\) s.t. \(\supp \rho_j \subseteq U_{\phi_j} := U_j\). \\
+        Let an \(m\)-form \(\omega \in \form{m}{M}\) has local expression 
+        \(\omega_{\phi_j} = f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), we say 
+        \[
+        \int_{\manifold[M]} \omega = 
+        \sum_{j \in J}^{} \int_{(-\infty, 0] \times \mathbb{R}^{m-1}}
+        (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m
+        \]
+        if the finite sum exists and has the same value for all choices of 
+        \(\rho_j\) and \(\phi_j\).
+    \end{definition}
+    \begin{remark}
+        The following theorem reveals why orientation is a significant factor in 
+        the context of integration.
+    \end{remark}
+    \begin{theorem}[Criterion of Existence of Integral]\label{thm:cpt-form-integral-exist}
+        If \(\supp \omega\) is compact, then \(\int_{\manifold[M]} \omega\) exists.
+    \end{theorem}
+    \begin{proof}
+        Let two sets of coordinate charts be 
+        \[
+        \begin{aligned}
+            \phi_j &: U_j \to V_j, j \in J \\
+            \phi_k'&: U'_k \to V'_k, k \in K.
+        \end{aligned}
+        \]
+        And cooresponding partition of unity be \(\rho_j, \rho'_k\).\par
+        (The goal) Show
+        \[
+        \begin{aligned}
+            &\sum_{j \in J}^{} \int
+            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            =&\sum_{k \in K}^{} \int
+            (\rho'_k \circ {\phi'_k} ^{-1})(x') f'_k(x') {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]
+        \par
+        (Split using \(\rho_k'\))
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]} \omega &= 
+            \sum_{j \in J}^{} \int
+            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            &= \sum_{j \in J}^{} \int \sum_{k \in K}^{}
+            (\rho'_k\circ \phi_j ^{-1})(x)(\rho_j\circ \phi_j ^{-1})(x) f_j(x)
+            dx^1\dots dx^m.
+        \end{aligned}
+        \]
+        Since the sum is finite, and \(\supp\omega\) is compact, and therefore 
+        the integral is not improper; thus, there can be no limit or Fubini 
+        problems on exchanging sums and integrals. So 
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]} \omega
+            &= \sum_{j \in J}^{}\sum_{k \in K}^{} \int 
+            (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x)
+            dx^1\dots dx^m \\
+        \end{aligned}
+        \]
+        \par
+        (Change of variables)
+        First fix \(j, k\).
+        \[
+        \begin{aligned}
+            &\int (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x) dx^1\dots dx^m \\
+            =&\int (\rho_j\rho'_k\circ \phi_j ^{-1})(\phi_j\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m \\
+            =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]\par
+        (Use pullback requirement) From \cref{def:manifold-form},
+        \[
+        (\phi_j\circ {\phi'_k}^{-1})^*\omega_{\phi_j} = \omega_{\phi'_k}, 
+        \]
+        we see
+        \[
+        \begin{aligned}
+            &f'_j(x')dx^1\wedge \dots \wedge dx^m \\
+            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            \left(\frac{\partial x^1}{\partial {x'}^{\ell_1}}{dx'}^{\ell_1}\right)
+            \wedge \dots\wedge 
+            \left(\frac{\partial x^m}{\partial {x'}^{\ell_m}}{dx'}^{\ell_m}\right) \\
+            =&\sum_{\sigma \in S_m}^{} f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            (\sgn \sigma)\frac{\partial x^1}{\partial {x'}^{\sigma(1)}}\dots
+            \frac{\partial x^m}{\partial {x'}^{\sigma(m)}}
+            {dx'}^1\wedge\dots\wedge{dx'}^m \\
+            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            \det \left(\frac{\partial x}{\partial x'}\right)
+            {dx'}^1\wedge\dots\wedge{dx'}^m
+        \end{aligned}
+        \]\par
+        (Orientation) Within a compatible atlas, however, 
+        \(\left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+        =\det \left(\frac{\partial x}{\partial x'}\right)\). Therefore, the 
+        integral 
+        \[
+        \begin{aligned}
+            &\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m \\
+            =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f'_j(x')
+            {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]\par
+        (Closing) By moving the sum wrt \(j \in J\) into the integral and using 
+        the property of partition of unity, the proof is completed.
+    \end{proof}
+    \subsection{Integration of Forms of Lower Degree}
+    \subsubsection{Definition}
+    \begin{definition}[Integration of Lower Degree Forms]\label{def:pullback-integral}
+        Let \(\manifold[Z]\) be an oriented \(C^\infty\) manifold of dimension \(d\), 
+        \(f : \manifold[Z] \to \manifold[M]\) be a \(C^\infty\) map to a \(C^\infty\) 
+        manifold \(\manifold[M]\) of dimension \(m\). \\
+        Let \(\omega \in \form{d}{M}\), we define 
+        \[
+        \int_{\manifold[Z]}\omega := \int_{\manifold[Z]}^{} f^*\omega
+        \]
+        if the latter exists and the pullback function \(f\) is clear from context.
+    \end{definition}
+    \subsubsection{Stoke's theorem}
+    \begin{theorem}[Stoke's Theorem]\label{thm:stokes-theorem}
+        If \(\manifold[M]\) is an oriented \(C^\infty\) manifold of dimension \(m\) 
+        and \(\omega \in \form{{m-1}}{M}\), then 
+        \[
+        \int_{\manifold[M]}^{}d\omega = \int_{\partial \manifold[M]}^{}\omega
+        := \int_{\partial \manifold[M]}^{} i^*\omega,
+        \]
+        where \(i : \partial \manifold[M] \to \manifold[M]\) is just the immersion 
+        map, \(i : p \mapsto p\).
+    \end{theorem}
+    \begin{proof}
+        (Partition Using Charts) Choose a \(C^\infty\) partition of unity 
+        \cref{thm:manifold-partition-of-unity} \(\rho_j, j \in J\) s.t. 
+        \(\supp \rho_j\) are compact and \(\supp \rho_j \subseteq U_{\phi_j} 
+        := U_j\). \par
+        Now \(\omega = \sum_{j \in J}^{} \rho_j \omega\) is a finite sum. So 
+        it suffices to show that, if \(\eta \in \form{m-1}{M}\), \(\supp \eta\) 
+        compact and \(\supp\eta \subseteq U_\phi\) then \(\int_{\manifold[M]}^{}
+        d\eta = \int_{\partial \manifold[M]}^{} \eta\), and apply 
+        \(\eta = \rho_j\omega\) for all \(j \in J\). \par
+        (The integral)
+        Suppose the coordinates of \(\phi\) is labeled \(x^1, \dots, x^m\).
+        % Since \(\supp \eta \subseteq U_\phi\), we will make no distinction between 
+        % \(\eta \in \form{m-1}{M}\) and \(\eta_\phi \in \eucForm{m-1}{m}\). \par
+        Locally, let 
+        \[
+        \eta = \sum_{\ell=1}^{m} f_\ell dx^1\wedge \cdots \cancel{dx^\ell} \cdots 
+        \wedge dx^m,
+        \]
+        where \(f_\ell : (-\infty, 0] \times \mathbb{R}^{m-1} \to \mathbb{R}\), and 
+        it is \(C^\infty\). Then, also locally, 
+        \[
+        \begin{aligned}
+            d\eta &= \sum_{\ell = 1}^{m} \frac{\partial f_\ell}{\partial x^\ell} dx^\ell 
+            \wedge dx^1\wedge \cdots \cancel{dx^\ell} \cdots \wedge dx^m \\
+            &= \left(\sum_{\ell=1}^{m} (-1)^{\ell-1}
+            \frac{\partial f_\ell}{\partial x^\ell}\right)dx^1\wedge \dots \wedge dx^m.
+        \end{aligned}
+        \]
+        Then by \cref{def:top-form-integration}, 
+        \[
+        \int_{\manifold[M]}^{}d\eta = \int_{(-\infty, 0]\times \mathbb{R}^{m-1}}^{} 
+        \left(\sum_{\ell=1}^{m} (-1)^{\ell-1}
+        \frac{\partial f_\ell}{\partial x^\ell}\right)dx^1\dots dx^m.
+        \]\par
+        (To be precise, we need to choose another partition of unity \(\rho_j'\) to 
+        do intergration. But we can just choose it to cover all of \(\supp \eta\) 
+        and don't care all other parts, so that doesn't matter too much.)\par
+        Choose a rectangular region \(R\) s.t. 
+        \[
+        \supp \eta \subseteq [a_1, 0]\times \dots \times [a_m, b_m]
+        \]
+        and define 
+        \[
+        R_\ell := [a_1, 0] \times \dots \cancel{[a_\ell, b_\ell]} \dots 
+        \times [a_m, b_m].
+        \]\par
+        (\(\ell = 2,\dots, m\)) In this case, by Fubini and FTC, 
+        \[
+        \begin{aligned}
+            &\int_{R}^{}\frac{\partial f_\ell}{\partial x^\ell}dx^1\dots dx^m\\
+            =&\int_{R_\ell}^{}\left(\int_{a_\ell}^{b_\ell} 
+            \frac{\partial f_\ell}{\partial x^\ell}dx^\ell\right)dx^1\dots
+            \cancel{dx^\ell}\dots dx^m \\
+            =&\int_{R_\ell}^{}
+            (\underbrace{f_\ell(x^1, \dots, b_\ell, \dots, x^m)}_{0}
+             - \underbrace{f_\ell(x^1, \dots, a_\ell, \dots, x^m)}_{0})
+            dx^1\dots \cancel{dx^\ell}\dots dx^m \\
+            =&0, 
+        \end{aligned}
+        \]
+        since \(\supp\eta \subseteq R\), so on the boundary \(f=0\). \par
+        (\(\ell = 1\)) Now the integral has only one term left.
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]}^{} d\eta &= 
+            \int_{R}^{} \frac{\partial f_1}{\partial x^1}dx^1\dots dx^m \\
+            &=\int_{R_1}^{} \left(\int_{a_1}^{0}\frac{\partial f_1}{\partial x^1}
+            dx^1\right)dx^2\dots dx^m \\
+            &=\int_{R_\ell}^{}
+            (f_1(0, x^2, \dots, x^m) - \underbrace{f_1(a_1, x^2, \dots, x^m)}_{0})
+            dx^2\dots dx^m \\
+            &=\int_{\mathbb{R}^{m-1}}^{} (f_1\circ i) dx^2\dots dx^m \\
+            &=\int_{\partial \manifold[M]}^{} i^*\eta.
+        \end{aligned}
+        \]
+    \end{proof}
+
     \newpage
     \section{Vector Fields}
     \subsection{Definition}
@@ -1505,14 +1814,14 @@
         \omega(X_{\sigma(1)}, \dots, X_{\sigma(n)}), ~\forall \sigma \in S_n.
         \]
         The set of all n-forms on \(\manifold[M]\) is denoted as 
-        \(\alt{n}{M}\). \\
-        The set of all forms is \(\alt{}{M}=\bigoplus_{n=0}^{\dim \manifold[M]}
-        \alt{n}{M}\). \\
+        \(\form{n}{M}\). \\
+        The set of all forms is \(\form{}{M}=\bigoplus_{n=0}^{\dim \manifold[M]}
+        \form{n}{M}\). \\
         Conventionally, we classify functions as 0-forms.
     \end{definition}
     \subsection{The Exterior Product}
     \begin{definition}[Exterior Product]\label{def:exterior-product}
-        Given \(\omega_1 \in \alt{n_1}{M}, \omega_2 \in \alt{n_2}{M}\), their 
+        Given \(\omega_1 \in \form{n_1}{M}, \omega_2 \in \form{n_2}{M}\), their 
         exterior product is a \((n_1+n_2)\)-form given by, 
         \[
         \omega_1 \wedge \omega_2
@@ -1531,9 +1840,10 @@
         I'll take the alternating property and associativity of the exterior 
         product for granted. For a detailed proof, see Hoffman.
     \end{remark}
+    \newpage
     \begin{theorem}[Commutativity with Pullback]\label{thm:exterior-commute-pullback}
         Given \(h : \manifold[M] \to \manifold[N]\) and \(\alpha, \beta \in 
-        \alt{}{N}\), then 
+        \form{}{N}\), then 
         \[
         h^*(\alpha \wedge \beta) = (h^*\alpha) \wedge (h^*\beta).
         \]
@@ -1560,7 +1870,7 @@
         \end{align*}
     \end{proof}
     \begin{theorem}[Skew-Symmetry]\label{thm:skew-symmetry-exterior-product}
-        The exterior product makes \(\alt{}{M}\) a graded algebra with 
+        The exterior product makes \(\form{}{M}\) a graded algebra with 
         skew-symmetry given by 
         \[
         \omega_1 \wedge \omega_2 = (-1)^{n_1n_2}\omega_2 \wedge \omega_1.
@@ -1597,9 +1907,9 @@
         we get the desired result.
     \end{proof}
     \begin{theorem}[Dimension of n-Forms]\label{thm:n-form-dimension}
-        Let \(\dim \manifold[M]=m\). If \(1 \leq n \leq m\), then \(\alt{n}{M}
-        = \binom{m}{n}\). If \(n > m\), then \(\alt{n}{M}=0\).\\
-        Moreover, a basis for \(\alt{n}{M}_p\) is given by, 
+        Let \(\dim \manifold[M]=m\). If \(1 \leq n \leq m\), then \(\form{n}{M}
+        = \binom{m}{n}\). If \(n > m\), then \(\form{n}{M}=0\).\\
+        Moreover, a basis for \(\form{n}{M}_p\) is given by, 
         \[
         (dx^{\mu_1})_p \wedge (dx^{\mu_2})_p \wedge \dots \wedge 
         (dx^{\mu_n})_p, ~1 \leq \mu_1 \leq \dots \leq \mu_n \leq m.
@@ -1623,7 +1933,7 @@
             +&\sum_{i < j}^{} (-1)^{i+j} \omega([X_i, X_j], \mathbf{X}\backslash 
             \{X_i, X_j\}).
         \end{align*}
-        If \(\omega \in \alt{\dim \manifold[M]}{M}\), we define \(d\omega=0\).
+        If \(\omega \in \form{\dim \manifold[M]}{M}\), we define \(d\omega=0\).
     \end{definition}
     \begin{theorem}
         In particular for a 0-form \(f \in C^\infty(\manifold[M])\), 
@@ -1744,7 +2054,7 @@
     \newpage
     \subsection{DeRham Cohomology}
     \begin{theorem}[Twice Exterior Differential]\label{thm:ddzero}
-        For all \(\omega \in \alt{n}{M}, 1 \leq n \leq \dim M\), we have 
+        For all \(\omega \in \form{n}{M}, 1 \leq n \leq \dim M\), we have 
         \[
         d^2\omega=0.
         \]
@@ -1752,8 +2062,8 @@
     \begin{remark}
         This means 
         \[
-        \mathrm{Im}(d : \alt{n-1}{M} \to \alt{n}{M}) \subseteq 
-        \mathrm{Ker}(d : \alt{n}{M} \to \alt{n+1}{M}).
+        \mathrm{Im}(d : \form{n-1}{M} \to \form{n}{M}) \subseteq 
+        \mathrm{Ker}(d : \form{n}{M} \to \form{n+1}{M}).
         \]
         This type of structure is called a differential complex, and is common 
         in many structures.

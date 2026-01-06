@@ -1,0 +1,271 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+    \section{Integration of Differential Forms}
+    \subsection{Partition of Unity}
+    \begin{definition}[Support]\label{def:support}
+        Let \(X\) be a topological space, and \(f : X \to \mathbb{R}\). Then 
+        the support of \(f\) is defined as
+        \[
+        \supp f := \Set{x \in X|f(x) \neq 0}.
+        \]
+    \end{definition}
+    \begin{theorem}[Partition of Unity]\label{thm:manifold-partition-of-unity}
+        Let \(\manifold[M]\) be a \(C^\infty\) manifold with dimension \(m\) with 
+        atlas \(\Phi\). \\
+        Let \(\Phi = \Set{\phi_j|\phi_j : V_j \to \phi_j(V_j), j \in J}\).\\
+        Then it is possible to construct a set of \(C^\infty\) functions 
+        \(\rho_j, j \in J\) s.t. 
+        \[
+        1 = \sum_{j \in J}^{} \rho_j,\; \supp \rho_j \subseteq V_j
+        \]
+    \end{theorem}
+    \subsection{Orientation}
+    \subsubsection{Definition}
+    \begin{definition}[Compatible Coordinate Charts]\label{def:compatible-coord-charts}
+        Given a manifold \(\manifold[M]\), its two coordinate charts are called 
+        compatible (have the same orientation) if, 
+        \[
+        \det J > 0.
+        \]
+        Where \(J\) is the Jacobian matrix \cref{def:jacobian-matrix}.\\
+        The collection of all compatible charts of a specific orientation are 
+        denoted \(\tilde{\Phi}\).
+    \end{definition}
+    \begin{theorem}
+        A manifold has either no orientation (any atlas is not compatible) or 
+        two orientations.
+    \end{theorem}
+    \subsubsection{Positively Oriented Boundary}
+    \begin{definition}[Positively Oriented Boundary]\label{def:positive-boundary}
+        Let \(\manifold[M]\) be a orientable \(C^\infty\) manifold with dimension 
+        \(m\), with compatible atlas \(\tilde{\Phi}\). Define coordinate charts on 
+        \(\partial \manifold[M]\) from \(\Phi\) as follows, 
+        \[
+        \phi^{\partial \manifold[M]} : U_\phi \cap \partial \manifold[M] 
+        \to \mathbb{R}^{m-1}, 
+        \]
+        Then \(\tilde{\Phi}^{\partial \manifold[M]} := 
+        \Set{\phi^{\partial \manifold[M]}| \phi \in \tilde{\Phi}}\) determines an 
+        orientation on \(\partial \manifold[M]\), called the positive orientation.
+    \end{definition}
+    \subsection{Integration of Forms of Highest Degree}
+    \begin{definition}[Integration]\label{def:top-form-integration}
+        Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
+        \(m\), oriented by compatible atlas \(\tilde{\Phi} = \Set{\phi_j|j \in J}\). 
+        Choose a \(C^\infty\) partition of unity \(\rho_j, j \in J\) of 
+        \(\manifold[M]\) s.t. \(\supp \rho_j \subseteq U_{\phi_j} := U_j\). \\
+        Let an \(m\)-form \(\omega \in \form{m}{M}\) has local expression 
+        \(\omega_{\phi_j} = f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), we say 
+        \[
+        \int_{\manifold[M]} \omega = 
+        \sum_{j \in J}^{} \int_{(-\infty, 0] \times \mathbb{R}^{m-1}}
+        (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m
+        \]
+        if the finite sum exists and has the same value for all choices of 
+        \(\rho_j\) and \(\phi_j\).
+    \end{definition}
+    \begin{remark}
+        The following theorem reveals why orientation is a significant factor in 
+        the context of integration.
+    \end{remark}
+    \begin{theorem}[Criterion of Existence of Integral]\label{thm:cpt-form-integral-exist}
+        If \(\supp \omega\) is compact, then \(\int_{\manifold[M]} \omega\) exists.
+    \end{theorem}
+    \begin{proof}
+        Let two sets of coordinate charts be 
+        \[
+        \begin{aligned}
+            \phi_j &: U_j \to V_j, j \in J \\
+            \phi_k'&: U'_k \to V'_k, k \in K.
+        \end{aligned}
+        \]
+        And cooresponding partition of unity be \(\rho_j, \rho'_k\).\par
+        (The goal) Show
+        \[
+        \begin{aligned}
+            &\sum_{j \in J}^{} \int
+            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            =&\sum_{k \in K}^{} \int
+            (\rho'_k \circ {\phi'_k} ^{-1})(x') f'_k(x') {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]
+        \par
+        (Split using \(\rho_k'\))
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]} \omega &= 
+            \sum_{j \in J}^{} \int
+            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            &= \sum_{j \in J}^{} \int \sum_{k \in K}^{}
+            (\rho'_k\circ \phi_j ^{-1})(x)(\rho_j\circ \phi_j ^{-1})(x) f_j(x)
+            dx^1\dots dx^m.
+        \end{aligned}
+        \]
+        Since the sum is finite, and \(\supp\omega\) is compact, and therefore 
+        the integral is not improper; thus, there can be no limit or Fubini 
+        problems on exchanging sums and integrals. So 
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]} \omega
+            &= \sum_{j \in J}^{}\sum_{k \in K}^{} \int 
+            (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x)
+            dx^1\dots dx^m \\
+        \end{aligned}
+        \]
+        \par
+        (Change of variables)
+        First fix \(j, k\).
+        \[
+        \begin{aligned}
+            &\int (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x) dx^1\dots dx^m \\
+            =&\int (\rho_j\rho'_k\circ \phi_j ^{-1})(\phi_j\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m \\
+            =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]\par
+        (Use pullback requirement) From \cref{def:manifold-form},
+        \[
+        (\phi_j\circ {\phi'_k}^{-1})^*\omega_{\phi_j} = \omega_{\phi'_k}, 
+        \]
+        we see
+        \[
+        \begin{aligned}
+            &f'_j(x')dx^1\wedge \dots \wedge dx^m \\
+            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            \left(\frac{\partial x^1}{\partial {x'}^{\ell_1}}{dx'}^{\ell_1}\right)
+            \wedge \dots\wedge 
+            \left(\frac{\partial x^m}{\partial {x'}^{\ell_m}}{dx'}^{\ell_m}\right) \\
+            =&\sum_{\sigma \in S_m}^{} f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            (\sgn \sigma)\frac{\partial x^1}{\partial {x'}^{\sigma(1)}}\dots
+            \frac{\partial x^m}{\partial {x'}^{\sigma(m)}}
+            {dx'}^1\wedge\dots\wedge{dx'}^m \\
+            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            \det \left(\frac{\partial x}{\partial x'}\right)
+            {dx'}^1\wedge\dots\wedge{dx'}^m
+        \end{aligned}
+        \]\par
+        (Orientation) Within a compatible atlas, however, 
+        \(\left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+        =\det \left(\frac{\partial x}{\partial x'}\right)\). Therefore, the 
+        integral 
+        \[
+        \begin{aligned}
+            &\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
+            {dx'}^1\dots {dx'}^m \\
+            =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            f'_j(x')
+            {dx'}^1\dots {dx'}^m
+        \end{aligned}
+        \]\par
+        (Closing) By moving the sum wrt \(j \in J\) into the integral and using 
+        the property of partition of unity, the proof is completed.
+    \end{proof}
+    \subsection{Integration of Forms of Lower Degree}
+    \subsubsection{Definition}
+    \begin{definition}[Integration of Lower Degree Forms]\label{def:pullback-integral}
+        Let \(\manifold[Z]\) be an oriented \(C^\infty\) manifold of dimension \(d\), 
+        \(f : \manifold[Z] \to \manifold[M]\) be a \(C^\infty\) map to a \(C^\infty\) 
+        manifold \(\manifold[M]\) of dimension \(m\). \\
+        Let \(\omega \in \form{d}{M}\), we define 
+        \[
+        \int_{\manifold[Z]}\omega := \int_{\manifold[Z]}^{} f^*\omega
+        \]
+        if the latter exists and the pullback function \(f\) is clear from context.
+    \end{definition}
+    \subsubsection{Stoke's theorem}
+    \begin{theorem}[Stoke's Theorem]\label{thm:stokes-theorem}
+        If \(\manifold[M]\) is an oriented \(C^\infty\) manifold of dimension \(m\) 
+        and \(\omega \in \form{{m-1}}{M}\), then 
+        \[
+        \int_{\manifold[M]}^{}d\omega = \int_{\partial \manifold[M]}^{}\omega
+        := \int_{\partial \manifold[M]}^{} i^*\omega,
+        \]
+        where \(i : \partial \manifold[M] \to \manifold[M]\) is just the immersion 
+        map, \(i : p \mapsto p\).
+    \end{theorem}
+    \begin{proof}
+        (Partition Using Charts) Choose a \(C^\infty\) partition of unity 
+        \cref{thm:manifold-partition-of-unity} \(\rho_j, j \in J\) s.t. 
+        \(\supp \rho_j\) are compact and \(\supp \rho_j \subseteq U_{\phi_j} 
+        := U_j\). \par
+        Now \(\omega = \sum_{j \in J}^{} \rho_j \omega\) is a finite sum. So 
+        it suffices to show that, if \(\eta \in \form{m-1}{M}\), \(\supp \eta\) 
+        compact and \(\supp\eta \subseteq U_\phi\) then \(\int_{\manifold[M]}^{}
+        d\eta = \int_{\partial \manifold[M]}^{} \eta\), and apply 
+        \(\eta = \rho_j\omega\) for all \(j \in J\). \par
+        (The integral)
+        Suppose the coordinates of \(\phi\) is labeled \(x^1, \dots, x^m\).
+        % Since \(\supp \eta \subseteq U_\phi\), we will make no distinction between 
+        % \(\eta \in \form{m-1}{M}\) and \(\eta_\phi \in \eucForm{m-1}{m}\). \par
+        Locally, let 
+        \[
+        \eta = \sum_{\ell=1}^{m} f_\ell dx^1\wedge \cdots \cancel{dx^\ell} \cdots 
+        \wedge dx^m,
+        \]
+        where \(f_\ell : (-\infty, 0] \times \mathbb{R}^{m-1} \to \mathbb{R}\), and 
+        it is \(C^\infty\). Then, also locally, 
+        \[
+        \begin{aligned}
+            d\eta &= \sum_{\ell = 1}^{m} \frac{\partial f_\ell}{\partial x^\ell} dx^\ell 
+            \wedge dx^1\wedge \cdots \cancel{dx^\ell} \cdots \wedge dx^m \\
+            &= \left(\sum_{\ell=1}^{m} (-1)^{\ell-1}
+            \frac{\partial f_\ell}{\partial x^\ell}\right)dx^1\wedge \dots \wedge dx^m.
+        \end{aligned}
+        \]
+        Then by \cref{def:top-form-integration}, 
+        \[
+        \int_{\manifold[M]}^{}d\eta = \int_{(-\infty, 0]\times \mathbb{R}^{m-1}}^{} 
+        \left(\sum_{\ell=1}^{m} (-1)^{\ell-1}
+        \frac{\partial f_\ell}{\partial x^\ell}\right)dx^1\dots dx^m.
+        \]\par
+        (To be precise, we need to choose another partition of unity \(\rho_j'\) to 
+        do intergration. But we can just choose it to cover all of \(\supp \eta\) 
+        and don't care all other parts, so that doesn't matter too much.)\par
+        Choose a rectangular region \(R\) s.t. 
+        \[
+        \supp \eta \subseteq [a_1, 0]\times \dots \times [a_m, b_m]
+        \]
+        and define 
+        \[
+        R_\ell := [a_1, 0] \times \dots \cancel{[a_\ell, b_\ell]} \dots 
+        \times [a_m, b_m].
+        \]\par
+        (\(\ell = 2,\dots, m\)) In this case, by Fubini and FTC, 
+        \[
+        \begin{aligned}
+            &\int_{R}^{}\frac{\partial f_\ell}{\partial x^\ell}dx^1\dots dx^m\\
+            =&\int_{R_\ell}^{}\left(\int_{a_\ell}^{b_\ell} 
+            \frac{\partial f_\ell}{\partial x^\ell}dx^\ell\right)dx^1\dots
+            \cancel{dx^\ell}\dots dx^m \\
+            =&\int_{R_\ell}^{}
+            (\underbrace{f_\ell(x^1, \dots, b_\ell, \dots, x^m)}_{0}
+             - \underbrace{f_\ell(x^1, \dots, a_\ell, \dots, x^m)}_{0})
+            dx^1\dots \cancel{dx^\ell}\dots dx^m \\
+            =&0, 
+        \end{aligned}
+        \]
+        since \(\supp\eta \subseteq R\), so on the boundary \(f=0\). \par
+        (\(\ell = 1\)) Now the integral has only one term left.
+        \[
+        \begin{aligned}
+            \int_{\manifold[M]}^{} d\eta &= 
+            \int_{R}^{} \frac{\partial f_1}{\partial x^1}dx^1\dots dx^m \\
+            &=\int_{R_1}^{} \left(\int_{a_1}^{0}\frac{\partial f_1}{\partial x^1}
+            dx^1\right)dx^2\dots dx^m \\
+            &=\int_{R_\ell}^{}
+            (f_1(0, x^2, \dots, x^m) - \underbrace{f_1(a_1, x^2, \dots, x^m)}_{0})
+            dx^2\dots dx^m \\
+            &=\int_{\mathbb{R}^{m-1}}^{} (f_1\circ i) dx^2\dots dx^m \\
+            &=\int_{\partial \manifold[M]}^{} i^*\eta.
+        \end{aligned}
+        \]
+    \end{proof}
+\end{document}

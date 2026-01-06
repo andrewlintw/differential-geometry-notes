@@ -1,0 +1,471 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+    \section{Realization of Differential Forms}
+    \subsection{Cotangent Spaces}
+    \begin{definition}[Cotangent Spaces]\label{def:cotangent-space}
+        The cotangent space \(T_p^*\manifold[M]\) at \(p \in \manifold[M]\) is 
+        the set of all linear functions \(f : T_p\manifold[M] \to \mathbb{R}\). 
+        \newline
+        Its member is called a cotangent vector. \newline
+        \(\dim T_p^*\manifold[M]=\dim T_p\manifold[M]\).
+    \end{definition}
+    \begin{definition}[One-Form]\label{def:one-form}
+        A one-form on \(\manifold[M]\) is a smooth assignment of cotangent 
+        vectors \(\omega : p \mapsto \omega_p\). \newline
+        It may be understood as a covector field.
+    \end{definition}
+    \begin{definition}[Basis Cotangent Vectors]\label{def:cotangent-basis}
+        The basis cotangent vectors is chosen to be the dual basis of the 
+        basis tangent vectors \cref{def:basis-alt}, 
+        \[
+        (dx^\mu)_p(\tvec{\nu}{p})=\delta\indices{^\mu_\nu}.
+        \]
+    \end{definition}
+    \begin{theorem}[Coordinate Expression of Cotangent Vectors]\label{thm:cotangent-coordinates}
+        Any \(f \in T_p^*\manifold[M]\) can be expanded as
+        \[
+        f = f_\mu (dx^\mu)_p.
+        \]
+        Any one-form \(\omega\) can be expressed as 
+        \[
+        \omega=\omega_\mu dx^\mu.
+        \]
+    \end{theorem}
+    \newpage
+    \begin{theorem}[Pullback as Dual of Pushforward]\label{thm:pullback-dual-pushforward}
+        Given two manifolds \(\manifold[M]\) with dimension \(m\) and \(\manifold[N]\) 
+        with dimension \(n\) and a \(C^\infty\) function \(f : \manifold[M] \to 
+        \manifold[N]\), the pullback of a one-form is the dual of pushforward. 
+        That is, 
+        \[
+        (h^*\omega)_p(v) := \omega_p(h_*v).
+        \]
+    \end{theorem}
+    % \begin{definition}[Pullback]\label{def:pullback}
+    %     Given a function and its pushforward, 
+    %     we define pullback to be the dual of pushforward, i.e., 
+    %     \begin{align*}
+    %         h   &: & &\manifold[M]    & &\to & &\manifold[N], \\
+    %         h_* &: & T_p&\manifold[M] & &\to & T_{h(p)}&\manifold[N], \\
+    %         h^* &: & T_{h(p)}^*&\manifold[N] & &\to & T_p^*&\manifold[M], 
+    %     \end{align*}
+    %     s.t. given \(f \in T_{h(p)}^*\manifold[N]\) and \(v \in T_p\manifold[M]\), 
+    %     \[
+    %     (h^*f)(v) := f(h_*v).
+    %     \]
+    % \end{definition}
+    % \begin{remark}
+    %     Note especially on the direction of original function and its induced 
+    %     pullback. This is crucial to the covariancy of one-forms.
+    % \end{remark}
+    % \begin{theorem}
+    %     Given \(\omega\) a one-form on \(\manifold[N]\), and a function 
+    %     \(h : \manifold[M] \to \manifold[N]\), the pullback \(h^*\omega\) is 
+    %     defined as 
+    %     \[
+    %     (h^*\omega)(v)_p = \omega(h_*v)_{h(p)}.
+    %     \]
+    % \end{theorem}
+    % \begin{theorem}[Associativity of Pullbacks]\label{thm:pullback-associativity}
+    %     Analogous to \cref{thm:pushforward-associativity}, given 
+    %     manifolds \(\manifold[M], \manifold[N], \manifold[P]\) and 
+    %     \(h : \manifold[M] \to \manifold[N]\), \(k : \manifold[N] \to 
+    %     \manifold[P]\), then 
+    %     \[
+    %     (k\circ h)^*=k^*\circ h^*.
+    %     \]
+    % \end{theorem}
+    % \newpage
+    % \subsubsection{Jacobian}
+    % \begin{theorem}[Local Representative of Pullback]\label{thm:pullback-local-representative}
+    %     Let \(\dim \manifold[M]=m, \dim \manifold[N]=n\), \(h : \manifold[M] 
+    %     \to \manifold[N]\), \(\{x^1, \dots, x^m\}\) be the local coordinates of 
+    %     \(\manifold[M]\) around \(p\), and \(\{y^1, \dots, y^n\}\) be the local 
+    %     coordinates of \(\manifold[N]\) around \(h(p)\). Then 
+    %     \[
+    %     h^*\omega = \sum_{\mu=1}^{m} \sum_{\nu=1}^{n} \omega_\nu
+    %     \left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}(dx^\mu)_p,
+    %     \]
+    %     where \(J\indices{^\nu_\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
+    %     :=\tvec{\mu}{p}(y^\nu\circ h)\) is the Jacobian matrix.
+    % \end{theorem}
+    % \begin{proof}
+    %     We know by \cref{def:pullback}, 
+    %     \[
+    %     (h^*\omega)_\mu(p) = h^*\omega(\tfld{\mu})=\omega(h_*\tfld{\mu}).
+    %     \]
+    %     Expand it in local coordinates of \(\manifold[N]\), 
+    %     \[
+    %     (h^*\omega)_\mu(p) = \omega_\nu dy^\nu(h_*\tfld{\mu}).
+    %     \]
+    %     Via similar procedure in \cref{thm:pushforward-local}, we arrive at 
+    %     \[
+    %     (h^*\omega)_\mu(p) = \omega_\nu \frac{\partial h^\nu}{\partial x^\mu}.
+    %     \]
+    % \end{proof}
+    % \newpage
+    % \subsection{Transformation Properties}
+    % \begin{theorem}[Covariancy and Contravariancy]\label{thm:covariant-contravariant}
+    %     Given two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
+    %     \(U \cap U' = S \neq \varnothing\), then on \(S\), 
+    %     \begin{align*}
+    %         X^{\nu'} &= \sum_{\mu=1}^{m} \frac{\partial x'^{\nu}}{\partial x^\mu}X^\mu, \\
+    %         \omega_{\nu'} &= \sum_{\mu=1}^{m} \omega_\mu\frac{\partial x^\mu}{\partial x'^\nu}.
+    %     \end{align*}
+    %     If Jacobian matrix is given, 
+    %     \begin{align*}
+    %         J\indices{^{\nu'}_\mu} &:=
+    %         \left.\frac{\partial x'^\nu}{\partial x^\mu}\right|_{p}
+    %         :=\tvec{\mu}{p}x'^\nu, \\
+    %         (J ^{-1})\indices{^\mu_{\nu'}} &:=
+    %         \left.\frac{\partial x^\mu}{\partial x'^\nu}\right|_{p}
+    %         :=\tvec{\nu'}{p}x^\mu, 
+    %     \end{align*}
+    %     then, 
+    %     \begin{align*}
+    %         X^{\nu'} &= J\indices{^{\nu'}_\mu}X^\mu, & &\text{(contravariant)}\\
+    %         \omega_{\nu'} &= \omega_\mu (J ^{-1})\indices{^\mu_{\nu'}}.  &
+    %         &\text{(covariant)}
+    %     \end{align*}
+    % \end{theorem}
+    % \begin{proof}
+    %     The contravariant part is proved in \cref{thm:contravariant-vector}. 
+    %     Now we turn to the covariant part. \par
+    %     Let \(h = \idd : (U, \phi) \subseteq \manifold[M] \to (U', \phi') 
+    %     \subseteq \manifold[M]\), consider its pullback.
+    %     \[
+    %     (\idd^*\omega)_p = \omega_{\nu'}\frac{\partial x'^\nu}{\partial x^\mu} 
+    %     dx^\mu.
+    %     \]
+    %     Then, 
+    %     \[
+    %     \omega_\mu = \omega_{\nu'}\frac{\partial x'^\nu}{\partial x^\mu}.
+    %     \]
+    %     Inverting the matrix equation above, we get the desired result.
+    % \end{proof}
+    % \newpage
+    \begin{definition}[n-Forms]\label{def:n-forms}
+        An n-form is a tensor field of type \((0, n)\) that is totally 
+        skew-symmetric (or alternating, or totally antisymmetric), i.e., 
+        \[
+        \omega(X_1, X_2, \dots, X_n) = (\sgn \sigma)
+        \omega(X_{\sigma(1)}, \dots, X_{\sigma(n)}), ~\forall \sigma \in S_n.
+        \]
+        The set of all n-forms on \(\manifold[M]\) is denoted as 
+        \(\form{n}{M}\). \\
+        The set of all forms is \(\form{}{M}=\bigoplus_{n=0}^{\dim \manifold[M]}
+        \form{n}{M}\). \\
+        Conventionally, we classify functions as 0-forms.
+    \end{definition}
+    \subsection{The Exterior Product}
+    \begin{definition}[Exterior Product]\label{def:exterior-product}
+        Given \(\omega_1 \in \form{n_1}{M}, \omega_2 \in \form{n_2}{M}\), their 
+        exterior product is a \((n_1+n_2)\)-form given by, 
+        \[
+        \omega_1 \wedge \omega_2
+         := \frac{1}{n_1!n_2!}
+        \sum_{\sigma \in S_{n_1+n_2}}^{} (\sgn\sigma)(\omega_1 \otimes \omega_2)_\sigma.
+        \]
+        Written explicitly, 
+        \begin{multline*}
+        (\omega_1 \wedge \omega_2)(X_{1}, \dots, X_{n_1+n_2}):= \\
+        \frac{1}{n_1!n_2!}
+        \sum_{\sigma \in S_{n_1+n_2}}^{} (\sgn\sigma)(\omega_1 \otimes \omega_2)
+        (X_{\sigma(1)}, \dots, X_{\sigma(n_1+n_2)})
+        \end{multline*}
+    \end{definition}
+    \begin{remark}
+        I'll take the alternating property and associativity of the exterior 
+        product for granted. For a detailed proof, see Hoffman.
+    \end{remark}
+    \newpage
+    \begin{theorem}[Commutativity with Pullback]\label{thm:exterior-commute-pullback}
+        Given \(h : \manifold[M] \to \manifold[N]\) and \(\alpha, \beta \in 
+        \form{}{N}\), then 
+        \[
+        h^*(\alpha \wedge \beta) = (h^*\alpha) \wedge (h^*\beta).
+        \]
+    \end{theorem}
+    \begin{remark}
+        For a "generalized" pullback, we have, 
+        \[
+        (h^*(\alpha))(X_1, \dots, X_{n_1}) = \alpha(h_*X_1, \dots, h_*X_{n_1}).
+        \]
+    \end{remark}
+    \begin{proof}
+        \begin{align*}
+            (h^*\alpha)\wedge&(h^*\beta)\\
+            &=\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) \alpha \otimes \beta (h_*X_{\sigma(1)}, \dots, h_*
+            X_{\sigma(n_1+n_2)}). \\
+            &=\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) h^*\left(\alpha \otimes \beta (X_{\sigma(1)}, \dots, 
+            X_{\sigma(n_1+n_2)})\right). \\
+            &=h^*\left(\frac{1}{n_1!n_2!} \sum_{\sigma \in S_{n_1+n_2}}^{} 
+            (\sgn\sigma) \alpha \otimes \beta (X_{\sigma(1)}, \dots, 
+            X_{\sigma(n_1+n_2)})\right). \\
+            &=h^*(\alpha \wedge \beta).
+        \end{align*}
+    \end{proof}
+    \begin{theorem}[Skew-Symmetry]\label{thm:skew-symmetry-exterior-product}
+        The exterior product makes \(\form{}{M}\) a graded algebra with 
+        skew-symmetry given by 
+        \[
+        \omega_1 \wedge \omega_2 = (-1)^{n_1n_2}\omega_2 \wedge \omega_1.
+        \]
+    \end{theorem}
+    \begin{proof}
+        In the definition of exterior product, first fix \(\sigma = \sigma_0\) 
+        to consider only one term. \par
+        When we switch \(\omega_1\) and \(\omega_2\), we are essentially doing 
+        \begin{align*}
+            &(\omega_2 \otimes \omega_1)
+            (X_{\sigma_0(1)}, \dots, X_{\sigma_0(n_2)}, \underbrace{X_{\sigma_0(n_2+1)}, 
+            \dots, X_{\sigma_0(n_1+n_2)}}) \\
+            =&(\omega_1 \otimes \omega_2)
+            (\underbrace{X_{\sigma_0(n_2+1)}, \dots, X_{\sigma_0(n_1+n_2)}}, X_{\sigma_0(1)}, 
+            \dots, X_{\sigma_0(n_2)}).
+        \end{align*}
+        Now, \par
+        \begin{center}
+            \begin{tikzpicture}
+            \node (init) at (0, 0) 
+            {$\underbrace{1, 2, \dots, n_2}, \underbrace{n_2+1}, \dots, n_1+n_2$};
+            \node[below=10pt of init] (initToOne) {$\downarrow\ n_2$ times};
+            \node[below=10pt of initToOne] (one)
+            {$\underbrace{n_2+1}, \underbrace{1, 2, \dots, n_2}, \dots, n_1+n_2$};
+            \node[below=10pt of one] (oneToFinal) {$\downarrow\ (n_1-1)n_2$ times};
+            \node[below=10pt of oneToFinal] (final)
+            {$\underbrace{n_2+1, \dots, n_1+n_2}, \underbrace{1, 2, \dots, n_2}$};
+            \end{tikzpicture}
+        \end{center}
+        \par
+        So \(n_1n_2\) transposes can achieve the desired effect. Therefore, 
+        every term in the summation is multiplied by \((-1)^{n_1n_2}\), and 
+        we get the desired result.
+    \end{proof}
+    \begin{theorem}[Dimension of n-Forms]\label{thm:n-form-dimension}
+        Let \(\dim \manifold[M]=m\). If \(1 \leq n \leq m\), then \(\form{n}{M}
+        = \binom{m}{n}\). If \(n > m\), then \(\form{n}{M}=0\).\\
+        Moreover, a basis for \(\form{n}{M}_p\) is given by, 
+        \[
+        (dx^{\mu_1})_p \wedge (dx^{\mu_2})_p \wedge \dots \wedge 
+        (dx^{\mu_n})_p, ~1 \leq \mu_1 \leq \dots \leq \mu_n \leq m.
+        \]
+    \end{theorem}
+    \begin{remark}
+        The proof is quite a pleasure to read (and to think of). Please see 
+        Hoffman.
+    \end{remark}
+    \newpage
+    \subsection{The Exterior Derivative}
+    \begin{definition}[Exterior Derivative]\label{def:exterior-derivative}
+        Let a \(k\)-form be
+        \(\omega = \omega_{i_1\dots i_k} dx^{i_1} \wedge \dots \wedge dx^{i_k}\). 
+        Then 
+        \[
+        d\omega := \left(\frac{\partial \omega_{i_1\dots i_k}}{\partial x^{i_0}}
+        dx^{i_0}\right) 
+        \wedge dx^{i_1} \wedge \dots \wedge dx^{i_k}.
+        \]
+        If \(\omega \in \form{\dim \manifold[M]}{M}\), we define \(d\omega=0\).
+    \end{definition}
+    % \begin{theorem}
+    %     In particular for a 0-form \(f \in C^\infty(\manifold[M])\), 
+    %     \[
+    %     df(X) := \lder{X}f.
+    %     \]
+    %     In coordinates, 
+    %     \[
+    %     df = (\tfld{\mu}f)(dx^\mu).
+    %     \]
+    % \end{theorem}
+    % \begin{theorem}
+    %     In particular for a 1-form \(\omega\), 
+    %     \[
+    %     d\omega(X, Y) = \lder{X}(\omega(Y)) - \lder{Y}(\omega(X)) - \omega([X, Y]).
+    %     \]
+    % \end{theorem}
+    % \begin{theorem}[Coordinate Expansion for Exterior Derivative]\label{thm:exterior-derivative-coordinates}
+    %     In local coordinates, if \(\omega = \omega\indices
+    %     {_{\mu_1}_{\mu_2}_\dots_{\mu_n}}dx^{\mu_1}\wedge dx^{\mu_2} \wedge \dots 
+    %     \wedge dx^{\mu_n}\), then 
+    %     \[
+    %     d\omega = \tfld{\nu}\omega\indices{_{\mu_1}_{\mu_2}_\dots_{\mu_n}}
+    %     dx^\nu\wedge dx^{\mu_1}\wedge dx^{\mu_2} \wedge \dots \wedge dx^{\mu_n}
+    %     \]
+    % \end{theorem}
+    \begin{theorem}[Exterior Derivative and Product]\label{thm:exterior-leibniz}
+        \[
+        d(\omega_1 \wedge \omega_2) = d\omega_1 \wedge \omega_2 + 
+        (-1)^{\deg \omega_1}\omega_1 \wedge d\omega_2.
+        \]
+    \end{theorem}
+    \begin{theorem}[Exterior Derivative and Pullback]\label{thm:exterior-derivative-pullback}
+        Given \(h : \manifold[M] \to \manifold[N]\), \(\omega\) an n-form on 
+        \(\manifold[N]\), then 
+        \[
+        d(h^*\omega) = h^*(d\omega).
+        \]
+    \end{theorem}
+    \begin{theorem}[Functional Linearity of Exterior Derivative]
+        \label{thm:f-linear-exterior-derivative}
+        Let \(\omega\) be a 1-form on \(\manifold[M]\). Then \(d\omega\) 
+        satisfies,
+        \[
+        d\omega(fX, Y) = fd\omega(X, Y),~\forall f \in C^\infty(\manifold[M]),
+        \]
+        where \(fX\) is a vector field that gives \((fX)(p) = f(p)X_p\).
+    \end{theorem}
+    \begin{proof}
+        By \cref{def:exterior-derivative}, 
+        \[
+        d\omega(fX, Y) = \lder{fX}(\omega(Y)) - \lder{Y}(\omega(fX)) - 
+        \omega([fX, Y]).
+        \]
+        We break it down term by term. Firstly, 
+        \[
+        (\lder{fX}(\omega(Y)))(p) = f(p)X_p(\omega(Y)) = 
+        f(p)(\lder{X}(\omega(Y)))(p).
+        \]
+        So
+        \[
+        \lder{fX}(\omega(Y)) = f\cdot\lder{X}(\omega(Y)).
+        \]
+        Secondly, we tackle \(\lder{Y}(\omega(fX))\). In particular, 
+        \[
+        \omega(fX)(p) = \omega_p(f(p)X_p) = f(p) \omega_p(X_p) = 
+        f(p)(\omega(X))(p).
+        \]
+        Therefore, 
+        \[
+        \lder{Y}(\omega(fX)) = \lder{Y}(f\cdot\omega(X)) = 
+        (\lder{Y}f)\omega(X) + f\cdot\lder{Y}(\omega(X)).
+        \]
+        Thirdly, 
+        \[
+        \omega([fX, Y]) = \omega((fX)\circ Y - Y \circ (fX)).
+        \]
+        In particular, 
+        \[
+        ((Y \circ (fX))(g))(p) = Y_p((fX)(g)) = Y_p(f\cdot Xg)
+        = (Y_pf)((Xg)(p)) + f(p)\cdot Y_p(Xg).
+        \]
+        So, 
+        \[
+        Y \circ (fX) = (\lder{Y}f)X + f\cdot Y\circ X.
+        \]
+        Substituting back, 
+        \[
+        \begin{aligned}
+            \omega([fX, Y]) &= \omega(f\cdot X\circ Y - (\lder{Y}f)X - f\cdot Y\circ X) \\
+            &= \omega(f[X, Y] - (\lder{Y}f)X) \\
+            &= f\omega([X, Y]) - (\lder{Y}f)\omega(X).
+        \end{aligned}
+        \]
+        Finally, 
+        \[
+        \begin{aligned}
+            d\omega(fX, Y) &= \lder{fX}(\omega(Y)) - \lder{Y}(\omega(fX)) - 
+            \omega([fX, Y]) \\
+            &= f\cdot\lder{X}(\omega(Y)) - (\lder{Y}f)\omega(X) - 
+            f\cdot\lder{Y}(\omega(X)) - f\omega([X, Y]) + (\lder{Y}f)\omega(X) \\
+            &= f(\lder{X}(\omega(Y)) - \lder{Y}(\omega(X)) - \omega([X, Y])) \\
+            &= fd\omega(X, Y).
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{corollary}[Local Nature of Exterior Derivative]\label{cor:local-exterior-derivative}
+        When \(\omega\) is fixed, the value of \(d\omega\) depends only on 
+        the local values of vector fields.
+        \[
+        d\omega(X, Y)(p) = X^\mu(p)Y^\nu(p)d\omega(\tfld{\mu}, \tfld{\nu})(p).
+        \]
+    \end{corollary}
+    \begin{proof}
+        Write \(X = X^\mu\tfld{\mu}\), noting that \(X^\mu \in 
+        C^\infty(\manifold[M])\), and use \cref{thm:f-linear-exterior-derivative}.
+    \end{proof}
+    \newpage
+    \subsection{DeRham Cohomology}
+    \begin{theorem}[Twice Exterior Differential]\label{thm:ddzero}
+        For all \(\omega \in \form{n}{M}, 1 \leq n \leq \dim M\), we have 
+        \[
+        d^2\omega=0.
+        \]
+    \end{theorem}
+    \begin{remark}
+        This means 
+        \[
+        \mathrm{Im}(d : \form{n-1}{M} \to \form{n}{M}) \subseteq 
+        \mathrm{Ker}(d : \form{n}{M} \to \form{n+1}{M}).
+        \]
+        This type of structure is called a differential complex, and is common 
+        in many structures.
+    \end{remark}
+    \begin{definition}[Closed Form]\label{def:closed-form}
+        An n-form \(\omega\) is closed if \(d\omega=0\). The set of all closed 
+        n-forms is denoted \(Z^n(\manifold[M])\).
+    \end{definition}
+    \begin{definition}[Exact Form]\label{def:exact-form}
+        An n-form \(\omega\) is exact if \(\omega = d\beta\) for some 
+        \((n-1)\)-form \(\beta\). The set of all exact n-forms is denoted 
+        \(B^n(\manifold[M])\).
+    \end{definition}
+    \begin{remark}
+        It is guaranteed that \(B^n(\manifold[M]) \subseteq Z^n(\manifold[M])\), 
+        that is, exactness implies closure.
+        But how much closed form is not exact is the study of cohomology theory.
+    \end{remark}
+    \begin{theorem}[Poincare's Lemma]\label{thm:poincare-lemma}
+        On Euclidean space \(\mathbb{R}^m\), 
+        \[
+        B^n(\manifold[M]) = Z^n(\manifold[M]), ~\forall n > 0.
+        \]
+    \end{theorem}
+    \begin{definition}[DeRham Cohomology Groups]\label{def:derham-groups}
+        The DeRham cohomology groups \(H^n(\manifold[M]), 0 \leq n \leq 
+        \dim \manifold[M]\) are the quotient spaces
+        \[
+        H^n(\manifold[M]) := Z^n(\manifold[M]) / B^n(\manifold[M]).
+        \]
+    \end{definition}
+    \begin{remark}
+        Recall the definition of quotient groups that \(H^n(\manifold[M])\) 
+        consists of elements of form \(z + B^n(\manifold[M]), z \in 
+        Z^n(\manifold[M])\). \\
+        If all closed forms are exact, \(Z^n(\manifold[M]) \subseteq 
+        B^n(\manifold[M])\), then \(H^n(\manifold[M]) \cong \{0\}\).
+    \end{remark}
+    \begin{theorem}[Criterion of Exact ODE]\label{thm:exact-ode}
+        On the Euclidean space \(\mathbb{R}^2\), given a 1-form 
+        \(\omega=\omega_1dx^1+\omega_2dx^2\). Then 
+        \[
+        \omega \in B^1(\mathbb{R}^2) \iff \tfld{2}\omega_1 = \tfld{1}\omega_2.
+        \]
+    \end{theorem}
+    \begin{remark}
+        This is an important theorem to me, for it connects the "exactness of 
+        differential forms" to the familiar notion of "exactness of 
+        differential equations". \\
+        It also provides the first hints that we are 
+        actually integrating forms, and that exterior differentiation of a 
+        0-form resembles gradient in usual vector calculus terms.
+    \end{remark}
+    \begin{proof}
+        Via Poincare lemma \cref{thm:poincare-lemma}, on \(\mathbb{R}^2\), 
+        exactness is equivalent to closure. So we need only to determine the 
+        condition that \(d\omega=0\). Using 
+        \cref{def:exterior-derivative}, 
+        \[
+        \begin{aligned}
+            d\omega &= \tfld{\nu}\omega\indices{_{\mu_1}}dx^\nu 
+            \wedge dx^{\mu_1} \\
+            &= \tfld{2}\omega_1 dx^2\wedge dx^1 + 
+            \tfld{1}\omega_2 dx^1\wedge dx^2 \\
+            &= \left(\tfld{2}\omega_1-\tfld{1}\omega_2\right)dx^2\wedge dx^1.
+        \end{aligned}
+        \]
+    \end{proof}
+\end{document}

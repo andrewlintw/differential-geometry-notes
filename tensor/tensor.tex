@@ -1,0 +1,45 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+    \section{Tensors}
+    \begin{definition}[Tensors]\label{def:tensor-finite}
+        If \(\dim \manifold[M] \neq \infty\), the tensors of type \((r, s)\) 
+        \(T_p^{r, s}\manifold[M]\) are all the linear functions 
+        \[
+        f : \bigtimes^r T_p^*\manifold[M] \times \bigtimes^s T_p\manifold[M] 
+        \to \mathbb{R}.
+        \]
+        I.e., it eats \(r\) covectors and \(s\) vectors.
+    \end{definition}
+    \begin{theorem}[Dimensions of General Tensor Space]\label{thm:dim-tensor}
+        The dimension of \(T_p^{r, s}\manifold[M]\) is \(m^rm^s\). In particular, 
+        a basis for the space is, 
+        \[
+        \bigotimes_{1 \leq \mu_1 \cdots \mu_r \leq m} \tvec{\mu_i}{p} 
+        \otimes \bigotimes_{1 \leq \nu_1 \cdots \nu_s \leq m} (dx^{\nu_i})_{p} 
+        \]
+    \end{theorem}
+    \begin{remark}
+        For a detailed proof, see Hoffman.
+    \end{remark}
+    \begin{theorem}[Transformation Properties of Tensor Fields]\label{thm:tensor-transformation}
+        Given a manifold \(\manifold[M]\) of dimension \(m\), choose two overlapping 
+        charts \(\phi : U \to V\) with local coordinates \(x^1, \dots, x^m\), 
+        \(\phi' : U' \to V'\) with \({x'}^1, \dots, {x'}^m\).
+        A tensor field \(T\) of type \((r, s)\) with local representation on \(U\) given by 
+        \[
+        T\indices{^{\mu_1}^{\dots}^{\mu_r}_{\nu_1}_{\dots}_{\nu_s}}
+        \tfld{\mu_1}\otimes\dots\otimes\tfld{\mu_r}\otimes
+        dx^{\nu_1}\otimes\dots\otimes dx^{\nu_s}
+        \]
+        transforms like 
+        \[
+        T\indices{^{\mu_1'}^{\dots}^{\mu_r'}_{\nu_1'}_{\dots}_{\nu_s'}}
+        =T\indices{^{\mu_1}^{\dots}^{\mu_r}_{\nu_1}_{\dots}_{\nu_s}}
+        \frac{\partial {x'}^{\mu_1'}}{\partial x^{\mu_1}}\dots
+        \frac{\partial {x'}^{\mu_r'}}{\partial x^{\mu_r}}
+        \frac{\partial x^{\nu_1}}{\partial {x'}^{\nu_1'}}\dots
+        \frac{\partial x^{\nu_1}}{\partial {x'}^{\nu_s'}}
+        \]
+    \end{theorem}
+\end{document}

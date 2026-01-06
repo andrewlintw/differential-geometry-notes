@@ -1078,6 +1078,20 @@
         pullback using the overlap function.
     \end{remark}
     \newpage
+    \begin{theorem}[Covariancy of Differential Forms]\label{thm:form-covariancy}
+        Choose two overlapping charts \(x^1, \dots, x^m\) and \(y^1, \dots, y^m\) 
+        and define their Jacobian matrix \cref{def:jacobian-matrix} 
+        \(J\indices{^\nu_\mu}:=\left.\frac{\partial y^\nu}{\partial x^\mu}\right|
+        _{\phi(p)}\), combining \cref{def:formal-pullback} and 
+        \cref{def:manifold-form}, we have 
+        \[
+        \begin{cases}
+            dy^\nu = J\indices{^\nu_\mu}dx^\mu & (\text{covariant}) \\
+            \omega_{\nu'} = \omega_{\mu}(J^{-1})\indices{^\mu_\nu} & 
+            (\text{contravariant})
+        \end{cases}
+        \]
+    \end{theorem}
     \subsubsection{Operations on Manifold Forms}
     \begin{definition}[Addition]\label{def:mani-form-add}
         Given two forms \(\omega, \eta \in \form{k}{M}\), 

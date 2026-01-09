@@ -55,6 +55,7 @@
         orientation on \(\partial \manifold[M]\), called the positive orientation.
     \end{definition}
     \subsection{Pseudoforms}
+    \subsubsection{Definition}
     \begin{definition}[Pseudoforms]\label{def:pseudoform}
         A \(C^\infty\) pseudo \(k\)-form \(\pseudoform{\omega} \in 
         \tilde{\Lambda}^k(\manifold[M])\) consists of a 
@@ -76,6 +77,31 @@
         One cannot pullback a pseudoform.
     \end{remark}
     \newpage
+    \subsubsection{Pseudoforms and Forms on Orientable Manifolds}
+    \begin{definition}[Pseudoforms to Forms]\label{def:pseudo-to-form}
+        For a pseudoform \(\pseudoform{\omega} \in \tilde{\Lambda}^k(\manifold[M])\) 
+        on an orientable manifold \(\manifold[M]\) of degree \(m\) positively oriented 
+        by the atlas \(\Phi_+\), we define its underlying real form by letting them 
+        agree on the positive charts, that is,
+        \[
+        \omega_\phi := o(\phi)\pseudoform{\omega}_\phi,\; \forall \phi \in \Phi, 
+        \]
+        where 
+        \[
+        o(\phi) := \begin{cases}
+        1 & \forall \phi \in \Phi_+ \\
+        -1 & \forall \phi \in \Phi_-
+        \end{cases}
+        \]
+    \end{definition}
+    \begin{definition}[Forms to Pseudoforms]\label{def:form-to-pseudo}
+        For a form \(\omega \in \form{k}{M}\) on an orientable manifold 
+        \(\manifold[M]\) of degree \(m\), we define its corresponding pseudoform by 
+        taking its positive value. That is, 
+        \[
+        \pseudoform{\omega}_\phi := o(\phi)\omega_\phi,\; \forall \phi \in \Phi, 
+        \]
+    \end{definition}
     \subsection{Integration of Forms of Highest Degree}
     \begin{definition}[Integration]\label{def:top-form-integration}
         Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
@@ -206,9 +232,31 @@
         \[
         \int_{\manifold[Z]}\omega := \int_{\manifold[Z]}^{} f^*\omega
         \]
-        using the positive orientation of \(\manifold[Z]\), if it latter exists 
+        using the positive orientation of \(\manifold[Z]\), if it exists 
         and the pullback function \(f\) is clear from context.
     \end{definition}
+    \begin{remark}
+        Let's look at an example. Choose \(\manifold[M] = \mathbb{R}^2\), 
+        \(\manifold[Z] = [-1, 1]\), \(\omega = dx^2\), and \(f : \manifold[Z] 
+        \to \manifold[M]\) defined trivially by \(p \mapsto (0, p)\). \\
+        If we choose the positive orientation by setting \(\idd \in \Phi_+\), then we 
+        see 
+        \[
+        \begin{aligned}
+            \eta &:= f^*\omega = dx^2 \\
+            \pseudoform{\eta} &= dx^2 \\
+            \int_{\manifold[Z]} \pseudoform{\eta} &= 1.
+        \end{aligned}
+        \]
+        If we choose the positive orientation by setting \(-\idd \in \Phi_+\), then 
+        \[
+        \begin{aligned}
+            \eta' &:= f^*\omega = dx^2 \\
+            \pseudoform{\eta}' &= -dx^2 \\
+            \int_{\manifold[Z]} \pseudoform{\eta}' &= -1.
+        \end{aligned}
+        \]
+    \end{remark}
     \subsubsection{Stoke's theorem}
     \begin{theorem}[Stoke's Theorem]\label{thm:stokes-theorem}
         If \(\manifold[M]\) is an oriented \(C^\infty\) manifold of dimension \(m\) 

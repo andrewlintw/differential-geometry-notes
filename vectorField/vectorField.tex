@@ -1,15 +1,65 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-    \section{Vector Fields}
-    \subsection{Definition}
+    \section{Vector Fields and the Tangent Bundle}
+    \subsection{Vector Fields}
     \begin{definition}[Vector Fields]\label{def:vector-fields}
-        A vector field \(X\) on \(\manifold[M]\) is a smooth assignment of 
-        a tangent vector \(X_p \in T_p\manifold[M]~\forall p \in \manifold[M]\). 
-        
-        "Smooth" assignment is defined to be that the Lie derivative 
-        \cref{def:lie-derivative} is smooth.
+        A vector field \(X\) on \(V \subseteq\manifold[M]\) is any rule of assigning 
+        a tangent vector \(X(p) = X_p \in T_p\manifold[M]\) for all
+        \(p \in V\).
     \end{definition}
+    \begin{definition}[Components of a Vector Field]\label{def:vector-field-component}
+        Let \(X\) be a vector field on \(V \subseteq \manifold[M]\), 
+        \(\dim \manifold[M] = m\). For any chart \(\phi : U \to \phi(U) \in \Phi\) 
+        with induced coordinates \(x^1, \dots, x^m\) and any \(p \in V \cap U\), 
+        the decomposition \(X(p) = X^j(p)\tvec{j}{p}\) is unique, and therefore 
+        we write 
+        \[
+        X = X^j \tfld{j}
+        \]
+        on \(V \cap U\), and \(X^j : V \cap U \to \mathbb{R}\) are called the 
+        components of \(X\) on \(V \cap U\).
+    \end{definition}
+    \begin{definition}[Smoothness of Vector Field]\label{def:vec-field-smoothness}
+        A vector field \(X\) on \(V \subseteq \manifold[M]\) is \(C^k\) near 
+        \(p \in V\) iff \(\exists~\phi \in \Phi\) s.t. \(p \in U_\phi\) and all 
+        the components \(X^j\) induced by \(\phi\) are \(C^k\). That is, 
+        \[
+        X^j\circ \phi ^{-1} \text{ are } C^k \text{ on } \phi(V \cap U).
+        \]
+    \end{definition}
+    \subsection{Tangent Bundle}
+    \begin{definition}[Tangent Bundle]\label{def:tangent-bundle}
+        The tangent bundle \(T\manifold[M]\) is 
+        \[
+        T\manifold[M] := \bigcup_{p \in \manifold[M]}^{} T_p\manifold[M].
+        \]
+    \end{definition}
+    \begin{remark}
+        Why not \(T\manifold[M] := \Set{T_p\manifold[M]|p \in \manifold[M]}\)?
+    \end{remark}
+    \begin{definition}[Canonical Projection]\label{def:canonical-projection}
+        The canonical projection is the map 
+        \[
+        \begin{aligned}
+            \pi : T\manifold[M] &\to \manifold[M] \\
+            T_p\manifold[M] &\mapsto p.
+        \end{aligned}
+        \]
+    \end{definition}
+    \begin{definition}[Alternative Definition of Vector Fields]\label{def:vector-fields-alt}
+        A tangent vector field \(X\) on \(V \subseteq \manifold[M]\) is a map 
+        \(X : V \to T\manifold[M]\) s.t. \((\pi \circ X)(p) = p\) for all \(p \in V\).
+    \end{definition}
+    \begin{remark}
+        Let's see why vector fields are often called a "cross-section" of a tangent 
+        bundle.
+        \begin{center}
+            \centering
+            \def\svgwidth{0.8\textwidth}
+            \input{./figs/bundle.pdf_tex}
+        \end{center}
+    \end{remark}
     \begin{definition}[Lie Derivative]\label{def:lie-derivative}
         The Lie-derivative of function \(f\) with respect to vector field 
         \(X\) is defined as 
@@ -27,16 +77,6 @@
             \item \(X(rf+g) = rXf+Xg\)
             \item \(X(fg) = fXg+gXf\).
         \end{enumerate}
-    \end{theorem}
-    \begin{theorem}[Component of Vector Field]\label{thm:vector-field-component}
-        \textbf{Given a chart} \((U, \phi)\) on \(\manifold[M]\), we can write 
-        \[
-        X_U = X_Ux^\mu \tfld{\mu}.
-        \]
-        When the context is clear or \textbf{for convenience}, we write 
-        \[
-        X = Xx^\mu \tfld{\mu} := X^\mu \tfld{\mu}.
-        \]
     \end{theorem}
     \begin{proof}
         We know 

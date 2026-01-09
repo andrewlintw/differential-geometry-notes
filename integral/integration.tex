@@ -29,36 +29,64 @@
         \det J > 0.
         \]
         Where \(J\) is the Jacobian matrix \cref{def:jacobian-matrix}.\\
-        The collection of all compatible charts of a specific orientation are 
-        denoted \(\tilde{\Phi}\).
+        If the manifold has a maximal compatible atlas, then we say the manifold is 
+        orientable, and we may call its corresponding 
+        orientation positive and denote the atlas \(\Phi_+\).
     \end{definition}
     \begin{theorem}
         A manifold has either no orientation (any atlas is not compatible) or 
         two orientations.
     \end{theorem}
+    \begin{theorem}[Orientability and Existence of Forms of Highest Degree]\label{thm:volume-form-orientability}
+        A manifold is orientable iff there exists a nowhere vanishing differential 
+        form of the highest degree.
+    \end{theorem}
     \subsubsection{Positively Oriented Boundary}
     \begin{definition}[Positively Oriented Boundary]\label{def:positive-boundary}
         Let \(\manifold[M]\) be a orientable \(C^\infty\) manifold with dimension 
-        \(m\), with compatible atlas \(\tilde{\Phi}\). Define coordinate charts on 
-        \(\partial \manifold[M]\) from \(\Phi\) as follows, 
+        \(m\), positively oriented by compatible atlas \(\Phi_+\). Define coordinate 
+        charts on \(\partial \manifold[M]\) from \(\Phi\) as follows, 
         \[
         \phi^{\partial \manifold[M]} : U_\phi \cap \partial \manifold[M] 
         \to \mathbb{R}^{m-1}, 
         \]
-        Then \(\tilde{\Phi}^{\partial \manifold[M]} := 
-        \Set{\phi^{\partial \manifold[M]}| \phi \in \tilde{\Phi}}\) determines an 
+        Then \(\Phi^{\partial \manifold[M]}_+ := 
+        \Set{\phi^{\partial \manifold[M]}| \phi \in \Phi_+}\) determines an 
         orientation on \(\partial \manifold[M]\), called the positive orientation.
     \end{definition}
+    \subsection{Pseudoforms}
+    \begin{definition}[Pseudoforms]\label{def:pseudoform}
+        A \(C^\infty\) pseudo \(k\)-form \(\pseudoform{\omega} \in 
+        \tilde{\Lambda}^k(\manifold[M])\) consists of a 
+        family of differential \(k\)-forms \\
+        \(\omega_\phi \in \Lambda^k(\phi(U_\phi))\), 
+        \(\phi \in \Phi\), \(\phi : U_\phi \to V_\phi = \phi(U_\phi) \subseteq 
+        (-\infty, 0] \times \mathbb{R}^{m-1}\), with an additional requirement that 
+        \[
+        \left.\omega_{\phi'}\right|_{\phi'(U_\phi \cap U_{\phi'})} = 
+        (\sgn \det J)
+        \left(\phi\circ{\phi'} ^{-1}\right)^*
+        \left(\left.\omega_\phi\right|_{\phi(U_\phi \cap U_{\phi'})}\right),
+        \; \forall \phi, \phi' \in \Phi,
+        \]
+        where \(\sgn \det J\) denotes the sign of Jacobian determinant.
+    \end{definition}
+    \begin{remark}
+        The transformation rule differ from usual forms only in the choice of sign. \\
+        One cannot pullback a pseudoform.
+    \end{remark}
+    \newpage
     \subsection{Integration of Forms of Highest Degree}
     \begin{definition}[Integration]\label{def:top-form-integration}
         Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
-        \(m\), oriented by compatible atlas \(\tilde{\Phi} = \Set{\phi_j|j \in J}\). 
+        \(m\). 
         Choose a \(C^\infty\) partition of unity \(\rho_j, j \in J\) of 
         \(\manifold[M]\) s.t. \(\supp \rho_j \subseteq U_{\phi_j} := U_j\). \\
-        Let an \(m\)-form \(\omega \in \form{m}{M}\) has local expression 
-        \(\omega_{\phi_j} = f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), we say 
+        Let a pseudo-\(m\)-form \(\pseudoform{\omega} \in 
+        \tilde{\Lambda}^m(\manifold[M])\) has local expression 
+        \(\tilde{\omega}_{\phi_j} = f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), we say 
         \[
-        \int_{\manifold[M]} \omega = 
+        \int_{\manifold[M]} \tilde{\omega} = 
         \sum_{j \in J}^{} \int_{(-\infty, 0] \times \mathbb{R}^{m-1}}
         (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m
         \]
@@ -66,11 +94,11 @@
         \(\rho_j\) and \(\phi_j\).
     \end{definition}
     \begin{remark}
-        The following theorem reveals why orientation is a significant factor in 
-        the context of integration.
+        The following theorem reveals why we integrate pseudoforms, not usual forms.
     \end{remark}
     \begin{theorem}[Criterion of Existence of Integral]\label{thm:cpt-form-integral-exist}
-        If \(\supp \omega\) is compact, then \(\int_{\manifold[M]} \omega\) exists.
+        If \(\supp \tilde{\omega}\) is compact, then 
+        \(\int_{\manifold[M]} \tilde{\omega}\) exists.
     \end{theorem}
     \begin{proof}
         Let two sets of coordinate charts be 
@@ -129,31 +157,31 @@
             {dx'}^1\dots {dx'}^m
         \end{aligned}
         \]\par
-        (Use pullback requirement) From \cref{def:manifold-form},
+        (Use pullback requirement) From \cref{def:pseudoform},
         \[
-        (\phi_j\circ {\phi'_k}^{-1})^*\omega_{\phi_j} = \omega_{\phi'_k}, 
+        \omega_{\phi'_k} = (\sgn\det J)(\phi_j\circ {\phi'_k}^{-1})^*\omega_{\phi_j}, 
         \]
         we see
         \[
         \begin{aligned}
             &f'_j(x')dx^1\wedge \dots \wedge dx^m \\
-            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&(\sgn\det J)f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             \left(\frac{\partial x^1}{\partial {x'}^{\ell_1}}{dx'}^{\ell_1}\right)
             \wedge \dots\wedge 
             \left(\frac{\partial x^m}{\partial {x'}^{\ell_m}}{dx'}^{\ell_m}\right) \\
-            =&\sum_{\sigma \in S_m}^{} f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&(\sgn\det J)\sum_{\sigma \in S_m}^{} f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             (\sgn \sigma)\frac{\partial x^1}{\partial {x'}^{\sigma(1)}}\dots
             \frac{\partial x^m}{\partial {x'}^{\sigma(m)}}
             {dx'}^1\wedge\dots\wedge{dx'}^m \\
-            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&(\sgn\det J)f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             \det \left(\frac{\partial x}{\partial x'}\right)
+            {dx'}^1\wedge\dots\wedge{dx'}^m \\
+            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
             {dx'}^1\wedge\dots\wedge{dx'}^m
         \end{aligned}
-        \]\par
-        (Orientation) Within a compatible atlas, however, 
-        \(\left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
-        =\det \left(\frac{\partial x}{\partial x'}\right)\). Therefore, the 
-        integral 
+        \]
+        Therefore, the integral 
         \[
         \begin{aligned}
             &\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
@@ -178,7 +206,8 @@
         \[
         \int_{\manifold[Z]}\omega := \int_{\manifold[Z]}^{} f^*\omega
         \]
-        if the latter exists and the pullback function \(f\) is clear from context.
+        using the positive orientation of \(\manifold[Z]\), if it latter exists 
+        and the pullback function \(f\) is clear from context.
     \end{definition}
     \subsubsection{Stoke's theorem}
     \begin{theorem}[Stoke's Theorem]\label{thm:stokes-theorem}

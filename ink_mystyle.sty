@@ -1,8 +1,11 @@
-\documentclass[12pt]{article}
-\usepackage{mystyle}
-\usepackage{subfiles}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{tensor}
+\usepackage{spalign}
+\usepackage{unicode-math}
 
-% Custom math commands
 \newcommand{\manifold}[1][M]{\mathcal{#1}}
 \newcommand{\tvec}[2]{\left(\partial\indices{_{#1}}\right)_{#2}}
 \newcommand{\tfld}[1]{\partial\indices{_{#1}}}
@@ -11,7 +14,6 @@
 \newcommand{\form}[2]{\Lambda^{#1}(\manifold[#2])}
 \newcommand{\pseudoform}[1]{\tilde{#1}}
 \newcommand{\bnd}[1]{\partial\manifold[#1]}
-\newcommand{\iso}{\simeq}
 \newcommand{\irrshape}[3]{% r, dr, sample
     \draw plot 
         [smooth cycle, samples=#3, domain={1:#3}] 
@@ -23,19 +25,3 @@
 \DeclareMathOperator{\curl}{curl}
 \DeclareMathOperator{\divv}{div}
 \DeclareMathOperator{\supp}{supp}
-
-\begin{document}
-    \subfile{manifold/manifold.tex}
-    \newpage
-    \subfile{tangent/tangent.tex}
-    \newpage
-    \subfile{vectorField/vectorField.tex}
-    \newpage
-    \subfile{formalForm/formalForm.tex}
-    \newpage
-    \subfile{realForm/realForm.tex}
-    \newpage
-    \subfile{tensor/tensor.tex}
-    \newpage
-    \subfile{integral/integration.tex}
-\end{document}

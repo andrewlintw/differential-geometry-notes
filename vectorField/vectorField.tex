@@ -28,7 +28,9 @@
         X^j\circ \phi ^{-1} \text{ are } C^k \text{ on } \phi(V \cap U).
         \]
     \end{definition}
+
     \subsection{Tangent Bundle}
+    \subsubsection{Definition}
     \begin{definition}[Tangent Bundle]\label{def:tangent-bundle}
         The tangent bundle \(T\manifold[M]\) is 
         \[
@@ -38,6 +40,7 @@
     \begin{remark}
         Why not \(T\manifold[M] := \Set{T_p\manifold[M]|p \in \manifold[M]}\)?
     \end{remark}
+    \subsubsection{Projection}
     \begin{definition}[Canonical Projection]\label{def:canonical-projection}
         The canonical projection is the map 
         \[
@@ -55,10 +58,49 @@
         Let's see why vector fields are often called a "cross-section" of a tangent 
         bundle.
         \begin{center}
-            \centering
-            \def\svgwidth{0.8\textwidth}
-            \input{./figs/bundle.pdf_tex}
+            \includegraphics{./figs/bundle.pdf}
         \end{center}
+    \end{remark}
+    \subsubsection{Topological and Manifold Structure}
+    \begin{definition}[Smooth Structure on Tangent Bundle]\label{def:smooth-structure-tangent-bundle}
+        Let a manifold \(\manifold[M]\) with dimension \(m\) and atlas \(\Phi\). 
+        Consider a chart \(\phi_j \in \Phi : U_j \to \mathbb{R}^m\). We define 
+        a chart \(\tilde{\phi}_j\) for the tangent bundle \(T\manifold[M]\) 
+        accordingly, 
+        \[
+        \begin{aligned}
+            \tilde{\phi}_j : \tilde{\pi}(U_j) \subseteq T\manifold[M] &\to 
+            \mathbb{R}^{2m} \\
+            (p, v^i\tfld{i}) &\mapsto (\phi_j(p), v^1, \dots, v^m),
+        \end{aligned}
+        \]
+        where \(\tilde{\pi}\) is the inverse set map of the canonical projection 
+        function \cref{def:canonical-projection}. We thus see the tangent bundle 
+        \(T\manifold[M]\) is itself a manifold of dimension \(2m\).\\
+        Also, we define the topology of the tangent bundle by 
+        \[
+        A \subseteq T\manifold[M] \text{ is open iff }
+        \tilde{\phi}_j(A \cap \tilde{\pi}(U_j)) \text{ is open.}
+        \]
+    \end{definition}
+    \begin{theorem}
+        The smooth structure given by \cref{def:smooth-structure-tangent-bundle} 
+        is unique in the sense of, 
+        \begin{enumerate}
+            \item \(\pi : T\manifold[M] \to \manifold[M]\) is \(C^\infty\),
+            \item For all open sets \(V \subseteq \manifold[M]\) and any vector 
+            field \(X\) on \(V\), \(X \text{ is } C^\infty \iff 
+            X : V \to T\manifold[M]\) is \(C^\infty\).
+        \end{enumerate}
+    \end{theorem}
+    \begin{remark}
+        At first thought, one may think of \(T\manifold[M] \iso 
+        \manifold[M] \times \mathbb{R}^m\). This is not the case, as one can 
+        consider the Moebius strip. The tangent bundle is only locally 
+        isomorphic to \(U \times \mathbb{R}^m\).\\
+        If indeed \(T\manifold[M] \simeq \manifold[M] \times \mathbb{R}^m\), 
+        then the bundle is called trivial tangent bundle, and the manifold is 
+        called parallelizable.
     \end{remark}
     \begin{definition}[Lie Derivative]\label{def:lie-derivative}
         The Lie-derivative of function \(f\) with respect to vector field 

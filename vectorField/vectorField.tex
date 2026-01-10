@@ -20,7 +20,7 @@
         on \(V \cap U\), and \(X^j : V \cap U \to \mathbb{R}\) are called the 
         components of \(X\) on \(V \cap U\).
     \end{definition}
-    \begin{definition}[Smoothness of Vector Field]\label{def:vec-field-smoothness}
+    \begin{definition}[Smoothness of a Vector Field]\label{def:vec-field-smoothness}
         A vector field \(X\) on \(V \subseteq \manifold[M]\) is \(C^k\) near 
         \(p \in V\) iff \(\exists~\phi \in \Phi\) s.t. \(p \in U_\phi\) and all 
         the components \(X^j\) induced by \(\phi\) are \(C^k\). That is, 
@@ -61,6 +61,7 @@
             \includegraphics{./figs/bundle.pdf}
         \end{center}
     \end{remark}
+    \newpage
     \subsubsection{Topological and Manifold Structure}
     \begin{definition}[Smooth Structure on Tangent Bundle]\label{def:smooth-structure-tangent-bundle}
         Let a manifold \(\manifold[M]\) with dimension \(m\) and atlas \(\Phi\). 
@@ -102,45 +103,132 @@
         then the bundle is called trivial tangent bundle, and the manifold is 
         called parallelizable.
     \end{remark}
-    \begin{definition}[Lie Derivative]\label{def:lie-derivative}
-        The Lie-derivative of function \(f\) with respect to vector field 
-        \(X\) is defined as 
+
+    \newpage
+    \subsection{Integral Curves and Local Flows}
+    \subsubsection{Integral Curves}
+    \begin{definition}[Integral Curves]\label{def:integral-curve}
+        Let \(\manifold[M]\) be a manifold, and \(X\) be a vector field on 
+        \(V \subseteq \manifold[M]\).
+        If one single curve \(\sigma : (-\epsilon, \epsilon) \to V\), 
+        \(\epsilon > 0\) satisfies 
         \[
-        \lder{X}f := Xf, 
+        \begin{aligned}
+            \sigma(0) &= p \in V \\
+            X_{\sigma(t)} &= [\sigma]\; \forall t \in (-\epsilon, \epsilon)
+        \end{aligned}
         \]
-        and at a specific point \(p \in \manifold[M]\), 
+        then \(\sigma\) is called an integral curve of the vector field \(X\) 
+        through the point \(p\).
+    \end{definition}
+    \begin{theorem}[Differential Equations of Integral Curve]\label{thm:de-int-curve}
+        The components \(X^\mu\) of \(X\) determine the integral curve \(\sigma\) 
+        by the following ODE with boundary conditions, 
         \[
-        \lder{X}f(p) := Xf(p) := X_pf.
+        \begin{aligned}
+            X^\mu(\sigma(t)) &= \frac{d}{dt}x^\mu(\sigma(t)) \\
+            x^\mu(\sigma(0)) &= x^\mu(p), \mu = 1, 2, \dots, m.
+        \end{aligned}
+        \]
+    \end{theorem}
+    \subsubsection{Local Flows}
+    \begin{definition}[Local 1D Family of Local Diffeomorphisms]\label{def:local-diff}
+        A local, 1D family of local diffeomorphisms at \(p \in \manifold[M]\) 
+        is made up of a family of diffeomorphisms \(\Set{\sigma_t : U \to 
+        \manifold[M]|t \in (-\epsilon, \epsilon)}\) with \(\epsilon > 0\), 
+        \(U \subseteq \manifold[M]\) an open set s.t. 
+        \begin{enumerate}
+            \item Every \(\sigma_t\) is a smooth function in \(t\) and \(p\).
+            \item \(\forall t, s \in \mathbb{R}\) and \(|t|, |s|, |t+s| < 
+            \epsilon\), and \(\forall p \in U\) s.t. \(\sigma_t(p), \sigma_s(p), 
+            \sigma_{t+s}(p) \in U\), we have 
+            \[
+            \sigma_s(\sigma_t(p)) = \sigma_{s+t}(p).
+            \]
+            \item \(\sigma_0(p)=p\).
+        \end{enumerate}
+    \end{definition}
+    \begin{remark}
+        The first "local" refers to the parameter \(t\), which is limited to 
+        \((-\epsilon, \epsilon)\). The second "local" refers to the spatial 
+        limitation to \(U\). 
+        You can view \(\phi_t(q)\) as a curve that brings \(t \in (-\epsilon, 
+        \epsilon)\) to \(\phi_t(q) \in \manifold[M]\).
+    \end{remark}
+    \begin{definition}
+        Consider a family of local diffeomorphisms given by \cref{def:local-diff} 
+        \(\phi_t\). We denote the following for convenience, if its meaning is 
+        clear from context, 
+        \[
+        \begin{aligned}
+            \sigma(p, t) &:= \sigma_t(p), \\
+            \sigma_p(t)  &:= \sigma_t(p).
+        \end{aligned}
         \]
     \end{definition}
-    \begin{theorem}[Properties of Lie Derivative]\label{thm:lie-derivative-properties}
-        The Lie derivative has the following properties,
-        \begin{enumerate}
-            \item \(X(rf+g) = rXf+Xg\)
-            \item \(X(fg) = fXg+gXf\).
-        \end{enumerate}
-    \end{theorem}
-    \begin{proof}
-        We know 
+    \begin{definition}[Local Flow]\label{def:local-flow}
+        Let \(X\) be a vector field on \(V \subseteq \manifold[M]\), \(p \in V\). 
+        Consider a family of diffeomorphisms \cref{def:local-diff} \(\sigma\) on 
+        \(V\).
+        Let the corresponding curve family \(\sigma_p(t)\) satisfy, 
         \[
-        (Xf)(p) = X_pf = X_px^\mu\tvec{\mu}{p}f = (Xx^\mu)(p)\tvec{\mu}{p}f.
+        \begin{aligned}
+            \sigma_p(0) &= p & &\forall p \in V, \\
+            [\sigma_p] &= X_{\sigma_p(t)} = \sigma_{p*}\left(\frac{d}{dt}\right)_t
+            & &\forall t \in (-\epsilon, \epsilon), p \in V.
+        \end{aligned}
         \]
-    \end{proof}
-    \begin{remark}
-        \(\tfld{\mu}\) is a vector field that assigns each point \(p \in 
-        \manifold[M]\) with the vector \(\tvec{\mu}{p} \in T_p\manifold[M]\).
-        
-    \end{remark}
-    \begin{theorem}[Contravariancy of Vector Fields]\label{thm:}
-        Given two coordinate charts \((U, \phi)\) and \((U', \phi')\) s.t. 
-        \(U \cap U' = S \neq \varnothing\). On \(S\), 
-        \[
-        X^{\nu'} = \sum_{\mu=1}^{m} X^\mu 
-        \frac{\partial x'^{\nu}}{\partial x^\mu}.
-        \]
-        Analogous to \cref{thm:contravariant-vector}.
+        Then we say the curve family \(\sigma_p(t)\) is the local flow for \(X\) 
+        on \(V\).
+        We may abbreviate and just say \(\sigma\) is the local flow for \(X\).
+    \end{definition}
+    \begin{theorem}
+        Local flows always exist and are unique. Thus for a vector field \(X\) 
+        defined on \(V\), we may denote its local flow of over an open set \(U\) 
+        by \(\sigma^X\).
     \end{theorem}
-    \subsection{Lie Bracket}
+    % \begin{definition}[Induced Vector Field]\label{def:induced-vector-field}
+    %     By taking tangents to the curve family \cref{def:local-diff}, we have 
+    %     the induced vector field \(X^\phi\) given by
+    %     \[
+    %     X^\phi_q(f) := \left.\frac{d}{dt}(f(\phi_t(q)))\right|_{t=0}
+    %     \]
+    % \end{definition}
+    % \begin{theorem}
+    %     The curve family \(t \mapsto \phi_t(q)\) is the integral curve of 
+    %     the induced vector field \cref{def:induced-vector-field} \(X^\phi_q\).
+    % \end{theorem}
+    % \begin{proof}
+    %     \[
+    %     \begin{aligned}
+    %         X^\phi_{\phi_s(q)} &= \left.\frac{d}{dt}
+    %         (f\circ\phi_t\circ\phi_s(q))\right|_{t=0} \\
+    %         &= \left.\frac{d}{dt}(f\circ\phi_{t+s}(q))\right|_{t=0}.
+    %     \end{aligned}
+    %     \]
+    %     Let \(u = t+s\). Then 
+    %     \[
+    %     \begin{aligned}
+    %         X^\phi_{\phi_s(q)} &= 
+    %         \left.\frac{d}{du}(f\circ\phi_{u}(q))\right|_{u=s}. \\
+    %         &= \phi_{q*}\left(\frac{d}{dt}\right)_sf.
+    %     \end{aligned}
+    %     \]
+    % \end{proof}
+
+    \newpage
+    \subsection{Lie Derivative of Vector Fields}
+    \subsubsection{Lie Bracket}
+    \begin{definition}[Lie Derivative of Functions]\label{def:lie-der-function}
+        We can view a vector field as a function \(X : C^\infty \to C^\infty\), 
+        given by
+        \[
+        (Xf)(p) := X_pf = \left.\frac{\partial }{\partial t}
+        (f\circ \sigma^X(p, t))\right|_{t=0}.
+        \]
+        We can interpret this as: How much the function \(f\) changes beginning 
+        at \(p\), along the flow lines of \(X\)?
+    \end{definition}
     \begin{definition}[Composition of Vector Fields]\label{def:vector-field-composition}
         We can view \(X : C^\infty(\manifold[M]) \to C^\infty(\manifold[M])\), 
         and so does \(Y\). Therefore, we define 
@@ -148,21 +236,26 @@
         (X \circ Y)(f) := X(Yf).
         \]
     \end{definition}
-    \begin{definition}[Lie Bracket (Commutator)]\label{def:lie-bracket}
+    \begin{theorem}[Flow Interpretation]\label{thm:vector-field-composition-flow}
+        \[
+        X_p(Yf) = \left.\frac{\partial ^2}{\partial s\partial t}\left(
+            f \left(\sigma^Y \left(\sigma^X(p, t), s\right)\right)
+        \right)\right|_{(s, t)=(0, 0)}.
+        \]
+        We can interpret \(X(Yf)\) as: How much the function \(f\) changes 
+        beginning at the point \(p\), first following the flow lines of \(X\), 
+        then following the flow lines of \(Y\)?
+    \end{theorem}
+    \begin{definition}[Lie Bracket/Vector Field Commutator]\label{def:lie-bracket}
         We define the Lie Bracket of two vector fields \(X, Y\) to be 
         \[
         [X, Y] := X\circ Y - Y\circ X.
-        \]
-        In particular, 
-        \[
-        [X, Y](f) = \lder{X}(\lder{Y}f) - \lder{Y}(\lder{X}f)
         \]
     \end{definition}
     \begin{remark}
         Lie Bracket \cref{def:lie-bracket} is a vector field, while the 
         expression \(X\circ Y\) is not, because it contains second differential 
         terms. See the following proof.
-        
     \end{remark}
     \begin{theorem}[Lie Bracket Components]\label{thm:lie-bracket-components}
         \[
@@ -184,7 +277,7 @@
         \end{aligned}
         \]
         So we need to use the Leibniz property of \(\tfld{\mu}\) 
-        \cref{def:derivation} in order to evaluate the second term. Doing this 
+        in order to evaluate the second term. Doing this 
         for \(X\circ Y(f)\) and \(Y\circ X(f)\), we have
         \[
         \begin{aligned}
@@ -199,139 +292,111 @@
         prove so now.
         \[
         \begin{aligned}
-            (\tfld{\mu}\tfld{\nu}f)(p)&=\frac{\partial }{\partial u^\mu}
-            \left.\left((\tfld{\nu}f)\circ\phi ^{-1}\right)\right|_{\phi(p)} \\
-            &=\frac{\partial }{\partial u^\mu}
-            \left.\left(\tvec{\nu}{\phi ^{-1}(u)}f\right)\right|_{\phi(p)} \\
-            &=\frac{\partial }{\partial u^\mu}
-            \left.\left(\left.
+            (\tfld{\mu}\tfld{\nu}f)(p)&=\left.\frac{\partial }{\partial u^\mu}
+            \left((\tfld{\nu}f)\circ\phi ^{-1}\right)\right|_{\phi(p)} \\
+            &=\left.\frac{\partial }{\partial u^\mu}
+            \left(\tvec{\nu}{\phi ^{-1}(u)}f\right)\right|_{\phi(p)} \\
+            &=\left.\frac{\partial }{\partial u^\mu}
+            \left(\left.
                 \frac{\partial }{\partial u^\nu}(f\circ\phi ^{-1})
             \right|_u\right)\right|_{\phi(p)} \\
-            &=\frac{\partial }{\partial u^\nu}
-            \left.\left(\left.
+            &=\left.\frac{\partial }{\partial u^\nu}
+            \left(\left.
                 \frac{\partial }{\partial u^\mu}(f\circ\phi ^{-1})
             \right|_u\right)\right|_{\phi(p)} \\
             &=(\tfld{\nu}\tfld{\mu}f)(p).
         \end{aligned}
         \]
     \end{proof}
-    \begin{theorem}[Properties of Lie Brackets]\label{thm:lie-bracket-properties}
-        \phantom{something}
-        \begin{enumerate}
-            \item \([X,Y] = -[Y, X]\) (antisymmetry)
-            \item \(\sum_{\text{cyc}}^{} [X, [Y, Z]]=0\). (Jacobi Identity)
-        \end{enumerate}
-    \end{theorem}
-    \subsection{Integral Curves and Flows}
-    \begin{definition}[Intergral Curve]\label{def:intergral-curve}
-        Let \(X\) be a vector field on \(\manifold[M]\), \(p \in \manifold[M]\). 
-        Then an integral curve of \(X\) through \(p\) is a curve \(\sigma : 
-        (-\epsilon, \epsilon) \to \manifold[M]\) s.t. 
-        \[
-        \begin{aligned}
-            \sigma(0) &= p, \\
-            \sigma_*\left(\frac{d}{dt}\right)_t &= X_{\sigma(t)}.
-        \end{aligned}
-        \]
-    \end{definition}
-    \begin{remark}
-        Qualitatively, using \cref{thm:curve-pushforward}, this pushforward is 
-        just \([\sigma] \in T_{\sigma(t)}\manifold[M]\). Therefore, the second 
-        condition is saying in some sense that the curve is tangent to the 
-        vector field on the manifold. For quantitative description, see below.
-        
-    \end{remark}
-    \begin{definition}[Differential Equations of Integral Curve]\label{def:de-int-curve}
-        The components \(X^\mu\) of \(X\) determine the integral curve \(\sigma\) 
-        by the following ODE with boundary conditions, 
-        \[
-        \begin{aligned}
-            X^\mu(\sigma(t)) &= \frac{d}{dt}x^\mu(\sigma(t)) \\
-            x^\mu(\sigma(0)) &= x^\mu(p), \mu = 1, 2, \dots, m.
-        \end{aligned}
-        \]
-    \end{definition}
     \newpage
-    \subsubsection{One-parameter Family of Diffeomorphisms}
-    \begin{definition}[Local 1D Family of Local Diffeomorphisms]\label{def:local-diff}
-        A local, 1D family of local diffeomorphisms at \(p \in \manifold[M]\) 
-        is made up of (1) an open neighborhood \(U\) of \(p\), (2) \(\epsilon 
-        > 0\) (3) a family of diffeomorphisms \(\Set{\phi_t|\left|t\right|<\epsilon}\), 
-        \(\phi_t : U \to \manifold[M]\) s.t. 
-        \begin{enumerate}
-            \item Every \(\phi_t\) is a smooth function in \(t\) and \(q\).
-            \item \(\forall t, s \in \mathbb{R}\) and \(|t|, |s|, |t+s| < \
-            \epsilon\), and \(\forall q \in U\) s.t. \(\phi_t(q), \phi_s(q), 
-            \phi_{t+s}(q) \in U\), we have 
-            \[
-            \phi_s(\phi_t(q)) = \phi_{s+t}(q).
-            \]
-            \item \(\phi_0(q)=q\).
-        \end{enumerate}
-    \end{definition}
-    \begin{remark}
-        The first "local" refers to the parameter \(t\), which is limited to 
-        \((-\epsilon, \epsilon)\). The second "local" refers to the spatial 
-        limitation to \(U\). 
-        You can view \(\phi_t(q)\) as a curve that brings \(t \in (-\epsilon, 
-        \epsilon)\) to \(\phi_t(q) \in \manifold[M]\).
-        
-    \end{remark}
-    \begin{definition}[Induced Vector Field]\label{def:induced-vector-field}
-        By taking tangents to the curve family \cref{def:local-diff}, we have 
-        the induced vector field \(X^\phi\) given by
+    \begin{theorem}[Properties of Lie Brackets]\label{thm:lie-bracket-properties}
         \[
-        X^\phi_q(f) := \left.\frac{d}{dt}(f(\phi_t(q)))\right|_{t=0}
+        \begin{cases}
+            [X,Y] = -[Y, X] & \text{(antisymmetry)} \\
+            \sum_{\text{cyc}}^{} [X, [Y, Z]]=0. & \text{(Jacobi Identity)}
+        \end{cases}
+        \]
+    \end{theorem}
+
+    \subsubsection{Lie Derivative of Vector Fields}
+    \begin{definition}[Lie Derivative]\label{def:lie-derivative}
+        Let \(X, Y\) be two vector fields defined on \(U, V \subseteq 
+        \manifold[M]\), respectively. Then the lie derivative of \(Y\) 
+        along \(X\) is defined as 
+        \[
+        (\lder{X}Y)_p := 
+        \lim_{t \to 0} \frac{\sigma^X_{-t*}(Y_{\sigma^X_t(p)}) - Y_p}{t},
+        \]
+        where the latter is often abbreviated as 
+        \[
+        \left.\frac{d}{dt}(\sigma_{-t*}^X(Y_{\sigma^X_t(p)}))\right|_{t=0}=
+        \lim_{t \to 0} \frac{\sigma^X_{-t*}(Y_{\sigma^X_t(p)}) - Y_p}{t}.
         \]
     \end{definition}
-    \begin{theorem}
-        The curve family \(t \mapsto \phi_t(q)\) is the integral curve of 
-        the induced vector field \cref{def:induced-vector-field} \(X^\phi_q\).
+    \begin{remark}
+        It is common to interpret the Lie derivative of \(Y\) along \(X\) to 
+        be: How much do \(Y\) change when one moves along the flow lines of 
+        \(X\)? \\
+        However, one cannot directly compare the two vectors \(Y_{\sigma^X_t(p)}
+        \in T_{\sigma^X_t(p)}\manifold[M]\) and \(Y_p \in T_p\manifold[M]\). 
+        Therefore, the most intuitive way is to "pull it back", i.e., push it 
+        forward along the flow lines of \(X\) by negative time.
+    \end{remark}
+    \begin{theorem}[Lie Bracket and Lie Derivative]\label{thm:lie-bracket-flow}
+        \[
+        \lder{X}Y = [X, Y].
+        \]
+        That is, 
+        \[
+        \left.\frac{d}{dt}(\sigma_{-t*}^X(Y_{\sigma^X_t(p)}))\right|_{t=0}
+        = X\circ Y - Y \circ X.
+        \]
     \end{theorem}
     \begin{proof}
+        We start with 
         \[
         \begin{aligned}
-            X^\phi_{\phi_s(q)} &= \left.\frac{d}{dt}
-            (f\circ\phi_t\circ\phi_s(q))\right|_{t=0} \\
-            &= \left.\frac{d}{dt}(f\circ\phi_{t+s}(q))\right|_{t=0}.
+            \left.\frac{d}{dt}(\sigma_{-t*}^X(Y_{\sigma^X_t(p)}))\right|_{t=0}f
+            &=\lim_{t \to 0} \frac{\sigma^X_{-t*}(Y_{\sigma^X_t(p)f}) - Y_pf}{t} \\
+            &=\lim_{t \to 0} \frac{Y_{\sigma^X_t(p)}(f\circ\sigma^X_{-t}) - 
+            Y_{\sigma^X_0(p)}(f\circ \sigma^X_0)}{t}.
         \end{aligned}
         \]
-        Let \(u = t+s\). Then 
+        It motivates us to consider the function 
+        \(H(r, s) = Y_{\sigma^X_r(p)}(f\circ\sigma^X_{-s})\).
+        Then we see 
         \[
         \begin{aligned}
-            X^\phi_{\phi_s(q)} &= 
-            \left.\frac{d}{du}(f\circ\phi_{u}(q))\right|_{u=s}. \\
-            &= \phi_{q*}\left(\frac{d}{dt}\right)_sf.
+            \left.\frac{d}{dt}(\sigma_{-t*}^X(Y_{\sigma^X_t(p)}))\right|_{t=0}f
+            &= \left.\frac{d}{dt}H(t, t)\right|_{t=0} \\
+            &=\frac{\partial H}{\partial r}(0, 0) + 
+            \frac{\partial H}{\partial s}(0, 0).
         \end{aligned}
         \]
+        \par
+        (\(r\) part: moving along \(X\))
+        \[
+        \begin{aligned}
+            \frac{\partial H}{\partial r}(0, 0)
+            &=\left.\frac{\partial }{\partial r}
+            Y_{\sigma^X_r(p)}(f\circ \underbrace{\sigma^X_0}_{\idd})\right|_{r=0} \\
+            &=\left.\frac{\partial }{\partial r}
+            (Yf)(\sigma^X_r(p))\right|_{r=0} \\
+            &=X_p(Yf).
+        \end{aligned}
+        \]
+        \par
+        (\(s\) part: moving along \(Y\))
+        \[
+        \begin{aligned}
+            \frac{\partial H}{\partial s}(0, 0)
+            &=\left.\frac{\partial }{\partial s}
+            Y_{p}(f\circ \sigma^X_{-s})\right|_{s=0} \\
+            &=Y_{p}\left.\frac{\partial }{\partial s}
+            (f\circ \sigma^X_{-s})\right|_{s=0} \\
+            &=-Y_p(Xf),
+        \end{aligned}
+        \]
+        and therefore completes the proof.
     \end{proof}
-    \subsubsection{Local Flows}
-    \begin{definition}[Local Flow]\label{def:local-flow}
-        Let \(X\) be a vector field on open \(U \subseteq \manifold[M]\), and 
-        \(p \in U\). A local flow at \(p\) is a local one-parameter family 
-        of local diffeomorphisms \cref{def:local-diff} defined on some open 
-        \(V \subseteq U\) s.t. \(p \in V\) and the induced vector field 
-        \cref{def:induced-vector-field} is \(X\).
-    \end{definition}
-    \begin{remark}
-        Local flows always exist and are unique. In contrast, global flows 
-        (which means \(t \in \mathbb{R}\) instead of a restricted interval) 
-        may not exist.
-        
-    \end{remark}
-    \subsubsection{Lie Derivative}
-    \begin{theorem}[Interpretation of Lie Bracket]\label{thm:lie-bracket-flow}
-        If \(X, Y\) are two vector fields on \(\manifold[M]\), and define the 
-        following quantity, which can be interpreted as the change of \(Y\) 
-        when following the integral curves of \(X\), as
-        \[
-        \left.\frac{d}{dt}(\phi_{-t*}^X(Y))\right|_{t=0}:=
-        \lim_{\epsilon \to 0} \frac{\phi_{-\epsilon*}^X(Y_{\phi_\epsilon^X(p)})
-        -Y_p}{\epsilon}.
-        \]
-        Then, 
-        \[
-        \left.\frac{d}{dt}(\phi_{-t*}^X(Y))\right|_{t=0}=[X, Y].
-        \]
-    \end{theorem}
 \end{document}

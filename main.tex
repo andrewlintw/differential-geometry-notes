@@ -12,6 +12,12 @@
 \newcommand{\pseudoform}[1]{\tilde{#1}}
 \newcommand{\bnd}[1]{\partial\manifold[#1]}
 \newcommand{\iso}{\simeq}
+\newcommand{\GLNR}[1]{GL_{#1}(\mathbb{R})}
+\newcommand{\glnr}[1]{\mathfrak{gl}_{#1}(\mathbb{R})}
+\newcommand{\SLNR}[1]{SL_{#1}(\mathbb{R})}
+\newcommand{\slnr}[1]{\mathfrak{sl}_{#1}(\mathbb{R})}
+\newcommand{\ONR}[1]{O_{#1}(\mathbb{R})}
+\newcommand{\onr}[1]{\mathfrak{o}_{#1}(\mathbb{R})}
 \newcommand{\irrshape}[3]{% r, dr, sample
     \draw plot 
         [smooth cycle, samples=#3, domain={1:#3}] 
@@ -23,6 +29,8 @@
 \DeclareMathOperator{\curl}{curl}
 \DeclareMathOperator{\divv}{div}
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\adj}{adj}
 
 \begin{document}
     \subfile{manifold/manifold.tex}

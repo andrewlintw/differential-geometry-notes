@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+    \node (mani1) at (0, 0) {$\manifold[M]$};
+    \node (real1) at (4, 0) {$\mathbb{R}$};
+    \node (mani2) at (0, -2) {$\manifold[M]$};
+    \node (real2) at (4, -2) {$\mathbb{R}$};
+    \draw[->] (mani1) -- (real1) node[midway, above] {$f = \det$};
+    \draw[->] (mani2) -- (real2) node[midway, above] {$f = \det$};
+    \draw[->] (real1.south) -- (real2.north) node[midway, right] 
+        {$\ell_{\det A_0}$};
+    \draw[->] (mani1.south) -- (mani2.north) node[midway, left] 
+        {$\ell_{A_0}$};
+\end{tikzpicture}

@@ -223,6 +223,7 @@
     \begin{proof}
         Make use of the fact that \(\phi\circ\phi_\alpha ^{-1}\) is a homeomorphism.
     \end{proof}
+
     \subsection{Submanifolds}
     \subsubsection{Definition}
     \begin{definition}[Local Submanifold]\label{def:local-submanifold}
@@ -239,4 +240,95 @@
         \(r\) around every \(p \in \manifold[M]\), then we say \(A\) is a 
         submanifold of \(\manifold[M]\) of codimension \(r\).
     \end{definition}
+
+    \subsubsection{Dimension of Submanifolds}
+    \begin{definition}[Regular Value]\label{def:regular-value}
+        Let \(\manifold[M], \manifold[N]\) be \(C^\infty\) manifolds, and 
+        \(f : \manifold[M] \to \manifold[N]\) be \(C^\infty\). We say 
+        \(q \in \manifold[N]\) is a regular value of \(f\) if \(\forall p 
+        \in \tilde{f}(q)\), 
+        \[
+        \begin{cases}
+        \rank f_* : T_p\manifold[M] \to T_{f(p)}\manifold[N] = 
+            \dim \manifold[N] &\\
+        \rank f_* : T_p\partial \manifold[M] \to T_{f(p)}\manifold[N] = 
+            \dim \manifold[N] & \text{if } p \in \partial \manifold[M].
+        \end{cases}
+        \]
+    \end{definition}
+    \begin{theorem}[Regular Value and Submanifolds - With Boundary]\label{thm:regular-value-submanifold-with-boundary}
+        Let \(f : \manifold[M] \to \manifold[N]\) be \(C^\infty\).
+        If \(q \in \manifold[N]\) is a regular value of \(f\), then 
+        \(\tilde{f}(q) = \varnothing\) or a \(C^\infty\) submanifold of 
+        \(\manifold[M]\) of codimension \(\dim \manifold[N]\). Also, 
+        \(\partial \left(\tilde{f}(q)\right)=\tilde{f}(q)\cap \partial 
+        \manifold[M]\).
+    \end{theorem}
+    \begin{theorem}[Equation and Submanifolds]\label{thm:equation-submanifold-no-boundary}
+        Let \(f : \manifold[M] \to \manifold[N]\) be \(C^\infty\).
+        If \(\partial \manifold[M] = \varnothing\) and 
+        \(\rank f_* = r\) for all \(p \in \manifold[M]\), then for all \(q \in 
+        \manifold[N]\), \(\tilde{f}(q) = \varnothing\) or a \(C^\infty\) 
+        submanifold of \(\manifold[M]\) of codimension \(r\).
+    \end{theorem}
+    \subsubsection{Dimension of Submanifolds of \(\GLNR{n}\)}
+    \begin{theorem}[Dimension of Special Linear Group \(\SLNR{n}\)]\label{thm:dim-slnr}
+        \(\SLNR{n}\) is a submanifold of \(\GLNR{n}\) codimension \(1\); 
+        \(\dim \SLNR{n} = n^2-1\).
+    \end{theorem}
+    \begin{proof}
+        Consider \(f = \det : \manifold[M]=\GLNR{n} \to \mathbb{R}\). We want to 
+        show \(1\) is a regular value of \(f=\det \). \par
+        (Elementary argument) One can simply write \(f_*\) in local coordinates 
+        and work out its rank. First choose a curve \(A(t) : (-\epsilon, \epsilon)
+        \to \manifold[M]\) s.t. \(A(0)=A_0\). Also define \(\sigma(t) = 
+        \det A(t) : (-\epsilon, \epsilon) \to \mathbb{R}\).
+        Then \({\det}_*([A]) \in T_{\det A_0}\mathbb{R} \iso \mathbb{R}\). 
+        Referring to \cref{thm:pushforward-local}, and identify 
+        \(\tvec{1}{\det A_0} \in T_{\det A_0}\mathbb{R}\) with 1, we see 
+        \[
+        {\det }_*([A]) = \left.\frac{\partial \det A}{\partial x^{ij}}
+        \right|_{A=A_0}A_{ij}'(0)=(\adj(A_0))_{ji}A_{ij}'(0).
+        \]
+        Clearly it didn't vanish everywhere, so it has rank 1. So 1 is indeed a 
+        regular value of \(f\), and so by 
+        \cref{thm:regular-value-submanifold-with-boundary}, the statement is true.
+        \par
+        (Lie argument) Consider the following diagram, which leverages the Lie 
+        group property of \(\SLNR{n}\).
+        \begin{center}
+            \input{./figs/slnrLie.tex}
+        \end{center}
+        \par
+        So we know
+        \[
+        f = \ell_{\det A_0}^{-1}\circ f\circ \ell_{A_0}.
+        \]
+        We know that both \(\ell_{A_0} : A \mapsto A_0A\) and \(\ell_{\det A_0}
+        : a \mapsto a \det A_0\) are linear and thus 
+        \(C^\infty\) diffeomorphisms. Therefore, 
+        \[
+        \begin{aligned}
+            \rank f_{*A_0} &= \rank (\ell_{\det A_0 ^{-1} }^{-1}\circ 
+            f\circ \ell_{A_0 ^{-1}})_{*A_0} \\
+            &= \rank (\ell_{\det A_0 ^{-1}}^{-1}\circ f)_{*I} \\
+            &= \rank (f_{*I}).
+        \end{aligned}
+        \]
+        Then one can use the elementary argument again, but this time with 
+        significantly less complexity.
+    \end{proof}
+    \begin{theorem}[Dimension of Orthogonal Group \(\ONR{n}\)]\label{thm:dim-onr}
+        The orthogonal group \(\ONR{n}=\Set{A \in M_n(\mathbb{R})|AA ^{\top}
+        =I_n}\) is a \(C^\infty\) submanifold of \(\GLNR{n}\) of codimension 
+        \(\frac{n(n+1)}{2}\), and thus \(\dim \ONR{n}=\frac{n(n-1)}{2}\).
+    \end{theorem}
+    \begin{proof}
+        Consider the following diagram,
+        \begin{center}
+            \input{./figs/onrLie.tex}
+        \end{center}
+        where the red words are determined such that the diagram commutes.
+    \end{proof}
+    \(\)
 \end{document}

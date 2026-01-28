@@ -54,67 +54,131 @@
         \Set{\phi^{\partial \manifold[M]}| \phi \in \Phi_+}\) determines an 
         orientation on \(\partial \manifold[M]\), called the positive orientation.
     \end{definition}
-    \subsection{Pseudoforms}
-    \subsubsection{Definition}
-    \begin{definition}[Pseudoforms]\label{def:pseudoform}
-        A \(C^\infty\) pseudo \(k\)-form \(\pseudoform{\omega} \in 
-        \tilde{\Lambda}^k(\manifold[M])\) consists of a 
-        family of differential \(k\)-forms \\
-        \(\omega_\phi \in \Lambda^k(\phi(U_\phi))\), 
-        \(\phi \in \Phi\), \(\phi : U_\phi \to V_\phi = \phi(U_\phi) \subseteq 
-        (-\infty, 0] \times \mathbb{R}^{m-1}\), with an additional requirement that 
+
+    \subsection{Pseudoforms (Densities)}
+    \subsubsection{Pseudoscalars}
+    \begin{definition}[Space of Pseudoscalars]\label{def:pseudoscalar-space}
+        Given a manifold \(\manifold[M]\) and a point \(p\) on it.
+        Choose an arbitrary orientation \(o_p=\Phi_+\) of \(T_p\manifold[M]\). On the 
+        set \(\mathbb{R}\times \{o_p, -o_p\}\), define an equivalence relation,
         \[
-        \left.\omega_{\phi'}\right|_{\phi'(U_\phi \cap U_{\phi'})} = 
-        (\sgn \det J)
-        \left(\phi\circ{\phi'} ^{-1}\right)^*
-        \left(\left.\omega_\phi\right|_{\phi(U_\phi \cap U_{\phi'})}\right),
-        \; \forall \phi, \phi' \in \Phi,
+        {\equiv} : (c, o_p) \equiv (-c, -o_p).
         \]
-        where \(\sgn \det J\) denotes the sign of Jacobian determinant.
+        We denote \(\pseudoscalar[p] := \mathbb{R}\times \{o_p, -o_p\} / {\equiv}\), 
+        and call it the space of pseudoscalars. Under a choice of local orientation 
+        \(o\), we often denote its element \((c, o) \equiv (-c, -o)\) by 
+        \(\pseudo{c}\).
     \end{definition}
-    \begin{remark}
-        The transformation rule differ from usual forms only in the choice of sign. \\
-        One cannot pullback a pseudoform.
-    \end{remark}
-    \newpage
+    \begin{theorem}[Pseudoscalar Vector Space]\label{thm:pseudoscalar-vector-space}
+        The space \(\pseudoscalar[p]\) forms a vector space under the operations,
+        \[
+        \begin{aligned}
+            &(a, o) + (b, o) = (a+b, o), \\
+            &c(a, o) = (ca, o).
+        \end{aligned}
+        \]
+        Specifically, \(\dim \pseudoscalar[p]=1\), since \(\forall \pseudo{c} \in 
+        \pseudoscalar[p]\), \(\exists~c \in \mathbb{R}\) s.t. 
+        \(\pseudo{c} = c\pseudo{1}\).
+    \end{theorem}
+    \begin{theorem}[Pseudoscalar Vector Bundle]\label{thm:pseudoscalar-vector-bundle}
+        On the space \(\pseudoscalar = \bigcup_{p \in \manifold[M]}^{}
+        \pseudoscalar[p]\), define the canonical projection \(\pi : \pseudoscalar \to 
+        \manifold[M]\) by \(\pseudoscalar[p] \mapsto p\).\\
+        For any chart \(\phi : U \to \mathbb{R}^m \in \Phi\) of the underlying 
+        manifold \(\manifold[M]\), it induces an orientation on \(T_p\manifold[M]\), 
+        denoted by \(o_\phi\). We define the local trivialization by 
+        \[
+        \begin{aligned}
+            \tilde{\phi} : \tilde{\pi}(U) &\to U \times \mathbb{R} \\
+            (p, (c, o_\phi)) &\mapsto (p, c).
+        \end{aligned}
+        \]
+        And this makes pseudoscalars a vector bundle on any manifold \(\manifold[M]\).
+    \end{theorem}
+    \begin{theorem}[Pseudoscalars Under Coordinate Transformation]\label{thm:pseudoscalar-coordinate-transformation}
+        Given two charts \(\phi : U \to \mathbb{R}^m, \psi : V \to \mathbb{R}^m \in 
+        \Phi\) of a manifold \(\manifold[M]\), define local trivialization of the 
+        pseudoscalar bundle \(\tilde{\phi}, \tilde{\psi}\) according to 
+        \cref{thm:pseudoscalar-vector-bundle}. If we throw away the point part and 
+        retain only the scalar part, we have 
+        \[
+        \tilde{\phi}((p, (c, o_\phi))) = (\sgn \det J)\tilde{\psi}((p, (c, o_\phi)))
+        \]
+    \end{theorem}
+    \begin{proof}
+        If \(o_\phi = o_\psi\), that is, \(\det J > 0\) and their orientations agree, 
+        then \((c, o_\phi)\equiv(c, o_\psi) \mapsto c\). \par
+        But if \(o_\phi = -o_\psi\), that is, \(\det J < 0\) and their orientations 
+        disagree, then \((c, o_\phi)\equiv(-c, o_\psi)\). The former is mapped to 
+        \(c\), the latter is mapped to \(-c\). \par
+        This shows that pseudoscalars "flip sign" under charts of different orientation.
+    \end{proof}
+    \subsubsection{Definition}
+    \begin{definition}[Pseudoforms]\label{def:pseudoforms}
+        The space of pseudoforms \(\pseudoform{k}{M}\) is defined by the space of 
+        differential forms tensored with (twisted by) the pseudoscalar bundle,
+        \[
+        \pseudoform{k}{M} = \bigwedge^kT^*\manifold[M] \otimes 
+        \pseudoscalar(\manifold[M]).
+        \]
+        This means, pseudoforms are defined locally as 
+        \[
+        \pseudo{\omega} = \pseudo{1}\omega\indices{_{i_1}_{\dots}_{i_k}}dx^{i_1}\wedge 
+        \dots\wedge dx^{i_k}.
+        \]
+    \end{definition}
     \subsubsection{Pseudoforms and Forms on Orientable Manifolds}
     \begin{definition}[Pseudoforms to Forms]\label{def:pseudo-to-form}
-        For a pseudoform \(\pseudoform{\omega} \in \tilde{\Lambda}^k(\manifold[M])\) 
+        For a pseudoform \(\pseudo{\omega} \in \pseudoform{k}{M}\) 
         on an orientable manifold \(\manifold[M]\) of degree \(m\) positively oriented 
-        by the atlas \(\Phi_+\), we define its underlying real form by letting them 
-        agree on the positive charts, that is,
+        by the atlas \(\Phi_+\), the positive orientation is chosen in a continuous 
+        manner. Then \(\pseudoscalar(\manifold[M])\) is isomorphic to \(\mathbb{R}\) 
+        by the positive orientation in a continuous manner, so we can say
         \[
-        \omega_\phi := o(\phi)\pseudoform{\omega}_\phi,\; \forall \phi \in \Phi, 
+        \begin{aligned}
+            o_+ : \pseudoform{k}{M} &\to \form{k}{M} \\
+            \pseudo{1}\omega\indices{_{i_1}_{\dots}_{i_k}}dx^{i_1}\wedge 
+            \dots\wedge dx^{i_k} &\mapsto \omega\indices{_{i_1}_{\dots}_{i_k}}
+            dx^{i_1}\wedge\dots\wedge dx^{i_k}
+        \end{aligned}
         \]
-        where 
-        \[
-        o(\phi) := \begin{cases}
-        1 & \forall \phi \in \Phi_+ \\
-        -1 & \forall \phi \in \Phi_-
-        \end{cases}
-        \]
+        defines a smooth differential form on \(\manifold[M]\).
     \end{definition}
-    \begin{definition}[Forms to Pseudoforms]\label{def:form-to-pseudo}
-        For a form \(\omega \in \form{k}{M}\) on an orientable manifold 
-        \(\manifold[M]\) of degree \(m\), we define its corresponding pseudoform by 
-        taking its positive value. That is, 
+    \subsubsection{On Absolute Values}
+    \begin{remark}
+        Some people would say for \(m=\dim \manifold[M]\), pseudo-\(m\)-forms are 
+        absolute values of \(m\)-forms. Personally I disliked this definition, but 
+        it is doable.
+    \end{remark}
+    \begin{theorem}
+        Given vectors \(v_1, \dots, v_m \in T_p\manifold[M]\), denote their 
+        orientation by \(o_v\). Choose the orientation of pseudoscalars according to 
+        the chart \(\phi\), and let \(\tilde{o}_v(\pseudo{1}) : \pseudoscalar[p] 
+        \to \mathbb{R}\) by \((c, o_v) \mapsto c\).
         \[
-        \pseudoform{\omega}_\phi := o(\phi)\omega_\phi,\; \forall \phi \in \Phi, 
+        \begin{aligned}
+            &\left(\tilde{o}_v(\pseudo{1})f(x)dx^1\wedge\dots\wedge dx^m\right)
+            (v_1, \dots, v_m) \\
+            =&\lvert\left( f(x)dx^1\wedge\dots\wedge dx^m \right)
+            (v_1, \dots, v_m)\rvert .
+        \end{aligned}
         \]
-    \end{definition}
+    \end{theorem}
     \subsection{Integration of Forms of Highest Degree}
     \begin{definition}[Integration]\label{def:top-form-integration}
         Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
         \(m\). 
         Choose a \(C^\infty\) partition of unity \(\rho_j, j \in J\) of 
         \(\manifold[M]\) s.t. \(\supp \rho_j \subseteq U_{\phi_j} := U_j\). \\
-        Let a pseudo-\(m\)-form \(\pseudoform{\omega} \in 
-        \tilde{\Lambda}^m(\manifold[M])\) has local expression 
-        \(\tilde{\omega}_{\phi_j} = f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), we say 
+        Let a pseudo-\(m\)-form \(\pseudo{\omega} \in 
+        \pseudoform{m}{M}\) has local expression 
+        \(\tilde{\omega}_{\phi_j} = \pseudo{1}f_j(x)dx^1_j\wedge \dots\wedge dx^m_j\), 
+        we say 
         \[
         \int_{\manifold[M]} \tilde{\omega} = 
         \sum_{j \in J}^{} \int_{(-\infty, 0] \times \mathbb{R}^{m-1}}
-        (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m
+        \tilde{\phi}_j(\pseudo{1})(\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m
         \]
         if the finite sum exists and has the same value for all choices of 
         \(\rho_j\) and \(\phi_j\).
@@ -139,9 +203,9 @@
         \[
         \begin{aligned}
             &\sum_{j \in J}^{} \int
-            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            \tilde{\phi}_j(\pseudo{1})(\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
             =&\sum_{k \in K}^{} \int
-            (\rho'_k \circ {\phi'_k} ^{-1})(x') f'_k(x') {dx'}^1\dots {dx'}^m
+            \tilde{\phi}'_k(\pseudo{1})(\rho'_k \circ {\phi'_k} ^{-1})(x') f'_k(x') {dx'}^1\dots {dx'}^m
         \end{aligned}
         \]
         \par
@@ -150,9 +214,9 @@
         \begin{aligned}
             \int_{\manifold[M]} \omega &= 
             \sum_{j \in J}^{} \int
-            (\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
+            \tilde{\phi}_j(\pseudo{1})(\rho_j \circ \phi_j ^{-1})(x) f_j(x) dx^1\dots dx^m \\
             &= \sum_{j \in J}^{} \int \sum_{k \in K}^{}
-            (\rho'_k\circ \phi_j ^{-1})(x)(\rho_j\circ \phi_j ^{-1})(x) f_j(x)
+            \tilde{\phi}_j(\pseudo{1})(\rho'_k\circ \phi_j ^{-1})(x)(\rho_j\circ \phi_j ^{-1})(x) f_j(x)
             dx^1\dots dx^m.
         \end{aligned}
         \]
@@ -163,7 +227,7 @@
         \begin{aligned}
             \int_{\manifold[M]} \omega
             &= \sum_{j \in J}^{}\sum_{k \in K}^{} \int 
-            (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x)
+            \tilde{\phi}_j(\pseudo{1})(\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x)
             dx^1\dots dx^m \\
         \end{aligned}
         \]
@@ -172,37 +236,37 @@
         First fix \(j, k\).
         \[
         \begin{aligned}
-            &\int (\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x) dx^1\dots dx^m \\
-            =&\int (\rho_j\rho'_k\circ \phi_j ^{-1})(\phi_j\circ{\phi_k'}^{-1}(x'))
+            &\int \tilde{\phi}_j(\pseudo{1})(\rho_j\rho'_k\circ \phi_j ^{-1})(x)f_j(x) dx^1\dots dx^m \\
+            =&\int \tilde{\phi}_j(\pseudo{1})(\rho_j\rho'_k\circ \phi_j ^{-1})(\phi_j\circ{\phi_k'}^{-1}(x'))
             f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
             \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
             {dx'}^1\dots {dx'}^m \\
-            =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
+            =&\int \tilde{\phi}_j(\pseudo{1})(\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
             f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
             \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
             {dx'}^1\dots {dx'}^m
         \end{aligned}
         \]\par
-        (Use pullback requirement) From \cref{def:pseudoform},
+        (Pseudoscalar) From \cref{thm:pseudoscalar-coordinate-transformation},
         \[
-        \omega_{\phi'_k} = (\sgn\det J)(\phi_j\circ {\phi'_k}^{-1})^*\omega_{\phi_j}, 
+        \tilde{\phi}_j(\pseudo{1}) = (\sgn\det J)\tilde{\phi}'_k(\pseudo{1})
         \]
         we see
         \[
         \begin{aligned}
-            &f'_j(x')dx^1\wedge \dots \wedge dx^m \\
-            =&(\sgn\det J)f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            &\tilde{\phi}'_k(\pseudo{1})f'_j(x')dx^1\wedge \dots \wedge dx^m \\
+            =&(\sgn\det J)\tilde{\phi}_j(\pseudo{1})f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             \left(\frac{\partial x^1}{\partial {x'}^{\ell_1}}{dx'}^{\ell_1}\right)
             \wedge \dots\wedge 
             \left(\frac{\partial x^m}{\partial {x'}^{\ell_m}}{dx'}^{\ell_m}\right) \\
-            =&(\sgn\det J)\sum_{\sigma \in S_m}^{} f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&(\sgn\det J)\sum_{\sigma \in S_m}^{} \tilde{\phi}_j(\pseudo{1})f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             (\sgn \sigma)\frac{\partial x^1}{\partial {x'}^{\sigma(1)}}\dots
             \frac{\partial x^m}{\partial {x'}^{\sigma(m)}}
             {dx'}^1\wedge\dots\wedge{dx'}^m \\
-            =&(\sgn\det J)f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&(\sgn\det J)\tilde{\phi}_j(\pseudo{1})f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             \det \left(\frac{\partial x}{\partial x'}\right)
             {dx'}^1\wedge\dots\wedge{dx'}^m \\
-            =&f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
+            =&\tilde{\phi}_j(\pseudo{1})f_j(\phi_j\circ {\phi'_k}^{-1}(x'))
             \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
             {dx'}^1\wedge\dots\wedge{dx'}^m
         \end{aligned}
@@ -211,11 +275,11 @@
         \[
         \begin{aligned}
             &\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
-            f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
+            \tilde{\phi}_j(\pseudo{1})f_j(\phi_j\circ{\phi_k'}^{-1}(x')) 
             \left|\det \left(\frac{\partial x}{\partial x'}\right)\right|
             {dx'}^1\dots {dx'}^m \\
             =&\int (\rho_j\rho'_k\circ{\phi_k'}^{-1}(x'))
-            f'_j(x')
+            \tilde{\phi}'_k(\pseudo{1})f'_k(x')
             {dx'}^1\dots {dx'}^m
         \end{aligned}
         \]\par
@@ -244,16 +308,16 @@
         \[
         \begin{aligned}
             \eta &:= f^*\omega = dx^2 \\
-            \pseudoform{\eta} &= dx^2 \\
-            \int_{\manifold[Z]} \pseudoform{\eta} &= 1.
+            \pseudo{\eta} &= dx^2 \\
+            \int_{\manifold[Z]} \pseudo{\eta} &= 1.
         \end{aligned}
         \]
         If we choose the positive orientation by setting \(-\idd \in \Phi_+\), then 
         \[
         \begin{aligned}
             \eta' &:= f^*\omega = dx^2 \\
-            \pseudoform{\eta}' &= -dx^2 \\
-            \int_{\manifold[Z]} \pseudoform{\eta}' &= -1.
+            \pseudo{\eta}' &= -dx^2 \\
+            \int_{\manifold[Z]} \pseudo{\eta}' &= -1.
         \end{aligned}
         \]
     \end{remark}

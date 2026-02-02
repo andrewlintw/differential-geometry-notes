@@ -42,4 +42,102 @@
         \frac{\partial x^{\nu_1}}{\partial {x'}^{\nu_s'}}
         \]
     \end{theorem}
+    \begin{definition}[Pullback of Covariant Tensor]\label{def:covariant-tensor-pullback}
+        The pullback of a general tensor field \(\tau\) by \(f : \manifold[M] \to 
+        \manifold[N]\) is defined as 
+        \[
+        (f^*\tau)(X_1, \dots, X_k) := (\tau \circ f)(f_*X_1, \dots, f_*X_k).
+        \]
+    \end{definition}
+    \subsection{The Metric Tensor}
+    \subsubsection{Riemannian Metric}
+    \begin{definition}[Riemannian Metric]\label{def:riemannian-metric}
+        A Riemannian metric on a manifold \(\manifold[M]\) is a totally symmetric, 
+        smooth \((2, 0)\)-tensor field on \(\manifold[M]\) that is positive definite 
+        at every point \(p \in \manifold[M]\). Locally, 
+        \[
+        g = g\indices{_i_j}dx^i\otimes dx^j.
+        \]
+    \end{definition}
+    \begin{definition}[The Euclidean Metric]\label{def:euclidean-metric}
+        On the Euclidean space \(\mathbb{R}^m\), there is a natural metric called the 
+        Euclidean metric, which is locally defined as 
+        \[
+        \eucMetric=\delta\indices{_i_j}dx^i\otimes dx^j.
+        \]
+    \end{definition}
+    \begin{definition}[The Product Metric]\label{def:product-metric}
+        Given two Riemannian manifolds \((\manifold[M], g_{\manifold[M]}), 
+        (\manifold[N], g_{\manifold[N]})\), we can form a metric \(\hat{g}\) on the 
+        product manifold \(\manifold[M]\times\manifold[N]\) by 
+        \[
+        \hat{g}((v_1, v_2), (w_1, w_2)) = g_{\manifold[M]}(v_1, w_1) + 
+        g_{\manifold[N]}(v_2, w_2).
+        \]
+    \end{definition}
+    \subsubsection{Existence of Riemannian Metric}
+    \begin{theorem}[Existence of Riemannian Metric]\label{thm:riemannian-metric-existence}
+        Every smooth manifold admits a Riemannian metric \cref{def:riemannian-metric}.
+    \end{theorem}
+    \begin{proof}
+        Let the manifold have coordinate charts \(\phi_j, j \in J\). Let a smooth 
+        partition of unity \(\rho_j, j \in J\) subordinate to \(U_j\). Then we can 
+        form a smooth tensor field 
+        \[
+        g = \sum_{j}^{} \rho_j\phi_j^*g_j,
+        \]
+        where \(g_j\) is the Euclidean metric on \(V_j\). It is obviously symmetric. 
+        Since the partition of unity is positive and every \(g_j\) is positive 
+        definite, \(g\) is positive definite also.
+    \end{proof}
+    \newpage
+    \subsubsection{Pullback Metric}
+    \begin{definition}[The Pullback Metric]\label{def:pullback-metric}
+        Let \(f : \manifold[M] \to \manifold[N]\) be \(C^\infty\), where 
+        \(\manifold[N]\) is a Riemannian manifold equipped with Riemannian metric 
+        \(g\). Then \(f^*g\) is a Riemannian metric on \(\manifold[M]\) iff \(f\) 
+        is a smooth immersion.
+    \end{definition}
+    \begin{theorem}[A Useful Mnemonic for the Pullback Metric]\label{thm:mnemonic-pullback-metric}
+        Let \(f : \manifold[M] \to \manifold[N]\) be a smooth immersion so that 
+        \cref{def:pullback-metric} can be defined. Then 
+        \[
+        (f^*g)=(g\indices{_i_j}\circ f)d(y_i\circ f)^2\otimes d(y_j\circ f)^2,
+        \]
+        where \(d(y_i \circ f)\) expands like \(\frac{\partial (y_i\circ f)}
+        {\partial x^j}dx^j\), just like the exterior derivative.
+    \end{theorem}
+    \begin{proof}
+        \[
+        \begin{aligned}
+            f^*g(X_1, X_2)&=(g\circ f)(f_*X_1, f_*X_2) \\
+            &=(g\indices{_i_j}\circ f)dy^i(f_*X_1)dy^j(f_*X_2) \\
+            &=(g\indices{_i_j}\circ f)dy^i(\tfld{\nu_1}\frac{\partial f^{\nu_1}}
+            {\partial x^{\mu_1}}X_1^{\mu_1})dy^j(\tfld{\nu_2}\frac{\partial f^{\nu_2}}
+            {\partial x^{\mu_2}}X_2^{\mu_2}) \\
+            &=(g\indices{_i_j}\circ f)\frac{\partial f^i}{\partial x^{\mu_1}}
+            \frac{\partial f^j}{\partial x^{\mu_2}}X_1^{\mu_1}X_2^{\mu_2}.
+        \end{aligned}
+        \]
+        So 
+        \[
+        (f^*g)\indices{_\mu_\nu}=(g\indices{_i_j}\circ f)\frac{\partial f^i}
+        {\partial x^{\mu_1}}\frac{\partial f^j}{\partial x^{\mu_2}}.
+        \]
+        But 
+        \[
+        d(y^i\circ f) := \frac{\partial (y^i\circ f)}{\partial x^j}dx^j.
+        \]
+        Tensor product all those completes the proof.
+    \end{proof}
+    \subsubsection{Musical Isomorphism}
+    \begin{definition}[Musical Isomorphism]\label{def:musical-isomorphism}
+        \[
+        \begin{aligned}
+            (X^\flat)\indices{_\mu}&=g\indices{_\mu_\nu}X^\nu \\
+            (\omega^\sharp)\indices{^\mu}&=g\indices{^\mu^\nu}\omega_\nu,
+        \end{aligned}
+        \]
+        where \(g\indices{^\mu^\nu}:=g ^{-1}_{\mu\nu}\).
+    \end{definition}
 \end{document}

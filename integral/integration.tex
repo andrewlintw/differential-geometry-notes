@@ -132,7 +132,7 @@
         \]
     \end{definition}
     \subsubsection{Pseudoforms and Forms on Orientable Manifolds}
-    \begin{definition}[Pseudoforms to Forms]\label{def:pseudo-to-form}
+    \begin{theorem}[Conversion of Pseudoforms and Forms]\label{thm:pseudo-to-form}
         For a pseudoform \(\pseudo{\omega} \in \pseudoform{k}{M}\) 
         on an orientable manifold \(\manifold[M]\) of degree \(m\) positively oriented 
         by the atlas \(\Phi_+\), the positive orientation is chosen in a continuous 
@@ -146,8 +146,17 @@
             dx^{i_1}\wedge\dots\wedge dx^{i_k}
         \end{aligned}
         \]
-        defines a smooth differential form on \(\manifold[M]\).
-    \end{definition}
+        defines a smooth differential form on \(\manifold[M]\). Moreover, we can also 
+        convert it back, 
+        \[
+        \begin{aligned}
+            \iota ^{-1} : \form{k}{M} &\to  \pseudoform{k}{M}\\
+            \omega\indices{_{i_1}_{\dots}_{i_k}}dx^{i_1}\wedge 
+            \dots\wedge dx^{i_k} &\mapsto \pseudo{1}_\phi o(\phi)\omega\indices{_{i_1}_{\dots}_{i_k}}
+            dx^{i_1}\wedge\dots\wedge dx^{i_k}.
+        \end{aligned}
+        \]
+    \end{theorem}
     \subsubsection{On Absolute Values}
     \begin{remark}
         Some people would say for \(m=\dim \manifold[M]\), pseudo-\(m\)-forms are 
@@ -224,6 +233,63 @@
         \end{aligned}
         \]
     \end{remark}
+    \subsubsection{Metric Volume Form}
+    \begin{definition}[The Metric Volume Form]\label{def:metric-volume-form}
+        On a smooth Riemannian manifold \(\manifold[M]\) of dimension \(m\) with 
+        metric \(g\), the metric volume form is the unique pseudo-\(m\)-form that 
+        gives \(\pseudo{1}_\phi\) if the vectors are orthonormal and fits the local 
+        orientation of \(\phi\). Especially in 3-dimensional spaces, we denote it 
+        as \(\vol\).
+    \end{definition}
+    \begin{theorem}[Local Representation of Metric Volume Form]\label{thm:local-rep-metric-volume-form}
+        On a smooth Riemannian manifold \(\manifold[M]\) of dimension \(m\) with 
+        metric \(g\) and coordinate chart \(\phi=x^1, \dots, x^m\), the metric volume 
+        form has local representation
+        \[
+        \vol = \pseudo{1}_\phi \sqrt{\det g}\ dx^1\wedge \dots\wedge dx^m,
+        \]
+        where \(\det g\) means \(\det g_{ij}\), the determinant of the matrix of 
+        metric tensor.
+    \end{theorem}
+    \begin{proof}
+        Let \(\vol = \pseudo{1}_\phi dx^1\wedge\dots\wedge dx^m\) with the tangent 
+        vectors \(\tvec{1}{p}, \dots, \tvec{m}{p}\) orthonormal in the sense of \(g\).
+        Then \(g\indices{_\mu_\nu}=\delta\indices{_\mu_\nu}\) in that basis.\par
+        Under another coordinates \(\psi=(y^1, \dots, y^m)\), we have 
+        \[
+        \begin{aligned}
+            \vol &= \pseudo{1}_\phi \det \left(\frac{\partial x}{\partial y}\right)
+            dy^1\wedge\dots\wedge dy^m \\
+            &= \pseudo{1}_\psi \left|\det \left(\frac{\partial x}{\partial y}\right)\right|
+            dy^1\wedge\dots\wedge dy^m.
+        \end{aligned}
+        \]
+        But 
+        \[
+        \begin{aligned}
+            g &= \delta\indices{_i_j}dx^i\otimes dx^j \\
+            &= \delta\indices{_i_j}\frac{\partial x^i}{\partial y^\alpha}
+            \frac{\partial x^j}{\partial y^\beta}dy^\alpha\otimes dy^\beta
+        \end{aligned}
+        \]
+        by \cref{thm:tensor-transformation}. So 
+        \[
+        \begin{aligned}
+            g\indices{_\alpha_\beta}&=\sum_{k} \frac{\partial x^k}{\partial y^\alpha}
+            \frac{\partial x^k}{\partial y^\beta} \\
+            &=\sum_{k} (J ^{-1})_{k\alpha}(J ^{-1})_{k\beta} \\
+            &=\sum_{k} ((J ^{-1}) ^{\top})_{\alpha k}(J ^{-1})_{k\beta} \\
+            &=\left((J ^{-1}) ^{\top}J ^{-1}\right)_{\alpha\beta}.
+        \end{aligned}
+        \]
+        Thus 
+        \[
+        \det g\indices{_\alpha_\beta} = \det \left((J ^{-1}) ^{\top}J ^{-1}\right)
+        =\left(\det (J ^{-1})\right)^2 = \left|\det \frac{\partial x}{\partial y}
+        \right|^2
+        \]
+        and the proof is completed.
+    \end{proof}
     \subsection{Integration of Forms of Highest Degree}
     \begin{definition}[Integration]\label{def:top-form-integration}
         Let \(\manifold[M]\) be a paracompact \(C^\infty\) manifold of dimension 
@@ -354,8 +420,8 @@
     \subsection{Integration of Forms of Lower Degree}
     \subsubsection{Pseudoorientation (Transverse Orientation)}
     \begin{remark}
-        Because pseudoscalars depend on local orientations, pulling back needs an 
-        extra structure.
+        Because pseudoscalars depend on local orientations, we need an extra 
+        structure in order to pullback pseudoforms onto a submanifold.
     \end{remark}
     \begin{definition}[Pseudoorientation]\label{def:pseudoorientation}
         For \(\manifold[Z]\) a submanifold of \(\manifold[M]\), pseudoorientation is 
@@ -364,7 +430,7 @@
         orientation of \(\manifold[M]\) at \(p\) (an orientation of 
         \(T_p\manifold[M]\)) 
         \textbf{continuously in \(p\), and takes opposite orientations 
-        to opposite orientations.}
+        to opposite orientations}.
     \end{definition}
     \begin{remark}
         Requiring well-defined surface normal (with a metric, of course) is precisely 
@@ -378,6 +444,16 @@
         along the strip, when we get back to where we started, the direction would be 
         reversed.
     \end{remark}
+    \newpage
+    \begin{definition}[Pullback of Pseudoscalars]\label{def:pullback-pseudoscalar}
+        Given a manifold \(\manifold[M]\) and its submanifold \(\manifold[Z]\), 
+        and \(\psi\) be a chart of \(\manifold[M]\), \(\phi\) a chart of 
+        \(\manifold[Z]\). At the point \(p\), if the pseudoorientation \(i\)
+        \cref{def:pseudoorientation} is chosen such that the local orientations 
+        \(o_\phi \mapsto o_\psi\), then we say \(i^*\pseudo{1}_\psi = 
+        \pseudo{1}_\phi\). If \(o_\phi \mapsto -o_\psi\), then \(i^*\pseudo{1}_\psi = 
+        -\pseudo{1}_\phi\).
+    \end{definition}
     \subsubsection{Definition}
     \begin{definition}[Integration of Lower Degree Forms]\label{def:pullback-integral}
         Let \(\manifold[Z]\) be an pseudooriented \(C^\infty\) submanifold of 
@@ -389,7 +465,6 @@
         \]
         if it exists.
     \end{definition}
-    \newpage
     \subsubsection{Stoke's theorem}
     \begin{theorem}[Stoke's Theorem]\label{thm:stokes-theorem}
         If \(\manifold[M]\) is an oriented \(C^\infty\) manifold of dimension \(m\) 
@@ -478,4 +553,14 @@
         \end{aligned}
         \]
     \end{proof}
+    \subsubsection{Integrate Without Partition of Unity}
+    \begin{remark}
+        The truth is, no one can (or wants) to write down a partition of unity. 
+        If one do write it down, integrating it is a big problem. \\
+        Fortunately, if one decompose any manifold \(\manifold[M]\) into finitely 
+        many submanifolds \(\manifold[M]_i, i \in I\) which intersect only on their 
+        boundaries, then \(\int_{\manifold[M]}\pseudo{\omega} = \sum_{i \in I} 
+        \int_{\manifold[M]_i}f_i^*\pseudo{\omega}\), where \(f_i\) is the injective 
+        immersion map \(f_i : \manifold[M]_i \to \manifold[M]\).
+    \end{remark}
 \end{document}

@@ -90,20 +90,6 @@
         where \(J\indices{^\nu_\mu}:=\left.\frac{\partial h^\nu}{\partial x^\mu}\right|_{p}
         :=\tvec{\mu}{p}(y^\nu\circ h)\) is the Jacobian matrix.
     \end{theorem}
-    \begin{proof}
-        We know by \cref{def:pullback}, 
-        \[
-        (h^*\omega)_\mu(p) = h^*\omega(\tfld{\mu})=\omega(h_*\tfld{\mu}).
-        \]
-        Expand it in local coordinates of \(\manifold[N]\), 
-        \[
-        (h^*\omega)_\mu(p) = \omega_\nu dy^\nu(h_*\tfld{\mu}).
-        \]
-        Via similar procedure in \cref{thm:pushforward-local}, we arrive at 
-        \[
-        (h^*\omega)_\mu(p) = \omega_\nu \frac{\partial h^\nu}{\partial x^\mu}.
-        \]
-    \end{proof}
     % \newpage
     % \subsection{Transformation Properties}
     % \begin{theorem}[Covariancy and Contravariancy]\label{thm:covariant-contravariant}
@@ -144,7 +130,6 @@
     %     \]
     %     Inverting the matrix equation above, we get the desired result.
     % \end{proof}
-    \newpage
     \begin{definition}[n-Forms]\label{def:n-forms}
         An n-form is a tensor field of type \((0, n)\) that is totally 
         skew-symmetric (or alternating, or totally antisymmetric), i.e., 
@@ -158,6 +143,7 @@
         \form{n}{M}\).
         Conventionally, we classify functions as 0-forms.
     \end{definition}
+    \newpage
     \subsection{The Exterior Product}
     \subsubsection{Definition and Properties}
     \begin{definition}[Exterior Product]\label{def:exterior-product}

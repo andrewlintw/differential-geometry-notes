@@ -57,7 +57,21 @@
 % Theorem environments with mdframed
 \RequirePackage[table]{xcolor}
 \RequirePackage[framemethod=tikz]{mdframed}
-
+\definecolor{Bkg}{HTML}{F2F2F2}
+\definecolor{defBor}{HTML}{305687}
+\definecolor{defBkg}{HTML}{C9CDF0}
+\definecolor{thmBor}{HTML}{732828}
+\definecolor{thmBkg}{HTML}{FFA099}
+\definecolor{corBor}{HTML}{5B4712}
+\definecolor{corBkg}{HTML}{DEC685}
+\pagecolor{Bkg}
+% #EAE0DD
+% #F2F2F2
+% #07adc7
+% #ade1f7
+% #957947
+% #dbba78
+% #eae0dd
 % Global mdframed settings
 \mdfsetup{%
     topline=false,
@@ -78,7 +92,7 @@
     {0pt}{0pt}% space above and below
     {\setstretch{1.2}}% body font with line spacing
     {}% indent amount
-    {\bfseries\color{cyan!90!black}}% theorem head font
+    {\bfseries\color{defBor}}% theorem head font
     {.}% punctuation after theorem head
     {\newline}% space after theorem head (newline for break)
     {}% theorem head spec
@@ -87,7 +101,7 @@
     {0pt}{0pt}%
     {\setstretch{1.2}}%
     {}%
-    {\bfseries\color{violet!90!black}}%
+    {\bfseries\color{thmBor}}%
     {.}%
     {\newline}%
     {}%
@@ -96,7 +110,7 @@
     {0pt}{0pt}%
     {\setstretch{1.2}}%
     {}%
-    {\bfseries\color{magenta!90!black}}%
+    {\bfseries\color{corBor}}%
     {.}%
     {\newline}%
     {}%
@@ -125,7 +139,7 @@
 
 % Create mdframed environments
 \newenvironment{definition}[1][]{%
-    \begin{mdframed}[linecolor=cyan!90!black,backgroundcolor=cyan!10!white]
+    \begin{mdframed}[linecolor=defBor,backgroundcolor=defBkg]
     \begin{definitioninner}[#1]
 }{%
     \end{definitioninner}
@@ -133,7 +147,7 @@
 }
 
 \newenvironment{theorem}[1][]{%
-    \begin{mdframed}[linecolor=violet!90!black,backgroundcolor=violet!10!white]
+    \begin{mdframed}[linecolor=thmBor,backgroundcolor=thmBkg]
     \begin{theoreminner}[#1]
 }{%
     \end{theoreminner}
@@ -141,7 +155,7 @@
 }
 
 \newenvironment{corollary}[1][]{%
-    \begin{mdframed}[linecolor=magenta!90!black,backgroundcolor=magenta!10!white]
+    \begin{mdframed}[linecolor=corBor,backgroundcolor=corBkg]
     \begin{corollaryinner}[#1]
 }{%
     \end{corollaryinner}
@@ -149,7 +163,7 @@
 }
 
 \newenvironment{remark}{%
-    \begin{mdframed}[linecolor=black,backgroundcolor=white]
+    \begin{mdframed}[linecolor=black,backgroundcolor=Bkg]
     \begin{remarkinner}
 }{%
     \hfill\Virgo%

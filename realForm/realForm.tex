@@ -287,6 +287,18 @@
         \end{aligned}
         \]
     \end{proof}
+    \begin{corollary}[Evaluate k-forms with Vector Fields]\label{cor:evaluate-forms}
+        On a smooth manifold \(\manifold[M]\), let \(k\) covectors \(\omega^i\) and 
+        \(k\) vector fields \(X_i\), \(1 \leq i \leq k\), and let the matrix 
+        \(\xi\indices{^a_b}=\omega^a(X_b)\). Then
+        \[
+        (\omega^1\wedge\dots\wedge \omega^k)(X_1, \dots, X_k) = \det \xi\indices{^a_b}.
+        \]
+    \end{corollary}
+    \begin{proof}
+        This is easily proved if we use row-linearity of determinants, for 
+        \(\omega^i = \omega^i_\mu dx^\mu\).
+    \end{proof}
     \newpage
     \subsection{The Exterior Derivative}
     \begin{definition}[Exterior Derivative]\label{def:exterior-derivative}

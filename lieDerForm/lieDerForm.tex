@@ -1,0 +1,166 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+    \section{Lie Derivative of Forms and Derivative of Integrals}
+    \subsection{Interior Product (Contraction)}
+    \begin{definition}[Interior Product]\label{def:iprod}
+        On a smooth manifold \(\manifold[M]\) of dimension \(m\), let \(v \in 
+        T_p\manifold[M]\), \(\alpha \in \form{k}{M}\). Then we 
+        define the interior product of the vector and the form to be 
+        \[
+        v \iprod \alpha=
+        \begin{cases}
+        0 & \forall \alpha \in \form{0}{M}\\
+        \alpha(v) & \forall \alpha \in \form{1}{M}\\
+        \alpha(v, \dots) & \forall \alpha \in \form{k}{M}.
+        \end{cases}
+        \]
+    \end{definition}
+    \begin{theorem}[Basic Properties of Interior Product]\label{thm:iprod-properties}
+        \[
+        \begin{aligned}
+            &(v+cw)\iprod \alpha = v\iprod\alpha + c(w\iprod\alpha)\\
+            &v \iprod (\alpha + f\beta) = v\iprod \alpha + f\cdot(v\iprod \beta)
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{theorem}[Interior Product and Cofactor Expansion]\label{thm:iprod-cofactor}
+        For any \(v \in T_p\manifold[M]\) and \(k\) covectors \(\omega^i \in 
+        \form{1}{M}\), \(1 \leq i \leq k\), we have 
+        \[
+        v\iprod(\omega^1\wedge \dots \wedge \omega^k)=
+        \sum_{i=1}^{k} (-1)^{i-1}\omega^i(v)\omega^1\wedge \dots \cancel{\omega^i}
+        \dots\wedge\omega^k.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Form the matrix \(\xi\indices{^i_j}=\omega^i(v_j)\) as in 
+        \cref{cor:evaluate-forms}. We see 
+        \[
+        (\omega^1\wedge \dots \wedge \omega^k)(v_1, \dots, v_k)
+        =\det (\xi\indices{^i_j}).
+        \]
+        Cofactor expand this on the first column, and the theorem is proved.
+    \end{proof}
+    \begin{corollary}[Interior Product as an Antiderivation]\label{cor:iprod-exterior-product}
+        For any \(v \in T_p\manifold[M]\), \(\alpha \in \form{n_1}{M}\), \(\beta \in 
+        \form{n_2}{M}\), we have 
+        \[
+        v\iprod (\alpha\wedge \beta)=(v\iprod \alpha)\wedge \beta + (-1)^{n_1}
+        \alpha\wedge(v\iprod\beta).
+        \]
+    \end{corollary}
+    \begin{proof}
+        Let \(\alpha = \alpha\indices{_{i_1}_\cdots_{i_{n_1}}}dx^{i_1}\wedge\dots
+        \wedge dx^{i_{n_1}}\), 
+        \(\beta = \beta\indices{_{j_1}_\cdots_{j_{n_2}}}dx^{j_1}\wedge\dots
+        \wedge dx^{j_{n_2}}\). Then 
+        \[
+        \begin{aligned}
+            v\iprod (\alpha \wedge \beta)
+            &=v\iprod(\alpha\indices{_{i_1}_\cdots_{i_{n_1}}}
+            \beta\indices{_{j_1}_\cdots_{j_{n_2}}}
+            dx^{i_1}\wedge\dots\wedge dx^{i_{n_1}}\wedge dx^{j_1}\wedge\dots
+            \wedge dx^{j_{n_2}})\\
+            &=\alpha\indices{_{i_1}_\cdots_{i_{n_1}}}
+            \beta\indices{_{j_1}_\cdots_{j_{n_2}}}(v\iprod(dx^{i_1}\wedge\dots\wedge
+            dx^{i_{n_1}}\wedge dx^{j_1}\wedge\dots\wedge dx^{j_{n_2}})).
+        \end{aligned}
+        \]
+        But 
+        \[
+        \begin{aligned}
+            &(v\iprod \alpha)\wedge \beta = \alpha\indices{_{i_1}_\cdots_{i_{n_1}}}
+            \beta\indices{_{j_1}_\cdots_{j_{n_2}}}
+            v\iprod(dx^{i_1}\wedge\dots\wedge dx^{i_{n_1}})\wedge 
+            dx^{j_1}\wedge\dots\wedge dx^{j_{n_2}} \\
+            &\alpha\wedge(v\iprod\beta) = \alpha\indices{_{i_1}_\cdots_{i_{n_1}}}
+            \beta\indices{_{j_1}_\cdots_{j_{n_2}}}
+            dx^{i_1}\wedge\dots\wedge dx^{i_{n_1}}\wedge
+            v\iprod(dx^{j_1}\wedge\dots\wedge dx^{j_{n_2}}).
+        \end{aligned}
+        \]
+        If we expand all these using \cref{thm:iprod-cofactor}, we see that 
+        we need \(\alpha\wedge(v\iprod\beta)\) to have a factor of \((-1)^{n_1}\), 
+        since we are essentially piecing two cofactors together.
+    \end{proof}
+    \begin{corollary}[Coordinate Representation]\label{cor:iprod-coordinate}
+        \[
+        (v\iprod\alpha)\indices{_{i_1}_\cdots_{i_k}} = 
+        v^{i_0}\alpha\indices{_{i_0}_{i_1}_\cdots_{i_k}}.
+        \]
+    \end{corollary}
+    \subsection{Lie Derivative of Forms}
+    % \subsubsection{Definition}
+    \begin{definition}[Lie Derivative of Forms]\label{def:lie-derivative-forms}
+        Given a form \(\omega \in \form{k}{M}\) and a vectro field \(X\), we define 
+        the Lie derivative of \(\omega\) by \(X\) to be a \(k\)-form,
+        \[
+        (\lder{X}\omega)_p = \left.\frac{d}{dt}\left({\sigma^X_t}^*\omega\right)_p
+        \right|_{t=0}
+        =\lim_{t \to 0} \frac{{\sigma^X_t}^*\left(\omega_{\sigma^X_t(p)}\right)-
+        \omega_p}{t}
+        \]
+    \end{definition}
+    \begin{theorem}[Lie Derivative of Functions]\label{thm:lie-derivative-functions}
+        This is essentially a rephrase of \cref{def:lie-der-function}, but this time 
+        we see \(f\) as a form.
+        \[
+        \lder{X}f=Xf.
+        \]
+    \end{theorem}
+    \begin{proof}
+        \[
+        \lder{X}f=\left.\frac{d}{dt}\left({\sigma_t^X}^*f\right)\right|_{t=0}
+        =\left.\frac{d}{dt}\left(f\circ \sigma_t^X\right)\right|_{t=0}=Xf.
+        \]
+    \end{proof}
+    \begin{theorem}[Various Product Rules]\label{thm:lie-der-form-product-rule}
+        \[
+        \begin{aligned}
+            \lder{X}(f\omega)&=(\lder{X}f)\omega+f\lder{X}\omega \\
+            \lder{X}(\alpha \otimes \beta) &= (\lder{X}\alpha)\otimes \beta +
+            \alpha\otimes(\lder{X}\beta).
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{proof}
+        
+    \end{proof}
+    \begin{corollary}
+        \[
+        \lder{X}(\alpha \wedge \beta) = (\lder{X}\alpha)\wedge \beta +
+        \alpha\wedge(\lder{X}\beta).
+        \]
+    \end{corollary}
+    \begin{theorem}[Lie Derivative of Forms Paired with Vector Fields]\label{thm:decompose-lie-der-forms}
+        \[
+        \begin{aligned}
+            &\lder{X}\left(\omega(X_1, \dots, X_k)\right)\\
+            =&\left(\lder{X}\omega\right)(X_1, \dots, X_k) + 
+            \omega(\lder{X}X_1, \dots, X_k) + \dots + 
+            \omega(X_1, \dots, \lder{X}X_k).
+        \end{aligned}
+        \]
+    \end{theorem}
+    \begin{corollary}[Lie Derivative of Forms as Directional Derivatives and Commutators]\label{cor:decompose-lie-der-forms}
+        \[
+        \begin{aligned}
+        &\left(\lder{X}\omega\right)(X_1, \dots, X_k)\\
+        =&X\left(\omega(X_1, \dots, X_k)\right) - 
+        \omega([X, X_1], \dots, X_k) - \dots - 
+        \omega(X_1, \dots, [X, X_k]).
+        \end{aligned}
+        \]
+    \end{corollary}
+    \begin{theorem}[Cartan's Magic Formula]\label{thm:cartan-magic-formula}
+        \[
+        \lder{\omega}=X\iprod(d\omega)+d(X\iprod\omega).
+        \]
+    \end{theorem}
+    \begin{corollary}[Lie Derivative Commute with Exterior Derivative]\label{cor:lie-der-commute-ext-der}
+        \[
+        \lder{X}(d\omega)=d(\lder{X}\omega).
+        \]
+    \end{corollary}
+\end{document}

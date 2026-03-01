@@ -668,7 +668,7 @@
     \subsubsection{Coordinate Representation of Hodge Dual}
     \begin{theorem}[Hodge Dual of Any Basis]\label{thm:hodge-dual-basis}
         On a Riemannian manifold \(\manifold[M]\) with dimension \(m\) and metric 
-        \(g\), the hodge dual satisfies 
+        \(g\), the Hodge dual satisfies 
         \[
         \begin{aligned}
             &\hodge \left(dx^{i_1}\wedge \dots\wedge dx^{i_k}\right)\\
@@ -730,6 +730,7 @@
         \[
         \hodge\hodge\omega=(-1)^{k(m-k)+1}\omega.
         \]
+        Also, be very careful about the \(k\) when dealing with consecutive Hodges.
     \end{remark}
     \begin{proof}
         It suffices to show for orthonormal frames, 
@@ -824,6 +825,31 @@
         The second expression is given by \cref{thm:double-hodge-dual}, since the 
         inverse Hodge operator is itself times some negative sign.
     \end{definition}
+    \begin{theorem}[Twice Codifferential]\label{thm:double-codifferential}
+        \[
+        \codiff^2=0.
+        \]
+    \end{theorem}
+    \begin{proof}
+        \[
+        \begin{aligned}
+            \codiff^2&=(-1)^{k-1}\hodge ^{-1} d \hodge (-1)^k \hodge ^{-1} d \hodge \\
+            &=-\hodge ^{-1}d^2\hodge =0.
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{theorem}[Codifferential Of Functions]\label{thm:function-codiff}
+        For any \(f \in C^\infty(\manifold[M])\), 
+        \[
+        \codiff f = 0.
+        \]
+    \end{theorem}
+    \begin{proof}
+        \[
+        \codiff f = (-1)^0\hodge ^{-1}\overbrace{d\underbrace{\hodge f}_{f\vol}}
+        ^{0}=0
+        \]
+    \end{proof}
     \begin{definition}[Divergence]\label{def:divergence-vector-field}
         On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), we 
         define the divergence of a vector field to be 
@@ -870,6 +896,27 @@
         \divv X = \frac{1}{\sqrt{\det g}}\tfld{\mu}\left(X^\mu\sqrt{\det g}\right).
         \]
     \end{theorem}
+    \begin{proof}
+        Using \cref{thm:hodge-dual-vector-field} and \cref{thm:iprod-cofactor}, 
+        \[
+        \begin{aligned}
+            \divv X &= \hodge d \hodge \indDown{X} = \hodge d(X \iprod \vol)\\
+            &=\hodge d \left(\sum_{i=1}^{m} (-1)^{i-1}\sqrt{\det g}X^i
+            dx^i\wedge \dots \cancel{dx^i}\dots \wedge dx^m\right)\\
+            &=\hodge \sum_{i=1}^{m} (-1)^{i-1}\tfld{\mu} \left(\sqrt{\det g}X^i\right)
+            dx^\mu\wedge dx^i\wedge \dots \cancel{dx^i}\dots \wedge dx^m.
+        \end{aligned}
+        \]
+        Now only the \(\mu=i\) terms remain, and since \(\hodge\hodge1=(-1)^{0\cdot
+        (m-0)}=1\), \(\hodge \vol=1\), and so 
+        \[
+        \begin{aligned}
+            \divv X &= \hodge \left(\tfld{\nu}\left(\sqrt{\det g}X^\mu\right)
+            \frac{1}{\sqrt{\det g}}\vol\right)\\
+            &=\frac{1}{\sqrt{\det g}}\tfld{\nu}\left(\sqrt{\det g}X^\nu\right).
+        \end{aligned}
+        \]
+    \end{proof}
     \begin{definition}[Laplace-de Rham Operator]\label{def:LdR-laplace-de-rham-operator}
         On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), we 
         define the Laplace-de Rham operator to be 
@@ -878,7 +925,6 @@
         \]
         where \(\codiff\) is the codifferential \cref{def:codifferential}.
     \end{definition}
-    \newpage
     \begin{remark}
         Both sign conventions are popular. This particular convention makes the 
         local expression in Euclidean space with the standard metric \(g\) reduce 
@@ -890,8 +936,11 @@
         LdR operator \cref{def:LdR-laplace-de-rham-operator} of a function \(f\)
         has local expression 
         \[
-        \LdR f=\frac{1}{\sqrt{\det g}}\tfld{\mu}\left(\sqrt{\det g}\;g^{\mu\nu}
-        \tfld{\nu}f\right).
+        \begin{aligned}
+            \LdR f&=-\codiff df=\divv \grad f\\
+            &=\frac{1}{\sqrt{\det g}}\tfld{\mu}\left(\sqrt{\det g}\;g^{\mu\nu}
+            \tfld{\nu}f\right).
+        \end{aligned}
         \]
     \end{theorem}
 

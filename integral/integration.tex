@@ -182,7 +182,7 @@
         have a nowhere-vanishing differential form on a non-orientable manifold. 
         Let's try to define a usual form on the M{\"o}bius band.\par
         \begin{center}
-            \includegraphics[width=\textwidth]{figs/moebius_chart.pdf}
+            \includegraphics[width=\textwidth]{./integral/figs/moebius_chart.pdf}
         \end{center}
         We create a M{\"o}bius band by patching three charts together, with 
         overlapping areas indicated by the same color. \(V_3 \cap V_1\) are patched 
@@ -214,7 +214,7 @@
         have found an example of the fact that one cannot have a nowhere-vanishing 
         usual form on a non-orientable manifold. Schematically, it looks like this,
         \begin{center}
-            \includegraphics[width=\textwidth]{figs/moebius_form.pdf}
+            \includegraphics[width=\textwidth]{./integral/figs/moebius_form.pdf}
         \end{center}
         where the black line resembles the value of \(\omega\). As you can see, it has 
         a mismatch of sign, making it discontinuous. It is possible to resolve this 
@@ -563,4 +563,397 @@
         \int_{\manifold[M]_i}f_i^*\pseudo{\omega}\), where \(f_i\) is the injective 
         immersion map \(f_i : \manifold[M]_i \to \manifold[M]\).
     \end{remark}
+    
+    \subsection{Hodge Dual}
+    \subsubsection{The Dual Inner Product}
+    \begin{theorem}[Uniqueness of Dual Inner Product]\label{thm:dual-inner-product-uniqueness}
+        Let \(\manifold[M]\) be an \(m\)-dimensional Riemannian manifold with metric 
+        \(g\). Then for all \(k = 1, \dots, m\), \(g\) determines a unique inner 
+        product \(\langle \cdot, \cdot\rangle\) s.t. 
+        \[
+        \langle \omega^1 \wedge \dots\wedge \omega^k, 
+        \eta^1\wedge\dots\wedge\eta^k\rangle = \det \left(\left\langle
+            \indUp{(\omega^i)}, \indUp{(\eta^j)}\right\rangle_g\right)
+        \]
+    \end{theorem}
+    \begin{proof}
+        (Show \(dx^I\) is an orthonormal basis)
+        Let \(I, J\) be increasing \(k\)-indices, and let \(\tfld{1}, \dots, 
+        \tfld{k}\) be local orthonormal frame. Thus, \(g\indices{_i_j}=
+        \delta\indices{_i_j}\), and \(\indUp{(dx^i)}=\tfld{i}\).\par
+        If \(I = J\),
+        \[
+        \left\langle dx^I, dx^I\right\rangle = \det 
+        (\langle \tfld{i}, \tfld{j}\rangle)=1.
+        \]
+        But if \(I \neq J\), \(\left\langle dx^I, dx^J\right\rangle=0\) since there 
+        would be zero rows.\par
+        Now define inner product by 
+        \[
+        \langle\omega, \eta\rangle=\left\langle \omega_Idx^I, \eta_Jdx^J\right\rangle
+        :=\omega_I\eta_J \delta\indices{^I^J}.
+        \]
+        (I cannot show it satisfiy the desired property; but I convinced myself using 
+        examples.)\par
+        (It remains to show that any other orthonormal frame produces the same 
+        inner product. But I hadn't think of a good way.)
+    \end{proof}
+    \begin{theorem}[Volume Form Is Of Unit Norm]\label{thm:volume-form-unit-norm}
+        On a Riemannian manifold \(\manifold[M]\) with dimension \(m\) and metric 
+        \(g\), the metric volume form \(\vol\) is the only \(m\)-form that has 
+        unit norm with respect to the inner product \cref{thm:dual-inner-product-uniqueness}.
+    \end{theorem}
+    \begin{proof}
+        Let an \(m\)-form \(\omega=\lambda dx^1\wedge\dots\wedge dx^m\). We wish 
+        \[
+        \begin{aligned}
+            1 = \langle\omega, \omega\rangle
+            &= \lambda^2\langle dx^1\wedge\dots\wedge dx^m, 
+            dx^1\wedge\dots\wedge dx^m\rangle\\
+            &= \lambda^2 \det \left(\left<\indUp{(dx^i)}, \indUp{(dx^j)}\right>\right)\\
+            &= \lambda^2 \det \left(g_{\mu\nu}{\indUp{(dx^i)}}^\mu{\indUp{(dx^j)}}^\nu\right).
+        \end{aligned}
+        \]
+        Now, since \((dx^i)_\mu=\delta\indices{^i_\mu}\), we know 
+        \({\indUp{(dx^i)}}^\mu=g^{\mu\nu}\delta\indices{^i_\nu}=g^{\mu i}\). Moreover, 
+        \(g_{\mu\nu}g^{\nu\sigma}=\delta\indices{_\mu^\sigma}\). So 
+        \[
+        \begin{aligned}
+            1 &= \lambda^2 \det \left(g_{\mu\nu}g^{\mu i}g^{\nu j}\right)\\
+            &= \lambda^2 \det \left(g^{i\mu}g_{\mu\nu}g^{\nu j}\right)\\
+            &= \lambda^2 \det \left(g^{i\mu}\delta\indices{_\mu^j}\right)\\
+            &= \lambda^2 \det \left(g^{ij}\right).
+        \end{aligned}
+        \]
+        Therefore, \(\lambda=\pm\sqrt{\det \left(g_{ij}\right)}\).
+    \end{proof}
+    \newpage
+    \subsubsection{Definition and Uniqueness}
+    \begin{theorem}[Defining Property of Hodge Star]\label{thm:hodge-star}
+        On a Riemannian manifold \(\manifold[M]\) with dimension \(m\) and metric 
+        \(g\), there exists a unique bundle homomorphism \(\hodge : \form{k}{M} \to 
+        \pseudoform{m-k}{M}\) s.t. 
+        \[
+        \omega\wedge \hodge \eta=\langle \omega, \eta\rangle_g \vol.
+        \]
+    \end{theorem}
+    \begin{proof}
+        (uniqueness) Suppose there exist two such homomorphisms, \(\hodge\) and 
+        \(\hodge'\). Then for all \(\omega \in \form{k}{M}\),
+        \[
+        \begin{aligned}
+            \omega\wedge \hodge \eta&=\langle \omega, \eta\rangle_g \vol\\
+            \omega\wedge \hodge' \eta&=\langle \omega, \eta\rangle_g \vol
+        \end{aligned}
+        \]
+        so \(\omega\wedge (\hodge\eta-\hodge'\eta)=0\). Thus 
+        \(\hodge\eta=\hodge'\eta\) for all \(\eta \in \form{k}{M}\).\par
+        (existence) We claim for a local orthonormal frame \(\tfld{i}\), 
+        \[
+        \hodge \left(dx^{i_1}\wedge \dots\wedge dx^{i_k}\right)
+        =\epsilon\indices{^{i_1}^{\dots}^{i_k}_{j_{k+1}}_{\dots}_{j_m}}
+        dx^{j_{k+1}}\wedge\dots\wedge dx^{j_m}.
+        \]
+        Since 
+        \[
+        \begin{aligned}
+            &\left(dx^{i_1}\wedge \dots\wedge dx^{i_k}\right)\wedge 
+            \hodge \left(dx^{i_1}\wedge \dots\wedge dx^{i_k}\right)\\
+            =& \left<dx^I, dx^I\right>\vol\\
+            =& \vol,
+        \end{aligned}
+        \]
+        we need the Levi-Civita symbol to make the indices in correct order.
+    \end{proof}
+    \subsubsection{Coordinate Representation of Hodge Dual}
+    \begin{theorem}[Hodge Dual of Any Basis]\label{thm:hodge-dual-basis}
+        On a Riemannian manifold \(\manifold[M]\) with dimension \(m\) and metric 
+        \(g\), the hodge dual satisfies 
+        \[
+        \begin{aligned}
+            &\hodge \left(dx^{i_1}\wedge \dots\wedge dx^{i_k}\right)\\
+            =&\frac{\sqrt{\det g}}{(n-k)!}g^{i_1j_1}\dots g^{i_kj_k}
+            \epsilon_{j_1\dots j_k j_{k+1}\dots j_m} dx^{j_{k+1}}\wedge\dots\wedge
+            dx^{j_m}.
+        \end{aligned}
+        \]
+        The term \((n-k)!\) is there because we didn't restrict \(j_{k+1}, \dots, 
+        j_m\) are in order. If we ensure that, then \((n-k)!\) is not there.
+    \end{theorem}
+    \begin{proof}
+        We verify it by calculating 
+        \[
+        \left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right) \wedge 
+        \left(\frac{\sqrt{\det g}}{(n-k)!}g^{i_1j_1}\dots g^{i_kj_k}
+        \epsilon_{j_1\dots j_k j_{k+1}\dots j_m} dx^{j_{k+1}}\wedge\dots\wedge
+        dx^{j_m}\right).
+        \]
+        Firstly, 
+        \[
+        \begin{aligned}
+            \left<dx^{i_1}\wedge\dots\wedge dx^{i_k}, 
+            dx^{i_1}\wedge\dots\wedge dx^{i_k}\right>
+            &=\det \left(\left<\indUp{(dx^i)}, \indUp{(dx^j)}\right>\right)\\
+            &=\det \left(g_{\mu\nu}g^{i\mu}g^{j\nu}\right)\\
+            &=\det \left(g^{i\mu}g_{\mu\nu}g^{\nu j}\right)\\
+            &=\det \left(g^{ij}\right),
+        \end{aligned}
+        \]
+        but only \(i_1, \dots, i_k\) rows and columns are picked out.\par
+        However, \(g^{i_1j_1}\dots g^{i_kj_k}\epsilon_{j_1\dots j_n}\) are precisely 
+        this expression, because \(j_{k+1}, \dots, j_m\) cannot contain terms of 
+        \(i_1, \dots, i_k\), otherwise they wedge to be \(0\). Therefore, 
+        \(j_1, \dots, j_k\) are permutations of \(i_1, \dots, i_k\), and the 
+        Levi-Civita symbol takes care of the \((\sgn \sigma)\). Thus the proof is 
+        completed.
+    \end{proof}
+    \begin{corollary}[Coordinate Representation of Hodge Dual]\label{cor:hodge-dual-coordinates}
+        Given a \(k\)-form \(\omega \in \form{k}{M}\) on a Riemannian manifold 
+        \(\manifold[M]\) with dimension \(m\) and metric \(g\), we have 
+        \[
+        (\hodge\omega)_{j_{k+1}\dots j_m} = 
+        \frac{\sqrt{\det g}}{(n-k)!}g^{i_1j_1}\dots g^{i_kj_k}
+        \epsilon_{j_1\dots j_k j_{k+1}\dots j_m} \omega_{i_1\dots i_k}.
+        \]
+    \end{corollary}
+    \subsubsection{Properties of Hodge Dual}
+    \begin{theorem}[Double Hodge Dual]\label{thm:double-hodge-dual}
+        For any \(\omega \in \form{k}{M}\) on a Riemannian manifold \(\manifold[M]\),
+        \[
+        \hodge\hodge\omega=(-1)^{k(m-k)}\omega.
+        \]
+    \end{theorem}
+    \begin{remark}
+        Note this applies to Euclidean metric only. In other cases, the negative sign 
+        may be different. For example, under the Lorentzian metric 
+        \(g=({-}{+}{+}{+})\), the expression is instead 
+        \[
+        \hodge\hodge\omega=(-1)^{k(m-k)+1}\omega.
+        \]
+    \end{remark}
+    \begin{proof}
+        It suffices to show for orthonormal frames, 
+        \[
+        \hodge\hodge \left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right)
+        =(-1)^{k(n-k)}\left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right).
+        \]
+        To show this, we verify according to \cref{thm:hodge-star},
+        \[
+        \hodge \left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right)
+        \wedge (-1)^{k(n-k)}\left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right).
+        \]
+        We want this to be equal to \(\left<\hodge dx^I, \hodge dx^I\right>\vol\). 
+        By the exchanging rule \cref{thm:skew-symmetry-exterior-product}, we have 
+        \[
+        \begin{aligned}
+            =&\left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right)\wedge
+            \hodge\left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right)\\
+            =&\left<dx^I, dx^I\right>\vol.
+        \end{aligned}
+        \]
+        Thus, if \(\left<dx^I, dx^I\right>=\left<\hodge dx^I, \hodge dx^I\right>\), 
+        then we are done. I can prove the case when they are orthonormal, 
+        \[
+        \begin{aligned}
+            &\left<\hodge \left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right), 
+            \hodge \left(dx^{i_1}\wedge\dots\wedge dx^{i_k}\right)\right>\\
+            =&\left<\delta^{i_1j_1}\dots\delta^{i_kj_k}\epsilon_{j_1\dots j_n}
+            dx^{j_{k+1}}\wedge\dots\wedge dx^{j_m}, 
+            \delta^{i_1j_1'}\dots\delta^{i_kj_k'}\epsilon_{j_1'\dots j_n'}
+            dx^{j_{k+1}'}\wedge\dots\wedge dx^{j_m'}\right>\\
+            =&1
+        \end{aligned}
+        \]
+        because only the terms which \(j_{k+1}, \dots, j_m\) didn't contain 
+        \(i_1, \dots, i_k\) survive, and Levi-Civita symbol squared is definitely 1.
+    \end{proof}
+    \begin{theorem}[Hodge Dual of Constant]\label{thm:hodge-dual-constant}
+        On any Riemannian manifold \(\manifold[M]\),
+        \[
+        \hodge 1=\vol.
+        \]
+        More generally, for any function \(f \in C^\infty(\manifold[M])\),
+        \[
+        \hodge f=f\vol.
+        \]
+    \end{theorem}
+    \begin{theorem}[Hodge Dual of Flatted Vector Fields]\label{thm:hodge-dual-vector-field}
+        On any Riemannian manifold \(\manifold[M]\), given a vector field \(X\), 
+        \[
+        \hodge \indDown{X}=X\iprod \vol.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Again, we verify \cref{thm:hodge-star}. In local coordinates, 
+        \[
+        \begin{aligned}
+            \vol &= \sqrt{\det g}dx^1\wedge\dots\wedge dx^m\\
+            X &= X^\mu\tfld{\mu}\\
+            \indDown{X}&=\left(\indDown{X}\right)_\mu dx^\mu=g_{\mu\nu}X^\nu dx^\mu.
+        \end{aligned}
+        \]
+        Then, using \cref{thm:iprod-cofactor}, 
+        \[
+        \begin{aligned}
+            &\left(\indDown{X}\right)\wedge \left(X\iprod \vol\right)\\
+            =&g_{\mu\nu}X^\nu\sqrt{\det g}\sum_{i=1}^{m} (-1)^{i-1}
+            X^i dx^\mu\wedge dx^1\wedge\dots\cancel{dx^i}\dots\wedge dx^m.
+        \end{aligned}
+        \]
+        But the terms that \(\mu \neq i\) vanishes, so 
+        \[
+        \begin{aligned}
+            &\left(\indDown{X}\right)\wedge \left(X\iprod \vol\right)\\
+            =&\sqrt{\det g}\sum_{i=1}^{m} (-1)^{i-1}g_{i\nu}X^\nu
+            X^i dx^i\wedge dx^1\wedge\dots\cancel{dx^i}\dots\wedge dx^m\\
+            =&g_{\mu\nu}X^\mu X^\nu \vol\\
+            =&\left<X, X\right>_g\vol.
+        \end{aligned}
+        \]
+    \end{proof}
+    \subsubsection{Other Differential Operators}
+    \begin{definition}[Codifferential]\label{def:codifferential}
+        On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), we 
+        define the codifferential \(\codiff : \form{k}{M}\to \form{k-1}{M}\).
+        \[
+        \begin{aligned}
+            \codiff &:=(-1)^k\hodge ^{-1} d\hodge\\
+            &=(-1)^{m(k+1)+1}\hodge d\hodge.
+        \end{aligned}
+        \]
+        The second expression is given by \cref{thm:double-hodge-dual}, since the 
+        inverse Hodge operator is itself times some negative sign.
+    \end{definition}
+    \begin{definition}[Divergence]\label{def:divergence-vector-field}
+        On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), we 
+        define the divergence of a vector field to be 
+        \[
+        \begin{aligned}
+            \divv X &:=\hodge d \hodge \indDown{X}\\
+            &= -\codiff \indDown{X}.
+        \end{aligned}
+        \]
+        The second expression is given by \cref{def:codifferential} and the fact 
+        that \(k=1\).
+    \end{definition}
+    \begin{theorem}[]\label{thm:divergence-vector-field-volume-form}
+        The divergence of a vector field \(\divv X\) is the unique scalar that 
+        \[
+        (\divv X)\vol = d\hodge \indDown{X}.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Note that 
+        \[
+        \divv X = -\codiff \indDown{X} = \hodge ^{-1} d \hodge \indDown{X}.
+        \]
+        Therefore, 
+        \[
+        \divv X \wedge \hodge \divv X = \left<\divv X, \divv X\right>\vol.
+        \]
+        But since \(\divv X\) is just a scalar, the above is equivalent to 
+        \[
+        (\divv X)\hodge \divv X = (\divv X)^2\vol.
+        \]
+        If \(\divv X \neq 0\), then 
+        \[
+        \hodge \divv X = d\hodge \indDown{X} = (\divv X)\vol.
+        \]
+        If \(\divv X=0\), then by definition \(d\hodge \indDown{X}=0\), so the 
+        equation trivially holds.
+    \end{proof}
+    \begin{theorem}[Divergence In Local Coordinates]\label{thm:divergence-coordinates}
+        On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), the 
+        divergence \cref{def:divergence-vector-field} of a vector field \(X\) has 
+        local expression
+        \[
+        \divv X = \frac{1}{\sqrt{\det g}}\tfld{\mu}\left(X^\mu\sqrt{\det g}\right).
+        \]
+    \end{theorem}
+    \begin{definition}[Laplace-de Rham Operator]\label{def:LdR-laplace-de-rham-operator}
+        On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), we 
+        define the Laplace-de Rham operator to be 
+        \[
+        \LdR := -(d\codiff + \codiff d),
+        \]
+        where \(\codiff\) is the codifferential \cref{def:codifferential}.
+    \end{definition}
+    \newpage
+    \begin{remark}
+        Both sign conventions are popular. This particular convention makes the 
+        local expression in Euclidean space with the standard metric \(g\) reduce 
+        to the familiar "Laplacian". In Minkowski space, the LdR operator is the 
+        wave operator \(\dAlembert\), the d'Alembertian.
+    \end{remark}
+    \begin{theorem}[LdR Operator In Local Coordinates]\label{thm:ldr-coordinates}
+        On a Riemannian manifold \(\manifold[M]\) equipped with metric \(g\), the 
+        LdR operator \cref{def:LdR-laplace-de-rham-operator} of a function \(f\)
+        has local expression 
+        \[
+        \LdR f=\frac{1}{\sqrt{\det g}}\tfld{\mu}\left(\sqrt{\det g}\;g^{\mu\nu}
+        \tfld{\nu}f\right).
+        \]
+    \end{theorem}
+
+    \subsection{Integration of Vector Fields}
+    \subsubsection{Line Integrals}
+    \subsubsection{Surface Integrals}
+    \begin{remark}
+        In vector calculus, we define the integration of a vector field \(X\) over a 
+        submanifold \(S\) to be 
+        \[
+        \int_{\manifold[M]} \langle X, N\rangle_g dS,
+        \]
+        where \(N\) is the normal vector of \(S\), \(\langle X, N\rangle_g\) is the 
+        inner product of the two (induced by metric \(g\)), and \(dS\) is the (metric) 
+        volume form of \(S\). We seek to reformulate this in terms of our language.
+    \end{remark}
+    \begin{theorem}[Hodge Star and Flux]\label{thm:hodge-flux}
+        Let \(\manifold[M]\) be an \(m\)-dimensional Riemannian manifold with metric 
+        \(g\), and \(\manifold[S]\) be a submanifold of \(\manifold[M]\) of 
+        codimension \(1\).
+        Let \(X\) be a vector field on \(\manifold[M]\), \(dS\) be the 
+        volume forms of \(\manifold[M]\) and \(\manifold[S]\), respectively, 
+        and \(i\) be the immersion map. Then 
+        \[
+        i^*(\hodge \indDown{X})=\langle X, N\rangle_g dS.
+        \]
+    \end{theorem}
+    \begin{proof}
+        Let \(X^\perp = \langle X, N\rangle_gN, X^{\top}=X-X^\perp\). Then 
+        \[
+        X\iprod dV = X^\perp \iprod dV + X ^{\top} \iprod dV.
+        \]
+        But \(X^\perp = \langle X, N\rangle_gN\), so 
+        \[
+        X^\perp \iprod dV = \langle X, N\rangle_gN\iprod dV
+        = \langle X, N\rangle_g dS.
+        \]
+        We now show \(X ^{\top} \iprod dV=0\). Consider any \(X_1, \dots, X_{m-1}\) 
+        on \(\manifold[S]\), we see 
+        \[
+        (X ^{\top} \iprod dV)(X_1, \dots, X_{m-1})
+        = dV(X^{\top}, X_1, \dots, X_{m-1})=0
+        \]
+        since \(m\) vectors on \((m-1)\)-dimensional vector spaces are necessarily 
+        dependent.
+    \end{proof}
+    \begin{theorem}[Divergence Theorem]\label{thm:divergence-theorem}
+        Let \(\manifold[M]\) be an \(m\)-dimensional Riemannian manifold with metric 
+        \(g\). Denote the metric volume form of \(\partial \manifold[M]\) by 
+        \(dS\), then for any compactly supported vector field \(X\), we have 
+        \[
+        \int_{\manifold[M]} (\divv X)\vol=\int_{\partial \manifold[M]} 
+        \left<X, N\right>_g dS.
+        \]
+    \end{theorem}
+    \begin{proof}
+        By \cref{thm:divergence-vector-field-volume-form}, and Stokes theorem 
+        \cref{thm:stokes-theorem}, we see 
+        \[
+        \int_{\manifold[M]} (\divv X)\vol = \int_{\manifold[M]} d\hodge\indDown{X}
+        =\int_{\partial \manifold[M]}i^*\left(\hodge \indDown{X}\right)
+        =\int_{\partial \manifold[M]}\left<X, N\right>_g dS.
+        \]
+    \end{proof}
 \end{document}

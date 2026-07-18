@@ -30,7 +30,7 @@
     \newpage
     \begin{definition}[Overlap Function]\label{def:overlap-function}
         Let \((U_1, \phi_1), (U_2, \phi_2)\) be a pair of \(m\)-dimensional 
-        coordinate charts with \(U_1 \cap U_2 \neq \varnothing\). Then the 
+        coordinate charts with \\\(U_1 \cap U_2 \neq \varnothing\). Then the 
         overlap function is defined as 
         \[
         \phi_2\circ\phi_1 ^{-1} : \phi_1(U_1 \cap U_2) \subseteq \mathbb{R}^m 
@@ -59,7 +59,6 @@
         differentiation is not defined on a manifold, so we need to rely on 
         Euclidean spaces.
     \end{remark}
-    \newpage
     \subsection{Dimension of a Manifold}
     \begin{remark}
         Consider a manifold that consists of a rod attached to a disk. The dimension 
@@ -82,14 +81,15 @@
         If \(n < n'\), embed \(\mathbb{R}^n\) to \(\mathbb{R}^{n'}\) by 
         \(f : \vec{x} \mapsto (\vec{x}, \vec{0})\). Via stereographic projection, 
         we can map homeomorphically
-        \begin{align*}
+        \[
+        \begin{aligned}
             \phi &: U  \mapsto V \subseteq S^{n'}, \\
             \phi'&: U' \mapsto V' \subseteq S^{n'}.
-        \end{align*}
+        \end{aligned}
+        \]
         Since the compositions are also homeomorphic, we see \(V\) and \(V'\) are 
         homeomorphic. However, \(V'\) is not an open subset of \(\mathbb{R}^{n'}\) because 
-        of the \(0\)'s, contradicting \cref{thm:invariance-domain}. 
-        \textreferencemark
+        of the \(0\)'s, which contradicts Invariance of Domain. 
     \end{proof}
     \begin{remark}
         Since the definition of a differentiable manifold requires every overlap 
@@ -189,17 +189,13 @@
     \subsubsection{Boundary is Well-defined}
     \begin{remark}
         A natural question regarding \cref{def:manifold-boundary} is that, the 
-        definition only asks for existence, but it does not guarantee the existence 
-        of 
-        \[
-        \exists~\phi_\alpha, \phi_\beta ~\text{s.t.}~ \phi_\alpha^1(p) = 0, 
-        \phi_\beta^1(p) \neq 0.
-        \]
+        definition only asks for existence, but it does not guarantee that two coordinate charts will always agree on whether their first component is zero.
         We resolve this in the following.
     \end{remark}
+    \newpage
     \begin{theorem}\label{thm:manifold-boundary-well-defined}
-        Suppose \(U, U'\) are open sets in the product topology \((-\infty, 0] 
-        \times \mathbb{R}^{n-1}\), and \(\exists~ f : U \to U'\) homeomorphic. Then 
+         Suppose \(U, U'\) are open sets in the product topology \((-\infty, 0] 
+         \times \mathbb{R}^{n-1}\), and \\\(\exists~ f : U \to U'\) homeomorphic. Then 
         \[
         f(U \cap (\{0\}\times \mathbb{R}^{n-1})) = U' \cap (\{0\}\times 
         \mathbb{R}^{n-1}).
@@ -271,13 +267,13 @@
         \manifold[N]\), \(\tilde{f}(q) = \varnothing\) or a \(C^\infty\) 
         submanifold of \(\manifold[M]\) of codimension \(r\).
     \end{theorem}
-    \subsubsection{Dimension of Submanifolds of \(\GLNR{n}\)}
-    \begin{theorem}[Dimension of Special Linear Group \(\SLNR{n}\)]\label{thm:dim-slnr}
-        \(\SLNR{n}\) is a submanifold of \(\GLNR{n}\) codimension \(1\); 
-        \(\dim \SLNR{n} = n^2-1\).
+    \subsubsection{Dimension of Submanifolds of General Linear Group}
+    \begin{theorem}[Dimension of Special Linear Group \(\SPLI{n}{\reals}\)]\label{thm:dim-slnr}
+        \(\SPLI{n}{\reals}\) is a submanifold of \(\GL{n}{\reals}\) codimension \(1\); 
+        \(\dim \SPLI{n}{\reals} = n^2-1\).
     \end{theorem}
     \begin{proof}
-        Consider \(f = \det : \manifold[M]=\GLNR{n} \to \mathbb{R}\). We want to 
+        Consider \(f = \det : \manifold[M]=\GL{n}{\reals} \to \mathbb{R}\). We want to 
         show \(1\) is a regular value of \(f=\det \). \par
         (Elementary argument) One can simply write \(f_*\) in local coordinates 
         and work out its rank. First choose a curve \(A(t) : (-\epsilon, \epsilon)
@@ -295,10 +291,10 @@
         \cref{thm:regular-value-submanifold-with-boundary}, the statement is true.
         \par
         (Lie argument) Consider the following diagram, which leverages the Lie 
-        group property of \(\SLNR{n}\).
-        \begin{center}
-            \input{./figs/slnrLie.tex}
-        \end{center}
+        group property of \(\SPLI{n}{\reals}\).
+        %\begin{center}
+        %    \input{./figs/slnrLie.tex}
+        %\end{center}
         \par
         So we know
         \[
@@ -318,17 +314,16 @@
         Then one can use the elementary argument again, but this time with 
         significantly less complexity.
     \end{proof}
-    \begin{theorem}[Dimension of Orthogonal Group \(\ONR{n}\)]\label{thm:dim-onr}
-        The orthogonal group \(\ONR{n}=\Set{A \in M_n(\mathbb{R})|AA ^{\top}
-        =I_n}\) is a \(C^\infty\) submanifold of \(\GLNR{n}\) of codimension 
-        \(\frac{n(n+1)}{2}\), and thus \(\dim \ONR{n}=\frac{n(n-1)}{2}\).
+    \begin{theorem}[Dimension of Orthogonal Group \(\ORTH{n}{\reals}\)]\label{thm:dim-onr}
+        The orthogonal group \(\ORTH{n}{\reals}=\Set{A \in M_n(\mathbb{R})}{AA ^{\top}
+        =I_n}\) is a \(C^\infty\) submanifold of \(\GL{n}{\reals}\) of codimension 
+        \(\frac{n(n+1)}{2}\), and thus \(\dim \ORTH{n}{\reals}=\frac{n(n-1)}{2}\).
     \end{theorem}
-    \begin{proof}
-        Consider the following diagram,
-        \begin{center}
-            \input{./figs/onrLie.tex}
-        \end{center}
-        where the red words are determined such that the diagram commutes.
-    \end{proof}
-    \(\)
+%    \begin{proof}
+%        Consider the following diagram,
+%        \begin{center}
+%            \input{./figs/onrLie.tex}
+%        \end{center}
+%        where the red words are determined such that the diagram commutes.
+%    \end{proof}
 \end{document}

@@ -16,12 +16,12 @@
 \newcommand{\eucMetric}{\bar{g}}
 \newcommand{\bnd}[1]{\partial\manifold[#1]}
 \newcommand{\iso}{\simeq}
-\newcommand{\GLNR}[1]{GL_{#1}(\mathbb{R})}
-\newcommand{\glnr}[1]{\mathfrak{gl}_{#1}(\mathbb{R})}
-\newcommand{\SLNR}[1]{SL_{#1}(\mathbb{R})}
-\newcommand{\slnr}[1]{\mathfrak{sl}_{#1}(\mathbb{R})}
-\newcommand{\ONR}[1]{O_{#1}(\mathbb{R})}
-\newcommand{\onr}[1]{\mathfrak{o}_{#1}(\mathbb{R})}
+\newcommand{\GL}[2]{GL(#1,#2)}
+\newcommand{\gl}[2]{\mathfrak{gl}(#1,#2)}
+\newcommand{\SPLI}[2]{SL(#1,#2)}
+\newcommand{\spli}[2]{\mathfrak{sl}(#1,#2)}
+\newcommand{\ORTH}[2]{O(#1,#2)}
+\newcommand{\orth}[2]{\mathfrak{o}(#1,#2)}
 \newcommand{\iprod}{\mathbin{\lrcorner}}
 \newcommand{\indUp}[1]{{#1}^\sharp}
 \newcommand{\indDown}[1]{{#1}^\flat}
@@ -35,10 +35,10 @@
         ({(\x*360/#3+8*(2*rnd-1))}:{#1+#2*(2*rnd-1)})
 }
 \DeclareMathOperator{\idd}{id}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\curl}{curl}
-\DeclareMathOperator{\divv}{div}
+%\DeclareMathOperator{\sgn}{sgn}
+%\DeclareMathOperator{\grad}{grad}
+%\DeclareMathOperator{\curl}{curl}
+%\DeclareMathOperator{\divv}{div}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\adj}{adj}
@@ -60,4 +60,5 @@
     \subfile{integral/integration.tex}
     \newpage
     \subfile{lieDerForm/lieDerForm.tex}
+    \newpage
 \end{document}

@@ -317,7 +317,66 @@
         \end{cases}
         \]
     \end{theorem}
-
+    \begin{theorem}[Functional Product Rule]
+    \label{thm:Functional-Product-Rule}
+        \[
+            [fX, gY] = f(Xg)Y - g(Yf)X + fg[X, Y].
+        \]
+    \end{theorem}
+    \begin{proof}
+        We first deal with the case \([X, fY]\).
+        \[
+        \begin{aligned}
+            [X, fY] &= X(fY) - (fY)X \\
+            &= (Xf)Y + fXY - fYX \\
+            &= (Xf)Y + f[X, Y].
+        \end{aligned}
+        \]
+        To expand \(X(fY)\) you can expand \(X\) into local frame, and
+        use the product (Leibniz) rule on \(\tfld{\mu}\).\\
+        Now the general case follows,
+        \[
+        \begin{aligned}
+            [fX, gY] &= (fXg)Y + g[fX, Y] \\
+                     &= f(Xg)Y - g[Y, fX] \\
+                     &= f(Xg)Y - g\big((Yf)X+f[Y, X]\big) \\
+                     &= f(Xg)Y - g(Yf)X + fg[X, Y].
+        \end{aligned}
+        \]
+    \end{proof}
+    \begin{theorem}[Pushforward and Lie Bracket]
+    \label{thm:Pushforward-and-Lie-Bracket}
+    Given two manifolds \(\manifold[M], \manifold[N]\) and a map \(h :
+    \manifold[M] \to \manifold[N]\) whose pushforward \(h_*\), if two vector
+    fields on \(\manifold[M]\) have well-defined pushforwards, then
+        \[
+        h_*[X, Y] = [h_*X, h_*Y].
+        \]
+    \end{theorem}
+    \begin{proof}
+        First of all, we write out explicitly the corresponding points,
+        \[
+            \left( h_*Y \right) _{h(p)}f = Y_p\left( f\circ h \right).
+        \]
+        This means, as functions, 
+        \[
+        Y(f\circ h) = \left( (h_*Y)f \right) \circ h.
+        \]
+        Apply \(h_*[X, Y]\) to a function \(f\),
+        \[
+        \begin{aligned}
+            \left( h_*[X, Y] \right) f &= X(Y(f\circ h)) - Y(X(f\circ h)) \\
+            &= X\Big(\big((h_*Y)f\big)\circ h\Big) -
+            Y\Big(\big((h_*X)f\big)\circ h\Big) \\
+            &= \Big( h_*X \big((h_*Y)f\big) - h_*Y\big((h_*X)f\big) \Big) \circ h \\
+            &= \left( [h_*X, h_*Y]f \right) \circ h \\
+        \end{aligned}
+        \]
+        which is actually the desired result, for
+        \[
+            h_*([X, Y]_p) = [h_*X, h_*Y]_{h(p)}.
+        \]
+    \end{proof}
     \subsubsection{Lie Derivative of Vector Fields}
     \begin{definition}[Lie Derivative]\label{def:lie-derivative}
         Let \(X, Y\) be two vector fields defined on \(U, V \subseteq 

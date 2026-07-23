@@ -1,0 +1,511 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\section{Lie Groups and Lie Algebras}
+\subsection{Definitions}
+\begin{definition}[Lie Groups]\label{def:Lie-Groups}
+    A Lie group \(G\) is a smooth manifold endowed with a group structure.
+\end{definition}
+\begin{definition}[Translation]\label{def:Translation}
+    In a Lie group \(G\), we define the left translation by \(g\), denoted \(L_g : G \to G\), and right translation by \(g\), denoted \(R_g : G \to G\), as
+    \[
+    L_g(h) = gh, \qquad R_g(h) = hg.
+    \]
+\end{definition}
+\begin{definition}[Lie Algebra]\label{def:Lie-Algebra}
+    A vector space \(V\) together with a map \([\cdot, \cdot ] : V \times V \to V\), is called a Lie algebra if the map is bilinear, antisymmetric and satisfies the Jacobi identity,
+    \[
+        [u, [v, w]] + [v, [w, u]] + [w,[u,v]] = 0.
+    \]
+in which case the map is called the Lie bracket.
+\end{definition}
+\begin{definition}[Lie Algebra Homomorphism]\label{def:Lie-Algebra-Homomorphism}
+    Let \((V, [\cdot ,\cdot ]_V)\) and \((W, [\cdot ,\cdot ]_W)\) be Lie algebras. A linear map \(\psi : V \to W\) is called Lie algebra homomorphism if
+    \[
+        [\psi(x), \psi(y)]_W = \psi\left( [x, y]_V \right), \quad x, y \in V.
+    \]
+\end{definition}
+\begin{remark}
+    In this regard, the set of smooth vector fields on a manifold \(\manifold[M]\) forms a Lie algebra, which is infinite-dimensional if \(\dim \manifold[M] \ge 1\). It is not that easy to handle.\\
+    As it happens, there is a special Lie subalgebra for every Lie group that has the same dimension as the Lie group itself. We usually refer to that specific subalgebra as ``the'' Lie algebra.
+\end{remark}
+\subsection{Invariant Vector Fields}
+\begin{definition}[Invariant Vector Fields]\label{def:Invariant-Vector-Fields}
+    Given a manifold \(\manifold[M]\) and a set of diffeomorphisms \(\Gamma\) from \(\manifold[M]\) to \(\manifold[M]\), we define the set of vector fields which are invariant under \(\Gamma\) as
+    \[
+        A_\Gamma(\manifold[M]) = \Set*{X}{\phi_*X = X, \forall\, \phi \in  \Gamma}.
+    \]
+\end{definition}
+\begin{theorem}[Invariant Vector Fields Form Subalgebra]\label{thm:Invariant-Vector-Fields-Form-Subalgebra}
+    For any set \(\Gamma\) of diffeomorphisms of \(\manifold[M]\), the set of invariant vector fields under \(\Gamma\) is a Lie subalgebra in the Lie algebra of vector fields endowed with the commutator.
+\end{theorem}
+\begin{proof}
+    Suppose \(\Gamma\) consists of a single diffeomorphism \(\phi\). If \(X, Y\) are both \(\phi\)-invariant, for all \(a, b \in \reals\), 
+    \[
+    \phi_*(aX+bY) = a\phi_*X + b\phi_*Y = aX+bY.
+    \]
+    Also
+    \[
+        \phi_*[X, Y] = [\phi_*X, \phi_*Y] = [X, Y].
+    \]
+    Therefore, for those \(\Gamma\) that contains multiple diffeomorphisms, we can just say
+    \[
+        A_\Gamma(\manifold[M]) = \bigcap_{\phi \in \Gamma} A_{\phi}(\manifold[M]).
+    \]
+\end{proof}
+\begin{definition}[Left-Invariant Vector Fields]\label{def:Left-Invariant-Vector-Fields}
+    We define the left-invariant vector fields to be the set
+    \[
+    L_{g*}X = X, \qquad \forall\, g \in G.
+    \]
+\end{definition}
+\subsection{The Associated Lie Algebra}
+\begin{definition}[Lie Algebra of a Lie Group]\label{def:Lie-Algebra-of-a-Lie-Group}
+    We define the set of left-invariant vector fields together with the commutator of vector fields on a Lie group \(G\) to be the Lie algebra of \(G\), denoted by \(\mathfrak{g}\).
+    It is guaranteed by the previous theorem that it is indeed a subalgebra.
+\end{definition}
+\newpage
+\begin{theorem}[Lie Algebra and Tangent Space]\label{thm:Lie-Algebra-and-Tangent-Space}
+    Let \(G\) be a Lie group with identity element \(e\) and Lie algebra
+    \(\lalg{g}\). The evaluation map \(\ev : \lalg{g} \to T_eG\) where \(\ev(X) = X_e\) is a linear isomorphism.
+\end{theorem}
+\begin{proof}
+    Explicitly construct the inverse of the evaluation map, 
+    \(\iota : T_eG \to \lalg{g}\) by \(A \mapsto L_{g*}A :=
+    \tilde{A}_g\).\\
+    (Injective) If \(\tilde{A} = \tilde{B}\), then \(A = \tilde{A}_e =
+    \tilde{B}_e = B\).\\
+    (Surjective) We require \(\forall\, X \in \lalg{g}\), \(\exists\, A \in
+    T_eG\) s.t. \(X_e = A\) which is clearly the case.
+\end{proof}
+\begin{corollary}[Dimension of Lie Algebra]\label{cor:Dimension-of-Lie-Algebra}
+    Since the Lie algebra \(\lalg{g}\) of Lie group \(G\) is isomorphic to \(T_eG\), we have
+    \[
+        \dim \lalg{g} = \dim T_eG = \dim G.
+    \]
+\end{corollary}
+\begin{theorem}[Lie's Third Theorem]\label{thm:Lie's-Third-Theorem}
+    Every finite-dimensional real Lie algebra is isomorphic to the Lie algebra of some connected Lie group.
+\end{theorem}
+\begin{remark}
+    See the remark after \cref{thm:Ado's-Theorem}.
+\end{remark}
+\subsection{Induced Homomorphism}
+\begin{definition}[Induced Homomorphism of Lie Algebras]
+\label{def:Induced-Homomorphism-of-Lie-Algebras}
+    Let \(G, H\) be Lie groups, and \(\phi : G \to H\) a homomorphism of Lie
+    groups. Given any \(X \in \lalg{g}\), we can uniquely define a
+    left-invariant vector field \(\tilde{\phi}_*X \in \lalg{h}\) by
+    \[
+        (\tilde{\phi}_*X)_e = \phi_*X_e.
+    \]
+    The map \(\tilde{\phi_*} : \lalg{g} \to \lalg{h}\) is called the induced
+    homomorphism of the homomorphism \(\phi\).
+\end{definition}
+\newpage
+\begin{theorem}[Induced Homomorphism Is a Homomorphism]
+\label{thm:Induced-Homomorphism-Is-a-Homomorphism}
+    The induced homomorphism \(\tilde{\phi}_* : \lalg{g} \to \lalg{h}\)
+    is a homomorphism of Lie algebras given a Lie group homomorphism \(\phi : G \to H\) .
+\end{theorem}
+\begin{proof}
+    We need to show 
+    \[
+        [\tilde{\phi}_*X, \tilde{\phi}_*Y] = \tilde{\phi}_*[X, Y].
+    \]
+    If \(\tilde{\phi}_*X\) is actually \(\phi\)-related to \(X\), then that
+    result is immediate. (By the previous result
+    \cref{thm:Pushforward-and-Lie-Bracket}.)
+    Since the defining relation says
+    \((\tilde{\phi}_*X)_e = \phi_*(X_e)\), we can say
+    \[
+    \begin{aligned}
+        (\tilde{\phi}_*X)_{\phi(g)} &=
+        L_{\phi(g)*}\big((\tilde{\phi}_*X)_e\big) \\
+        &= L_{\phi(g)*}\big(\phi_*(X_e)\big) \\
+        &= \big(L_{\phi(g)}\circ \phi\big)_*X_e
+    \end{aligned}
+    \]
+    Now \(\phi(g)\phi(h) = \phi(gh)\), so
+    \[
+    \begin{aligned}
+        (\tilde{\phi}_*X)_{\phi(g)} &= \big(\phi \circ L_g\big)_*X_e \\
+        &= \phi_*L_{g*}X_e \\
+        &= \phi_*X_g
+    \end{aligned}
+    \]
+\end{proof}
+\begin{corollary}[Subgroup has Subalgebra]
+\label{cor:Subgroup-has-Subalgebra}
+    Let \(H \subseteq G\) be an immersed or embedded Lie subgroup. Then the Lie
+    algebra \(\lalg{h} \subseteq \lalg{g}\) is a Lie subalgebra.
+\end{corollary}
+\begin{proof}
+    The inclusion \(i : H \to G\) is a Lie group homomorphism and an
+    immersion. therefore the induced inclusion \(i_* : \lalg{h} \to \lalg{g}\)
+    is an injective homomorphism of Lie algebras.
+\end{proof}
+\begin{remark}
+    Though at this point I haven't yet grasped the true meaning when others
+    say that ``Lie algebra represents infinitesimal actions.'' But
+    believing this perspective, there is a theorem that connects the
+    infinitesimal, linear Lie algebra homomorphism and the macroscopic,
+    non-linear Lie group homomorphism---the so called Integrability
+    theorem.\\
+    As for the problem that whether all Lie subalgebra comes from a Lie
+    subgroup, the proof requires foliations.
+\end{remark}
+\begin{theorem}[Lie Subalgebra Comes From Subgroups]
+\label{thm:Lie-Subalgebra-Comes-From-Subgroups}
+    Given a Lie group \(G\) with associated Lie algebra \(\lalg{g}\), 
+    any subalgebra \(\lalg{h} \subseteq \lalg{g}\) comes from some
+    connected Lie subgroup \(H \subseteq G\).
+\end{theorem}
+\begin{theorem}[Integrability for Lie Algebra Homomorphisms]
+\label{thm:Integrability-for-Lie-Algebra-Homomorphisms}
+    Let \(G\) be a connected and simply connected Lie group, \(H\) a Lie group
+    and \(\phi : \lalg{g} \to \lalg{h}\) a Lie algebra homomorphism. Then
+    there exists a unique Lie group homomorphism \(\psi : G \to H\) s.t.
+    \(\psi_* = \phi\).
+\end{theorem}
+\subsection{Lie Algebra of General Linear Group}
+\begin{theorem}[The Shape of GL and gl]
+\label{thm:The-Shape-of-GL-and-gl}
+    The Lie group \(G = \GL{n}{\reals}\) is an open subset of \(\reals
+    ^{n^2}\). Therefore, 
+    \[
+        T_I\GL{n}{\reals} \iso \gl{n}{\reals} \iso \reals ^{n^2} = 
+        M_{n\times n}(\reals).
+    \]
+\end{theorem}
+\begin{theorem}[Left-Invariant Vector Fields in GL]
+\label{thm:Left-Invariant-Vector-Fields-in-GL}
+    If \(X \in M_{n\times n}(\reals) = \gl{n}{\reals}\), then the
+    associated left-invariant vector field \(\tilde{X}\) on \(\GL{n}{\reals}\)
+    is given by
+    \[
+        \tilde{X}_A = AX, \qquad \forall\, A \in \GL{n}{\reals}.
+    \]
+\end{theorem}
+\begin{proof}
+    Since \(\gl{n}{\reals} \iso T_I\GL{n}{\reals}\), we can also regard
+    \(X\) as a vector in \(T_I\GL{n}{\reals}\).
+    Choose an arbitrary \(\sigma^X : I \subseteq \reals \to
+    \GL{n}{\reals}\) s.t. \(\sigma^X(0) = I\) and \((\sigma^X)'(0)=X\).
+    Then
+    \[
+    \begin{aligned}
+        \tilde{X}_A &= L_{A*}X \\
+        &= \eval*{\frac{d}{dt}\left( L_A\circ \sigma^X \right) }_{t=0} \\
+        &= A \eval*{\frac{d}{dt}\sigma^X}_{t=0} \\
+        &= AX.
+    \end{aligned}
+    \]
+\end{proof}
+\begin{theorem}[Alternative Expression of Lie Bracket]
+\label{thm:Alternative-Expression-of-Lie-Bracket}
+    Let \(X, Y\) be vector fields on an open subset \(U \subseteq \reals
+    ^{N}\), and \(\sigma^X, \sigma^Y\) are local flows of \(X \) and
+    \(Y\), respectively. Then
+    \[
+        [X, Y]_p = \eval*{\frac{d}{dt}Y_{\sigma^X(t)}}_{t=0} -
+        \eval*{\frac{d}{dt}X_{\sigma^Y(t)}}_{t=0}.
+    \]
+\end{theorem}
+\begin{proof}
+    Using the functional product rule \cref{thm:Functional-Product-Rule},
+    we have
+    \[
+        \begin{aligned}
+        [X, Y] &= [X^\mu\tfld{\mu}, Y^\nu\tfld{\nu}] \\
+               &= X^\mu Y^\nu[\tfld{\mu}, \tfld{\nu}] +
+                  X^\mu(\tfld{\mu}Y^\nu)\tfld{\nu} - 
+                  Y^\nu(\tfld{\nu}X^\mu)\tfld{\mu} \\
+        \end{aligned}
+    \]
+    But since we are on Euclidean space with the standard frame, we have
+    \([\tfld{\mu}, \tfld{\nu}] = 0\). Also the indices \(\nu\) and
+    \(\mu\) is interchangable, for they are of the same range,
+    \[
+    \begin{aligned}
+        [X, Y] &= X^\mu(\tfld{\mu}Y^\nu)\tfld{\nu} - 
+                  Y^\mu(\tfld{\mu}X^\nu)\tfld{\nu} \\
+               &= \big(XY^\nu - YX^\nu\big) \tfld{\nu}\\
+               &= \Big(\eval*{\frac{d}{dt}\big(Y^\nu\circ
+                       \sigma^X\big)}_{t=0} -
+                       \eval*{\frac{d}{dt}\big(X^\nu\circ
+                   \sigma^Y\big)}_{t=0}\Big)\tfld{\nu} \\
+               &= \eval*{\frac{d}{dt}Y_{\sigma^X}}_{t=0} -
+               \eval*{\frac{d}{dt}X_{\sigma^Y}}_{t=0}.
+    \end{aligned}
+    \]
+\end{proof}
+\begin{theorem}[The Lie Algebra of General Linear Groups]
+\label{thm:The-Lie-Algebra-of-General-Linear-Groups}
+    The Lie algebra of the general linear group \(\GL{n}{\reals}\) is
+    \(\gl{n}{\reals} = M_{n\times n}(\reals)\), and the Lie bracket on
+    \(\gl{n}{\reals}\) is given by the standard commutator of matrices,
+    \[
+        [X, Y] = XY - YX, \qquad \forall\, X, Y \in \gl{n}{\reals}.
+    \]
+\end{theorem}
+\begin{proof}
+    Since \(\GL{n}{\reals}\) is an open subset of Euclidean space, the
+    requirements of \cref{thm:Alternative-Expression-of-Lie-Bracket} are
+    satisfied. Then
+    \[
+    \begin{aligned}
+        [X, Y]_I &= \eval*{\frac{d}{dt}Y_{\sigma^X(t)}}_{t=0} -
+        \eval*{\frac{d}{dt}X_{\sigma^Y(t)}}_{t=0} \\
+        &= \eval*{\frac{d}{dt}\sigma^X(t)Y}_{t=0} -
+        \eval*{\frac{d}{dt}\sigma^Y(t)X}_{t=0} \\
+        &= XY - YX.
+    \end{aligned}
+    \]
+\end{proof}
+\newpage
+\begin{theorem}[Ado's Theorem]
+\label{thm:Ado's-Theorem}
+    Let \(\lalg{g}\) be a finite-dimensional Lie algebra over \(\reals\)
+    or \(\complex\). Then there exists an inective Lie algebra
+    homomorphism of \(\lalg{g}\) into \(\gl{n}{\reals}\) or
+    \(\gl{n}{\complex}\) for some \(n\).
+\end{theorem}
+\begin{remark}
+    Ado's Theorem \cref{thm:Ado's-Theorem} says that every \(\lalg{g}\)
+    over \(\reals\) can be injectively homomorphed into
+    \(\gl{n}{\reals}\), which means the range of that homomorphism must
+    be a subalgebra of \(\gl{n}{\reals}\).\\
+    Now since every \(\lalg{h} \subseteq \lalg{g}\) comes from a
+    connected Lie subgroup \(H \subseteq G\), these two results imply
+    Lie's third theorem, which said any finite-dimensional Lie algebra
+    over \(\reals\) is isomorphic to the Lie algebra of some connected
+    Lie group---that ``some connected Lie group'' can be a subgroup of
+    the general linear group.
+\end{remark}
+\subsection{The Exponential Map}
+\subsubsection{Properties of Left-Invariant Integral Curves}
+In this section, we denote \(G\) a Lie group, \(\lalg{g}\) its Lie
+algebra, \(X \in \lalg{g}\) a left-invariant vector field, and its
+maximal integral curve passing through the ideneity \(\phi_X : I =
+(t_{min}, t_{max}) \subseteq \reals \to G\).
+By definition, we have \(\phi_X(0) = e\), and \(X_{\phi_X(t)} =
+[\phi_X(t)]\).
+\begin{theorem}[Left-Invariant Integral Curve is Lie Homomorphism]
+\label{thm:Left-Invariant-Integral-Curve-is-Lie-Homomorphism}
+    \[
+    \phi_X(s+t) = \phi_X(s)\phi_X(t), \qquad \forall\, s, t \in \reals.
+    \]
+\end{theorem}
+\begin{proof}
+    First fix \(s \in \reals\) and therefore \(g = \phi_X(s) \in G\) is
+    fixed also. Consider \(\eta(t) : I \to G\) by \(\eta(t) =
+    g\phi_X(t)\) and \(\tilde{\eta} : (t_{min}-s, t_{max}-s) \to G\) by 
+    \(\tilde{\eta}(t) = \phi_X(s+t)\). Then they are both integral curves
+    of \(X\) with \(\eta(0) = \tilde{\eta}(0) = g\). So on the
+    intersection of their domains, they are equal by the uniqueness of
+    integral curves.
+\end{proof}
+\begin{theorem}[Maximality of Left-Invariant Integral Curve]
+\label{thm:Maximality-of-Left-Invariant-Integral-Curve}
+    \(\phi_X\) is defined on all of \(\reals\). That is, \(t_{min} =
+    -\infty\) and \(t_{max} = \infty\).
+\end{theorem}
+\begin{proof}
+    Suppose \(t_{max} < \infty\) and set \(\alpha = \min \{t_{max},
+    \abs*{t_{min}}\} < \infty\). Consider \\\(\gamma : \left(
+-\frac{\alpha}{2}, \frac{3\alpha}{2} \right) \to G\) by \(\gamma(t) =
+\phi_X\left( \frac{\alpha}{2} \right) \phi_X\left( t-\frac{\alpha}{2}
+\right) \). Then \(\gamma(0) = e\), and it is an integral curve of \(X\)
+by its homomorphism property.\\
+    But then \(\frac{3\alpha}{2} > t_{max}\), contradicting the fact that
+    \(t_{max}\) is the maximal choice of domain. So \(t_{max} = \infty\).
+\end{proof}
+\begin{theorem}[Exponential Property of Left-Invariant Integral Curve]
+\label{thm:Exponential-Property-of-Left-Invariant-Integral-Curve}
+    \[
+    \phi_{sX}(t) = \phi_X(st), \qquad \forall\, s, t \in \reals.
+    \]
+\end{theorem}
+\begin{proof}
+    Consider the curve \(\delta : \reals \to G\) by \(\delta(t) =
+    \phi_X(st)\). It is easy to show \(\delta(0) = e\), and \(\delta\) is
+    an integral curve of \(sX\). So the result follows by uniqueness of
+    integral curves.
+\end{proof}
+\subsubsection{The Exponential Map}
+\begin{definition}[The Exponential Map]
+\label{def:The-Exponential-Map}
+    Let \(\phi_X : \reals \to G\) be the integral curve through \(e \in
+    G\) fo \(X \in \lalg{g}\). Then we define the exponential map \(\exp
+    : \lalg{g} \to G\) by 
+    \[
+    \exp(X) = \phi_X(1).
+    \]
+\end{definition}
+\begin{theorem}[Properties of the Exponential Map]
+\label{thm:Properties-of-the-Exponential-Map}
+    \[
+    \begin{aligned}
+        &\exp(0) = e\\
+        &\exp\big((s+t)X\big) = \exp(sX)\exp(tX)\\
+        &\exp(-X) = (\exp X)^{-1}.
+    \end{aligned}
+    \]
+\end{theorem}
+\subsubsection{Flow and Exponential Map}
+\begin{theorem}[The Flow and the Exponential Map]
+\label{thm:The-Flow-and-the-Exponential-Map}
+    Let \(G\) be a Lie group and \(X \in \lalg{g}\) a left-invariant
+    vector field. Then its flow \(\phi_t(p)\) through a point \(p \in G\)
+    is defined for all \(t \in \reals\), and is given by
+    \[
+    \phi_t(p) = p\exp tX = L_p\left( \exp tX \right).
+    \]
+\end{theorem}
+\begin{proof}
+    We let \(\phi_t(p) = p\exp tX\) and show it is indeed the flow of
+    \(X\). Firstly, \(\phi_0(p) = p\exp(0) = pe = p\). 
+    Then, consider the curve \(\phi_t(p)\) at \(t=s\), 
+    \[
+    \begin{aligned}
+    [\phi_t(p)]_{t=s} &= [p\exp tX]_{t=s} \\
+                      &= L_{p*}[\exp tX]_{t=s} \\
+                      &= L_{p*} X_{\exp sX} \\
+                      &= X_{p\exp sX} \\
+                      &= X_{\phi_s(p)}.
+    \end{aligned}
+    \]
+    By the uniqueness of integral curves, the claim was proved.
+\end{proof}
+\begin{theorem}[Exponential Map and Induced Homomorphisms]
+\label{thm:Exponential-Map-and-Induced-Homomorphisms}
+    Let \(\psi : G \to H\) be a homomorphism between Lie groups and
+    \(\psi_* : \lalg{g} \to \lalg{h}\) be the induced homomorphism on Lie
+    algebras. Then
+    \[
+        \psi(\exp X) = \exp(\psi_*X), \qquad X \in \lalg{g}.
+    \]
+\end{theorem}
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        [group/.style={minimum size=0.8cm},]
+        \node[group] (g) at (0, 0) {\(\lalg{g}\) };
+        \node[group, right=of g] (h) {\(\lalg{h}\)};
+        \node[group, below=of g] (G) {\(G\)};
+        \node[group, right=of G] (H) {\(H\)};
+        \draw[->] (g) -- node[midway, above] {\(\psi_*\)} (h);
+        \draw[->] (g) -- node[midway, left] {\(\exp\) } (G);
+        \draw[->] (h) -- node[midway, right] {\(\exp\)} (H);
+        \draw[->] (G) -- node[midway, above] {\(\psi\) } (H);
+    \end{tikzpicture}
+    \caption{Commutative diagram of Exponential map and homomorphisms
+    between Lie Algebras.}
+    \label{fig:Exponential-Map-and-Induced-Homomorphisms}
+\end{figure}
+\begin{proof}
+    Consider the curve \(\sigma(t) = \psi(\exp tX)\). We see \(\sigma(0)
+    = \psi(e) = e\). Now, consider
+    \[
+    \begin{aligned}
+        [\sigma]_{t=s} &= [\psi\circ \exp tX]_{t=s} \\
+                       &= \psi_* [\exp tX]_{t=s} \\
+                       &= \psi_* X_{\exp sX} \\
+                       &= \psi_* L_{\exp sX*} X_e \\
+                       &= \left( \psi \circ L_{\exp sX} \right) _* X_e \\
+                       &= \left( L_{\psi(\exp sX)}\circ \psi \right) _*
+                       X_e \\
+                       &= L_{\sigma(s)*} (\psi_*X)\\
+                       &= (\psi_*X)_{\sigma(s)} \\
+    \end{aligned}
+    \]
+    because both \(X\) and \(\psi_*X\) are left-invariant, and \(\psi\)
+    is a Lie group homomorphism. We see from the result that
+    \(\sigma(t)\) is an integral curve of \(\psi_*X\) through the point
+    \(e\). By the uniqueness of integral curve, 
+    \[
+    \sigma(1) = \exp\left( \psi_*X \right) = \psi\left( \exp X \right).
+    \]
+\end{proof}
+\subsubsection{The Matrix Exponential Map}
+\begin{definition}[The Matrix Exponential]
+\label{def:The-Matrix-Exponential}
+    Let \(A \in M_{n \times n}\) be a square matrix over either reals
+    or complex numbers. Then we define
+    \[
+    e^{A} = \sum_{k=0}^{\infty} \frac{1}{k!}A^k.
+    \]
+    This series always converge.
+\end{definition}
+\begin{theorem}[Exponential of Sum for Commuting Matrices]
+\label{thm:Exponential-of-Sum-for-Commuting-Matrices}
+    If \(A, B \in M_{n \times n}\) commutes, i.e., \(AB = BA\), then
+    \[
+    e^{A+B} = e^{A}e^{B}.
+    \]
+\end{theorem}
+\begin{theorem}[Properties of Matrix Exponential]
+\label{thm:Properties-of-Matrix-Exponential}
+    For all \(A \in M_{n\times n}\), the map \(\phi_A : \reals \to
+    \GL(n, K)\) by \(\phi_A(t) = e^{tA}\) is smooth and satisfies
+    \[
+    \phi_A(0) = I, \quad \eval*{\frac{d}{dt}\phi_A(t)}_{t=s} = \phi_A(s)A
+    \quad \forall\, s \in \reals.
+    \]
+\end{theorem}
+\begin{proof}
+    We have
+    \[
+    \begin{aligned}
+        \eval*{\frac{d}{dt}\phi_A(t)}_{t=s} &= \lim_{h \to 0}
+        \frac{\phi_A(s+h)-\phi_A(s)}{h} \\
+        &= \lim_{h \to 0} \frac{e^{sA}(e^{hA} - I)}{h} \\
+        &= e^{sA} \lim_{h \to 0} \frac{e^{hA} - I}{h}.
+    \end{aligned}
+    \]
+    Now we know
+    \[
+    e^{hA} = I + hA + \frac{1}{2!}h^2A^2 + \dots
+    \]
+    and this yields the result.
+\end{proof}
+\begin{theorem}[Exponential Map of Linear Group is Matrix Exponential]
+\label{thm:Exponential-Map-of-Linear-Group-is-Matrix-Exponential}
+    Let \(A \in \gl{n}{\reals}\) or \(\gl{n}{\complex}\). Then
+    \[
+    \exp(A) = e^{A}.
+    \]
+\end{theorem}
+\begin{theorem}[Determinant of Matrix Exponential]
+\label{thm:Determinant-of-Matrix-Exponential}
+    Let \(X \in M_{n \times n}\). Then
+    \[
+    \det \left( e^{X} \right) = e^{\tr(X)}.
+    \]
+\end{theorem}
+\begin{proof}
+    Consider a curve \(\sigma : I \subseteq \reals \to \GL{n}{\reals}\)
+    by \(\sigma(t) = I + tX\). We see \(\sigma(0) = I\), and
+    \([\sigma]_{t=0} = X\) (Using the canonical identification). Now,
+    \[
+        \begin{aligned}
+            \det_*\sigma &= \Big[\det\big(\sigma(t)\big)\Big]_{t=0} \\
+                         &= [\det(I+tX)]_{t=0}.
+        \end{aligned}
+    \]
+    Using the canonical identification, 
+    \[
+        \begin{aligned}
+            [\det(I+tX)]_{t=0} &= \eval*{\frac{d}{dt}\det(I+tX)}_{t=0} \\
+                              &=\eval*{\frac{d}{dt}\left( 1+\tr(X) + O(t^2) \right) }_{t=0}\\
+                              &= \tr(X).
+        \end{aligned}
+    \]
+    Now using the commuting diagram of
+    \cref{thm:Exponential-Map-and-Induced-Homomorphisms}, we see
+    \[
+    \det(e^{X}) = e^{\det_*X} = e^{\tr X}.
+    \]
+\end{proof}
+\end{document}

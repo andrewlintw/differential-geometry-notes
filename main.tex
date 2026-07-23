@@ -22,6 +22,7 @@
 \newcommand{\spli}[2]{\mathfrak{sl}(#1,#2)}
 \newcommand{\ORTH}[2]{O(#1,#2)}
 \newcommand{\orth}[2]{\mathfrak{o}(#1,#2)}
+\newcommand{\lalg}[1]{\mathfrak{#1}}
 \newcommand{\iprod}{\mathbin{\lrcorner}}
 \newcommand{\indUp}[1]{{#1}^\sharp}
 \newcommand{\indDown}[1]{{#1}^\flat}
@@ -43,6 +44,8 @@
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\adj}{adj}
 \DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\tr}{tr}
 
 \begin{document}
     \subfile{manifold/manifold.tex}
@@ -60,5 +63,7 @@
     \subfile{integral/integration.tex}
     \newpage
     \subfile{lieDerForm/lieDerForm.tex}
+    \newpage
+    \subfile{lieGroup/lieGroup.tex}
     \newpage
 \end{document}

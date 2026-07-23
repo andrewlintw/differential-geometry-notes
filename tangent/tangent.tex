@@ -34,13 +34,16 @@
         \]
         
     \end{remark}
+    \newpage
     \begin{definition}[Tangent Vectors]\label{def:tangent-vector-curve}
-        A tangent vector at \(p \in \manifold[M]\) is an equivalence class of 
-        curves where the equivalence relation is that they are tangent. It will 
-        be denoted as 
+        A tangent vector at \(p \in \manifold[M]\) is an equivalence
+        class of curves where the equivalence relation is that they are
+        tangent. It will be denoted as 
         \[
-        v = [\sigma].
+            v = [\sigma]_{t=t_0}, \qquad v \in T_{\sigma(t_0)}
+            \manifold[M].
         \]
+        If the time is not specified, it will be understood as \(t=0\).
     \end{definition}
     \begin{definition}[Tangent Space]\label{def:tangent-space-curve}
         The tangent space \(T_p\manifold[M]\) at point \(p\) is the set of all 
@@ -190,7 +193,6 @@
         v_1 + v_2 := (\ell_p^\phi)^{-1}(\ell_p^\phi(v_1)+\ell_p^\phi(v_2)).
         \]
     \end{definition}
-    \newpage
     \begin{definition}[Alternative Definition of Basis Tangent Vectors]\label{def:basis-alt}
         \[
         \tvec{\mu}{p} := \ell_p^\phi(e^\mu).
@@ -229,6 +231,7 @@
         \]
         So \(a^\nu=0\).
     \end{proof}
+    \newpage
     \begin{theorem}[Coordinate Expansion of Tangent Vectors]\label{thm:tangent-vector-coordinates}
         For all \(v \in T_p\manifold[M]\), we have 
         \[

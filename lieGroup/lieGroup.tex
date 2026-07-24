@@ -337,7 +337,7 @@ by its homomorphism property.\\
 \begin{definition}[The Exponential Map]
 \label{def:The-Exponential-Map}
     Let \(\phi_X : \reals \to G\) be the integral curve through \(e \in
-    G\) fo \(X \in \lalg{g}\). Then we define the exponential map \(\exp
+    G\) for \(X \in \lalg{g}\). Then we define the exponential map \(\exp
     : \lalg{g} \to G\) by 
     \[
     \exp(X) = \phi_X(1).
@@ -448,7 +448,7 @@ by its homomorphism property.\\
 \begin{theorem}[Properties of Matrix Exponential]
 \label{thm:Properties-of-Matrix-Exponential}
     For all \(A \in M_{n\times n}\), the map \(\phi_A : \reals \to
-    \GL(n, K)\) by \(\phi_A(t) = e^{tA}\) is smooth and satisfies
+    \GL{n}{K}\) by \(\phi_A(t) = e^{tA}\) is smooth and satisfies
     \[
     \phi_A(0) = I, \quad \eval*{\frac{d}{dt}\phi_A(t)}_{t=s} = \phi_A(s)A
     \quad \forall\, s \in \reals.
@@ -498,7 +498,7 @@ by its homomorphism property.\\
     \[
         \begin{aligned}
             [\det(I+tX)]_{t=0} &= \eval*{\frac{d}{dt}\det(I+tX)}_{t=0} \\
-                              &=\eval*{\frac{d}{dt}\left( 1+\tr(X) + O(t^2) \right) }_{t=0}\\
+                              &=\eval*{\frac{d}{dt}\left( 1+\tr(X)t + O(t^2) \right) }_{t=0}\\
                               &= \tr(X).
         \end{aligned}
     \]
@@ -508,4 +508,34 @@ by its homomorphism property.\\
     \det(e^{X}) = e^{\det_*X} = e^{\tr X}.
     \]
 \end{proof}
+\begin{theorem}[Lie Algebras of Classical Groups]
+\label{thm:Lie-Algebras-of-Classical-Groups}
+    The Lie algebras of the special linear groups are
+    \[
+        \begin{aligned}
+            \spli{n}{\reals} &= \Set*{M \in M_{n\times
+            n}(\reals)}{\tr(M)=0} \\
+            \spli{n}{\complex} &= \Set*{M \in M_{n\times
+        n}(\complex)}{\tr(M)=0}.
+        \end{aligned}
+    \]
+    The Lie algebras of the orthogonal and unitary groups are
+    \[
+        \begin{aligned}
+        \orth{n}{\reals} &= \Set*{M \in M_{n \times
+        n}(\reals)}{M+\transpose{M} = 0} \\
+        \lalg{u}(n) &= \Set*{M \in M_{n \times n}(\complex)}{M +
+        \hermitian{M} = 0}.
+        \end{aligned}
+    \]
+    The Lie algebras of the special orthogonal and special unitary groups
+    are
+    \[
+    \begin{aligned}
+        \lalg{so}(n) &= \lalg{o}(n) \\
+    \lalg{su}(n) &= \Set*{M \in M_{n \times n}(\complex)}{M +
+    \hermitian{M} = 0, \tr M = 0}.
+    \end{aligned}
+    \]
+\end{theorem}
 \end{document}
